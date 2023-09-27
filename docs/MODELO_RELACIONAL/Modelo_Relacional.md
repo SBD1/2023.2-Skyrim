@@ -8,8 +8,8 @@ Desse modo, apresenta-se abaixo o modelo relacional desenvolvido para o jogo sky
 
 ### Versão 1.0
 
-<p align="center">
-  <img  src="MODELO_RELACIONAL/ModeloRelacionalSkyrim_Atualiacao01.drawio.png">
-</p>
+<div align="center">
+  <img src="ModeloRelacionalSkyrim_Atualiacao01.drawio.png">
+</div>
 
 
