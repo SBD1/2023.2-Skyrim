@@ -23,6 +23,14 @@ Foi verificado que os humanoides possuem a possibilidade de usarem e praticarem 
   Figura 2: Modelo Relacional 2.0
 </div>
 
+### Versão 3.0
+
+Foi decidido que, ao invés de loja ser uma entidade própria, seria melhor ela ser um NPC com um inventário próprio, pois, no jogo, é possível o jogador matar o vendedor da loja assim como é possível ela ser uma aliada ou hostil a um determinado PC. Além disso, foram retirados os atributos "nível" da entidade DIALOGO e das entidades de missões.
+<div align="center">
+  <img src="ModeloRelacionalSkyrim_Atualiacao03.png">
+  Figura 3: Modelo Relacional 3.0
+</div>
+
 
 ## Bibliografia
 
