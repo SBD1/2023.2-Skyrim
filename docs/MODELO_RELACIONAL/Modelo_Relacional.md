@@ -20,7 +20,7 @@ Desse modo, apresenta-se abaixo o modelo relacional desenvolvido para o jogo sky
 Foi verificado que os humanoides possuem a possibilidade de usarem e praticarem magia. Desse modo, foi adicionado ao MREL a tabela "MAGIA_HUMANOIDE" a qual conecta o humanoide a magia que utiliza e também foi criada a tabela "MAGIA", a qual contém as informações da magia específica utilizada.
 <div align="center">
   <img src="ModeloRelacionalSkyrim_Atualiacao02.drawio.png">
-  Figura 1: Modelo Relacional 2.0
+  Figura 2: Modelo Relacional 2.0
 </div>
 
 
