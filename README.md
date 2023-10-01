@@ -16,25 +16,25 @@
         <td align="center">
             <a href="https://github.com/roddas">
                 <img style="border-radius: 50%;" src="https://github.com/roddas.png" width="150px;"/>
-                <h5 class="text-center">Rodolfo Cabral Neves</h5>
+                <h5 class="text-center">Rodolfo Cabral Neves <br> Matrícula: 180011472</h5>
             </a>
         </td>
         <td align="center">
             <a href="https://github.com/leonardogonmac">
                 <img style="border-radius: 50%;" src="https://github.com/leonardogonmac.png" width="150px;"/>
-                <h5 class="text-center">Leonardo Gonçalves Machado</h5>
+                <h5 class="text-center">Leonardo Gonçalves Machado <br> Matrícula: 211029405</h5>
             </a>
         </td>
         <td align="center">
             <a href="https://github.com/SkywalkerSupreme">
                 <img style="border-radius: 50%;" src="https://github.com/SkywalkerSupreme.png" width="150px;"/>
-                <h5 class="text-center">Larissa Stefane Barboza Santos</h5>
+                <h5 class="text-center">Larissa Stefane Barboza Santos <br> Matrícula: 211039573</h5>
             </a>
         </td>
         <td align="center">
             <a href="https://github.com/Bittarx">
                 <img style="border-radius: 50%;" src="https://github.com/Bittarx.png" width="150px;"/>
-                <h5 class="text-center">Marcos Santos Bittar</h5>
+                <h5 class="text-center">Marcos Santos Bittar <br> Matrícula: 200023748</h5>
             </a>
 </table>
 
