@@ -11,7 +11,7 @@ Desse modo, apresenta-se abaixo o Diagrama Entidade-Relacionamento desenvolvido 
 ### Versão 1.0
 
 <div align="center">
-  <img src="DER_V2.png">
+  <img src="DER_V3.png">
   Figura 1: DER 1.0
 </div>
 
