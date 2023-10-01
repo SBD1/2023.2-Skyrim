@@ -1,6 +1,4 @@
 # 2023.2-Skyrim
-
-
 <div align="center">
     <img src="https://blog.logomyway.com/wp-content/uploads/2021/08/skyrim-logo.png" style="width:25vw"/>
     <p> Figura 1: Logo The Elder Scrolls V: Skyrim</p> 
@@ -37,3 +35,9 @@
                 <h5 class="text-center">Marcos Santos Bittar</h5>
             </a>
 </table>
+
+## Entrega 1
+    
+[Diagrama Entidade-Relacionamento](https://github.com/SBD1/2023.2-Skyrim/blob/main/docs/Diagrama%20Entidade-Relacionamento/DER.md)
+    
+[Modelo Relacional](https://github.com/SBD1/2023.2-Skyrim/blob/main/docs/MODELO_RELACIONAL/Modelo_Relacional.md)
