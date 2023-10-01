@@ -31,6 +31,13 @@ Foi decidido que, ao invés de loja ser uma entidade própria, seria melhor ela 
   Figura 3: Modelo Relacional 3.0
 </div>
 
+### Versão 4.0 - Finalizado
+
+Foram corrigidos o últimos detalhes do Modelo Relacional.
+<div align="center">
+  <img src="ModeloRelacionalSkyrim_Finalizado.png">
+  Figura 4: Modelo Relacional 4.0
+</div>
 
 ## Bibliografia
 
