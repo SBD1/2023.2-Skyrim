@@ -7,6 +7,8 @@
 ## :earth_americas: Sobre o projeto
    Este repositório é dedicado ao game **The Elder Scrolls V: Skyrim** com a finalidade de produzir um jogo em estilo MUD para a disciplina de Sistemas de Banco de Dados 1, da turma do professor Maurício Serrano.
 
+   The Elder Scrolls V: Skyrim é um jogo de RPG (role-playing game) de ação em mundo aberto ambientado na província fictícia de Skyrim, situada no continente de Tamriel, num mundo fantástico povoado por humanos, elfos, anões, e outras criaturas míticas. O jogador assume o papel de um Dragonborn, um herói profetizado que tem o poder de absorver as almas dos dragões, que ressurgiram depois de séculos. O objetivo principal do jogador é derrotar Alduin, o dragão que, conforme a profecia, destruirá o mundo.
+
 ## :smile: Contribuidores
 <center>
 <table style="margin-left: auto; margin-right: auto;">
