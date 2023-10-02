@@ -43,3 +43,5 @@
 [Diagrama Entidade-Relacionamento](https://github.com/SBD1/2023.2-Skyrim/blob/main/docs/Diagrama%20Entidade-Relacionamento/DER.md)
     
 [Modelo Relacional](https://github.com/SBD1/2023.2-Skyrim/blob/main/docs/MODELO_RELACIONAL/Modelo_Relacional.md)
+
+[Dicionário de Dados](https://github.com/SBD1/2023.2-Skyrim/tree/main/docs/dicion%C3%A1rio) (fazer Download do arquivo PDF)
