@@ -39,6 +39,8 @@ Foram corrigidos o últimos detalhes do Modelo Relacional.
   Figura 4: Modelo Relacional 4.0
 </div>
 
+Diagrama finalizado disponível em [link](https://github.com/SBD1/2023.2-Skyrim/blob/main/docs/MODELO_RELACIONAL/ModeloRelacionalSkyrim_Finalizado.png)
+
 ## Bibliografia
 
 [1] SERRANO, M. Modelo Relacional. Adaptado de SOUSA E., JUNIOR J. Disponível em [link](https://aprender3.unb.br/pluginfile.php/2686556/mod_resource/content/1/Aula07_Relacional.pdf)
