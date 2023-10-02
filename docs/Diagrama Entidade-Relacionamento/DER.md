@@ -15,6 +15,8 @@ Desse modo, apresenta-se abaixo o Diagrama Entidade-Relacionamento desenvolvido 
   Figura 1: DER 1.0
 </div>
 
+Diagrama disponível em [link](https://raw.githubusercontent.com/SBD1/2023.2-Skyrim/main/docs/Diagrama%20Entidade-Relacionamento/DER_V3.png)
+
 ## Bibliografia
 
 [1] SERRANO, M. Modelo Entidade-Relacionamento Parte 1. Adaptado de SOUSA E., JUNIOR J. Disponível em [link](https://aprender3.unb.br/pluginfile.php/2686545/mod_resource/content/1/Aula03_MER_Parte1.pdf)
