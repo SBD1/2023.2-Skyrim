@@ -22,6 +22,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 30
  * [NOT_PLAY_CHARACTER](#NOT_PLAY_CHARACTER)
  * [INSTANCIA_NPC](#INSTANCIA_NPC)
  * [GOLPES](#GOLPES)
+ * [BESTA](#BESTA)
  * [GOLPES_BESTA](#GOLPES_BESTA)
  * [HOSTILIDADE](#HOSTILIDADE)
  * [TIPO_MISSAO](#TIPO_MISSAO)
