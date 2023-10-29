@@ -565,10 +565,11 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     nome CHAR(30) NOT NULL,
     id_pre_requisito CHAR(7),
     id_instancia_item CHAR(8) NOT NULL,
+    id_item CHAR(7) NOT NULL,
     id_inventario_origem CHAR(7)NOT NULL,
     id_inventario_destino CHAR(7) NOT NULL,
     FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO(id_missao),
-    FOREIGN KEY (id_instancia_item) REFERENCES INSTANCIA_ITEM(id_instancia_item),
+    FOREIGN KEY (id_instancia_item, id_item) REFERENCES INSTANCIA_ITEM(id_instancia_item, id_item),
     FOREIGN KEY (id_inventario_origem) REFERENCES INVENTARIO(id_inventario),
     FOREIGN KEY (id_inventario_destino) REFERENCES INVENTARIO(id_inventario)
     );
