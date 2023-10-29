@@ -427,7 +427,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     nome_missao CHAR(20) UNIQUE NOT NULL,
     id_pre_requisito CHAR(7),
     id_instancia_npc CHAR(8),
-    vida_atual_instancia INTEGER,
     nivel INTEGER CHECK (nivel BETWEEN 0 AND 100),
     CONSTRAINT fk_id_missao
         FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
