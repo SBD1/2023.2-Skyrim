@@ -444,13 +444,13 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 
 ## TIPO_ITEM
 
-  CREATE TABLE TIPO_ITEM (
+    CREATE TABLE TIPO_ITEM (
     id_item CHAR(7) PRIMARY KEY,
     tipo_item CHAR(20) NOT NULL
   	CHECK( id_item LIKE 'ITEM%'
        AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_item) = 7)
-  );
+    );
       
 
 ## INSTANCIA_ITEM
