@@ -248,7 +248,8 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 ## MAGIA
 
     CREATE TABLE MAGIA (
-     id_magia CHAR(7) PRIMARY KEY,
+    id_magia CHAR(7) PRIMARY KEY,
+  	nome CHAR(20) UNIQUE NOT NULL,
     elemento CHAR(20) NOT NULL,
     dano INTEGER CHECK (dano >= 0 AND dano <= 100),
     nivel INTEGER CHECK (nivel >= 0 AND nivel <= 100),
