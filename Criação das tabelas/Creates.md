@@ -18,6 +18,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 30
  * [ESPECIE](#ESPECIE)
  * [HUMANOIDES](#HUMANOIDE)
  * [PLAY_CHARACTER](#PLAY_CHARACTER)
+ * [MAGIA](#MAGIA)
  * [MAGIA_HUMANOIDE](#MAGIA_HUMANOIDE)
  * [NOT_PLAY_CHARACTER](#NOT_PLAY_CHARACTER)
  * [INSTANCIA_NPC](#INSTANCIA_NPC)
