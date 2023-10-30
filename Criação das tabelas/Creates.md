@@ -406,18 +406,13 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 ## INVENTARIO
 
     CREATE TABLE INVENTARIO (
-    id_dono CHAR(8) UNIQUE NOT NULL,
     id_inventario CHAR(7) PRIMARY KEY,
     peso_maximo FLOAT,
     carteira INTEGER,
     eh_loja BOOLEAN,
    	CHECK( id_inventario LIKE 'INV%'
        AND CAST(SUBSTRING(id_inventario, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
-       AND LENGTH(id_inventario) = 7),
-    CONSTRAINT fk_dono
-        FOREIGN KEY (id_dono) REFERENCES TIPO_PERSONAGEM_HISTORIA (id_personagem)
-  		ON DELETE RESTRICT
-        ON UPDATE CASCADE
+       AND LENGTH(id_inventario) = 7)
     );
 
 ## MISSAO_MATAR_NPC
@@ -485,7 +480,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     tipo_vestimenta CHAR(20) NOT NULL,
     resistencia INTEGER NOT NULL,
     parte_corpo CHAR(20) NOT NULL,
-    eqp_status BOOLEAN NOT NULL,
     PRIMARY KEY (id_vestimenta),
     CONSTRAINT fk_id_vestimenta
         FOREIGN KEY (id_vestimenta) REFERENCES TIPO_ITEM (id_item)
@@ -536,13 +530,13 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     tipo_arma CHAR(20),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
-    eqp_status BOOLEAN,
     PRIMARY KEY (id_arma),
     CONSTRAINT fk_id_item
         FOREIGN KEY (id_arma) REFERENCES TIPO_ITEM (id_item)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
     );
+
 
 ## ENCANTAMENTO_ARMA
 
