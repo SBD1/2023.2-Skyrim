@@ -464,11 +464,12 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     id_item CHAR(7),
     tipo_lugar CHAR(30) NOT NULL,
     id_lugar CHAR(7),
+	eqp_status BOOLEAN NOT NULL,
     PRIMARY KEY (id_instancia_item, id_item),
     CHECK( id_instancia_item LIKE 'IITEM%'
        AND CAST(SUBSTRING(id_instancia_item, 6,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_instancia_item) = 7),
-    CONSTRAINT fk_id_item
+    CONSTRAINT fk_id_item_instancia
         FOREIGN KEY (id_item) REFERENCES TIPO_ITEM (id_item)
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
@@ -476,7 +477,7 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
         FOREIGN KEY (id_lugar) REFERENCES INVENTARIO(id_inventario)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
-    );
+	);
   
 
 ## VESTIMENTA
