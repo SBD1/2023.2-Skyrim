@@ -294,12 +294,17 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     mana_atual INTEGER CHECK (mana_atual BETWEEN 0 AND 100),
     stamina_atual INTEGER CHECK (stamina_atual BETWEEN 0 AND 100),
     id_sala CHAR(7),
+	id_inventario CHAR(7),
     CONSTRAINT fk_id_npc 
   		FOREIGN KEY (id_npc) REFERENCES NOT_PLAY_CHARACTER(id_npc)
   		ON DELETE RESTRICT
         ON UPDATE CASCADE,
     CONSTRAINT fk_id_sala 
   		FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
+  		ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+	CONSTRAINT fk_id_inventario
+  		FOREIGN KEY (id_inventario) REFERENCES INVENTARIO(id_inventario)
   		ON DELETE RESTRICT
         ON UPDATE CASCADE
     );
