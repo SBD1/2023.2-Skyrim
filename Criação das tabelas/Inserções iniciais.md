@@ -12,6 +12,14 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
 
  * [VIAGEM_SALAS](#VIAGEM_SALAS)
 
+ * [TIPO_ITEM](#TIPO_ITEM)
+ * [VESTIMENTA](#VESTIMENTA)
+ * [CONSUMIVEL](#CONSUMIVEL)
+ * [ARMA](#ARMA)
+ * [ENCANTAMENTO_VESTIMENTA](#ENCANTAMENTO_VESTIMENTA)
+ * [ENCANTAMENTO_ARMA](#ENCANTAMENTO_ARMA)
+ * [INVENTARIO](#INVENTARIO)
+
 
 ## REGIAO
      
@@ -653,9 +661,93 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
     ('V000250', 'ROOM159', 'ROOM160'),
     ('V000251', 'ROOM160', 'ROOM159');
   
-     
+## TIPO_ITEM
+     INSERT INTO TIPO_ITEM (id_item, tipo_item)
+     VALUES
+    ('ITEM001', 'Vestimenta'),
+    ('ITEM002', 'Vestimenta'),
+    ('ITEM003', 'Vestimenta'),
+    ('ITEM004', 'Vestimenta'),
+    ('ITEM005', 'Vestimenta'),
+    ('ITEM006', 'Vestimenta'),
+    ('ITEM007', 'Vestimenta'),
+    ('ITEM106', 'Consumível'),
+    ('ITEM107', 'Consumível'),
+    ('ITEM108', 'Consumível'),
+    ('ITEM109', 'Consumível'),
+    ('ITEM110', 'Consumível'),
+    ('ITEM111', 'Consumível'),
+    ('ITEM112', 'Consumível'),
+    ('ITEM511', 'Arma'),
+    ('ITEM512', 'Arma'),
+    ('ITEM513', 'Arma'),
+    ('ITEM514', 'Arma'),
+    ('ITEM515', 'Arma'),
+    ('ITEM516', 'Arma'),
+    ('ITEM517', 'Arma');
 
+  ## VESTIMENTA
 
+       INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
+     VALUES
+    ('ITEM001', 'Steel Helmet', 40, 5.0, 'Elmo', 25, 'Cabeça'),
+    ('ITEM002', 'Leather Armor', 60, 8.0, 'Armadura', 20, 'Peitoral'),
+    ('ITEM003', 'Pelt Boots', 20, 2.5, 'Botas', 10, 'Pés'),
+    ('ITEM004', 'Mage Robe', 70, 4.2, 'Manto', 30, 'Corpo'),
+    ('ITEM005', 'Enchanted Bracers', 50, 3.8, 'Braceletes', 15, 'Braços');
 
+## CONSUMIVEL
 
+     INSERT INTO CONSUMIVEL (id_consumivel, nome, valor, peso, tipo_consumivel, aumento)
+     VALUES
+    ('ITEM106', 'Healing Potion', 25, 0.5, 'Poção', 30),
+    ('ITEM107', 'Potion of Invisibility', 30, 0.8, 'Poção', 20),
+    ('ITEM108', 'Alchemical Mushroom', 15, 0.3, 'Cogumelo', 10),
+    ('ITEM109', 'Roasted Meat', 20, 0.6, 'Carne', 15),
+    ('ITEM110', 'Life Fruit', 50, 0.7, 'Fruto', 40);
+
+## ARMA
+     INSERT INTO ARMA (id_arma, nome, valor, peso, tipo_arma, num_mãos, custo_stamina)
+     VALUES
+    ('ITEM511', 'Iron Sword', 50, 4.5, 'Espada', 1, 10),
+    ('ITEM512', 'Elven Bow', 100, 3.8, 'Arco', 2, 15),
+    ('ITEM513', 'War Axe', 70, 6.2, 'Machado', 1, 12),
+    ('ITEM514', 'Magic Staff', 80, 3.5, 'Cajado', 2, 20),
+    ('ITEM515', 'Shadow Dagger', 60, 2.1, 'Adaga', 1, 8);
     
+## ENCANTAMENTO_VESTIMENTA
+
+     INSERT INTO ENCANTAMENTO_VESTIMENTA (id_encantamento, id_vestimenta, elemento, resistencia)
+     VALUES
+    ('ENCV001', 'ITEM003', 'Fogo', 20),
+    ('ENCV002', 'ITEM004', 'Água', 35),
+    ('ENCV003', 'ITEM005', 'Eletricidade', 45);
+
+## ENCANTAMENTO_ARMA
+
+     INSERT INTO ENCANTAMENTO_ARMA (id_encantamento, id_arma, elemento, dano)
+     VALUES
+    ('ENCA001', 'ITEM511', 'Gelo', 15),
+    ('ENCA002', 'ITEM511', 'Fogo', 20),
+    ('ENCA003', 'ITEM514', 'Raio', 25),
+    ('ENCA004', 'ITEM514', 'Gelo', 18),
+    ('ENCA005', 'ITEM512', 'Eletricidade', 22);
+
+## INVENTARIO
+
+     INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
+     VALUES
+    ('INV0001', 55.5, 10000, FALSE),
+    ('INV0002', 3000, 50000, TRUE),
+    ('INV0003', 100, 2, FALSE),
+    ('INV0004', 66.6, 2000, FALSE),
+    ('INV0005', 50000, 70000, TRUE),
+    ('INV0006', 8000, 60000, TRUE),
+    ('INV0007', 3000, 2, FALSE),
+    ('INV0008', 23.3, 4500, FALSE),
+    ('INV0009', 55.5, 10000, FALSE),
+    ('INV0010', 75.5, 10000, FALSE),
+    ('INV0011', 55.5, 10000, FALSE),
+    ('INV0012', 55.5, 10000, FALSE),
+    ('INV0013', 55.5, 10000, FALSE),
+    ('INV0014', 55.5, 10000, FALSE);
