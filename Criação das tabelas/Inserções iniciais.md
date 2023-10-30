@@ -19,6 +19,28 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
  * [ENCANTAMENTO_VESTIMENTA](#ENCANTAMENTO_VESTIMENTA)
  * [ENCANTAMENTO_ARMA](#ENCANTAMENTO_ARMA)
  * [INVENTARIO](#INVENTARIO)
+   
+ * [TIPO_PERSONAGEM_HISTORIA](#TIPO_PERSONAGEM_HISTORIA)
+ * [VIDA_PERSONAGEM](#VIDA_PERSONAGEM)
+ * [HABILIDADE_ESPECIE](#HABILIDADE_ESPECIE)
+ * [ESPECIE](#ESPECIE)
+ * [PLAY_CHARACTER](#PLAY_CHARACTER)
+ * [MAGIA](#MAGIA)
+ * [HUMANOIDE ](#HUMANOIDE )
+ * [MAGIA_HUMANOIDE](#MAGIA_HUMANOIDE)
+ * [NOT_PLAY_CHARACTER](#NOT_PLAY_CHARACTER)
+ * [INSTANCIA_NPC](#INSTANCIA_NPC)
+ * [GOLPES](#GOLPES)
+ * [BESTA](#BESTA)
+ * [GOLPES_BESTA](#GOLPES_BESTA)
+ * [HOSTILIDADE](#HOSTILIDADE)
+ * [TIPO_MISSAO](#TIPO_MISSAO)
+ * [DIALOGOS](#DIALOGOS)
+ * [MISSAO_MATAR_NPC](#MISSAO_MATAR_NPC)
+ * [INSTANCIA_ITEM](#INSTANCIA_ITEM)
+ * [MISSAO_OBTER_ITEM](#MISSAO_OBTER_ITEM)
+
+ 
 
 
 ## REGIAO
@@ -751,3 +773,215 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
     ('INV0012', 55.5, 10000, FALSE),
     ('INV0013', 55.5, 10000, FALSE),
     ('INV0014', 55.5, 10000, FALSE);
+
+## TIPO_PERSONAGEM_HISTORIA
+
+     INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel)
+     VALUES
+    ('CHAR0001', TRUE),
+    ('CHAR0002', FALSE),
+    ('CHAR0003', FALSE),
+    ('CHAR0004', FALSE),
+    ('CHAR0005', TRUE),
+    ('CHAR0006', TRUE),
+    ('CHAR0007', FALSE),
+    ('CHAR0008', FALSE);
+
+## VIDA_PERSONAGEM
+
+     INSERT INTO VIDA_PERSONAGEM (id_personagem, vida_maxima, mana_max, stamina_max)
+     VALUES
+    ('CHAR0001', 80, 80, 50),
+    ('CHAR0002', 25, 0, 0),
+    ('CHAR0003', 20, 0, 0),
+    ('CHAR0004', 70, 70, 50),
+    ('CHAR0005', 90, 80, 40),
+    ('CHAR0006', 95, 100, 70),
+    ('CHAR0007', 36, 10, 45),
+    ('CHAR0008', 36, 10, 45);
+
+## HABILIDADE_ESPECIE
+
+     INSERT INTO HABILIDADE_ESPECIE (id_habilidade, nome, mod_vida, mod_stamina, mod_mana, mod_defesa_frio, mod_defesa_fogo, mod_defesa_eletr)
+     VALUES
+	('HAB0001', 'Cold Blood', 1, 1, 1, 0.5, 1, 1),
+	('HAB0002', 'Berserk', 1, 2, 0.5, 1, 1, 1),
+	('HAB0003', 'Arcane', 1, 0.5, 2, 1, 1, 1),
+	('HAB0004', 'Histskin', 1.5, 1.5, 1, 1, 1.5, 1);
+
+## ESPECIE
+
+     INSERT INTO ESPECIE (id_especie, nome,id_habilidade)
+     VALUES
+	('ESPEC01', 'Nordic', 'HAB0001'),
+	('ESPEC02', 'Orc', 'HAB0002'),
+	('ESPEC03', 'High Elf', 'HAB0003'),
+	('ESPEC04', 'Argonian', 'HAB0004');
+
+## PLAY_CHARACTER
+    
+     INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel,xp,vida_atual,mana_atual,stamina_atual,id_sala, id_inventario)
+     VALUES 
+	('CHAR0001', 'Dovahkiin', 1, 0, 80, 80, 80, 'ROOM001','INV0011'),
+    ('CHAR0005', 'Alduin', 1, 0, 90, 80, 40, 'ROOM140', 'INV0012'),
+    ('CHAR0006', 'Lydia', 1, 0, 95, 100, 70, 'ROOM139', 'INV0013');
+
+## MAGIA
+
+     INSERT INTO MAGIA
+     VALUES
+	('MAG0001', 'Chamas da Compaixão', 'Fogo', 5, 2, 2),
+	('MAG0002', 'Faíscas do ódio', 'Eletricidade', 5, 2, 2),
+	('MAG0003', 'Cristal Puro', 'Gelo', 5, 2, 2);
+
+ ## HUMANOIDE
+
+      INSERT INTO HUMANOIDE (id_humanoide, eqp_bota, eqp_luva, eqp_calça, eqp_colar, eqp_peitoral, eqp_anel, eqp_cabeça, mão_esq, mão_dir, id_especie)
+     VALUES
+    ('CHAR0001', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'ESPEC01'),
+    ('CHAR0004', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'ESPEC03'),
+    ('CHAR0005', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'ESPEC01'),
+    ('CHAR0006', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'ESPEC03'),
+    ('CHAR0007', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'ESPEC04');
+
+## MAGIA_HUMANOIDE
+
+     INSERT INTO MAGIA_HUMANOIDE
+     VALUES
+	('CHAR0001', 'MAG0001'),
+	('CHAR0001', 'MAG0002'),
+	('CHAR0005', 'MAG0003'),
+    ('CHAR0006', 'MAG0001'),
+	('CHAR0006', 'MAG0002'),
+	('CHAR0006', 'MAG0003'),
+    ('CHAR0005', 'MAG0002'),
+    ('CHAR0004', 'MAG0002'),
+    ('CHAR0007', 'MAG0001'),
+    ('CHAR0007', 'MAG0002');
+
+## NOT_PLAY_CHARACTER
+
+     INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp)
+     VALUES
+	('CHAR0004', 'Serana', 10, 100),
+    ('CHAR0002', 'TROLL', 10, 70),
+    ('CHAR0003', 'LOBO', 2, 10),
+    ('CHAR0007', 'Derkeethus', 10, 60),
+    ('CHAR0008', 'DRAGAO LOUCO', 2, 80);
+
+## INSTANCIA_NPC
+
+     INSERT INTO INSTANCIA_NPC (id_instancia_npc, id_npc, vida_atual, mana_atual, stamina_atual, id_sala, id_inventario)
+     VALUES
+    ('INPC0001', 'CHAR0004', 100, 0, 50, 'ROOM002', 'INV0001'),
+    ('INPC0002', 'CHAR0002', 70, 0, 0, 'ROOM003', 'INV0002'),
+    ('INPC0003', 'CHAR0003', 10, 0, 0, 'ROOM004', 'INV0003'),
+    ('INPC0004', 'CHAR0007', 60, 0, 40, 'ROOM005', 'INV0004'),
+    ('INPC0005', 'CHAR0002', 70, 0, 0, 'ROOM006', 'INV0005'),
+    ('INPC0006', 'CHAR0004', 100, 0, 50, 'ROOM007', 'INV0006'),
+    ('INPC0007', 'CHAR0007', 60, 0, 40, 'ROOM008', 'INV0007'),
+    ('INPC0008', 'CHAR0003', 10, 0, 0, 'ROOM009', 'INV0008'),
+    ('INPC0009', 'CHAR0002', 70, 0, 0, 'ROOM010', 'INV0009'),
+    ('INPC0010', 'CHAR0007', 60, 0, 40, 'ROOM011', 'INV0010');
+
+
+## GOLPES
+
+     INSERT INTO GOLPES (id_golpe, nome, dano, elemento)
+     VALUES
+    ('STRO001', 'Mordida', 5, 0),
+	('STRO002', 'Arranhão', 3, 0),
+    ('STRO003', 'Investida', 8, 0),
+    ('STRO004', 'Garras encravadas', 6, 0),
+    ('STRO005', 'Uivar Ameaçador', 0, 10);
+
+## BESTA
+
+     INSERT INTO BESTA
+     VALUES 
+	('CHAR0002', 0.5, 2, 1),
+	('CHAR0003', 1, 3, 1),
+     ('CHAR0008', 1, 3, 1);
+
+## GOLPES_BESTA
+
+     INSERT INTO GOLPES_BESTA (id_golpe, id_besta)
+     VALUES
+    ('STRO001', 'CHAR0002'),
+    ('STRO002', 'CHAR0002'),
+    ('STRO003', 'CHAR0002'),
+    ('STRO004', 'CHAR0002'),
+    ('STRO005', 'CHAR0002'),
+    ('STRO003', 'CHAR0003'),
+    ('STRO004', 'CHAR0003'),
+    ('STRO003', 'CHAR0008'),
+    ('STRO004', 'CHAR0008');
+
+## HOSTILIDADE
+
+     INSERT INTO HOSTILIDADE (id_personagem1, id_personagem2, Hostil)
+     VALUES
+    ('CHAR0001', 'CHAR0004', true),  
+    ('CHAR0001', 'CHAR0002', true), 
+    ('CHAR0001', 'CHAR0003', true),  
+    ('CHAR0001', 'CHAR0007', false),  
+    ('CHAR0005', 'CHAR0004', false),  
+    ('CHAR0005', 'CHAR0002', false),  
+    ('CHAR0005', 'CHAR0003', true),  
+    ('CHAR0005', 'CHAR0007', true),  
+    ('CHAR0006', 'CHAR0004', false),  
+    ('CHAR0006', 'CHAR0002', true),  
+    ('CHAR0006', 'CHAR0003', true),  
+    ('CHAR0006', 'CHAR0007', true);
+
+## TIPO_MISSAO
+
+     INSERT INTO TIPO_MISSAO (id_missao, tipo_objetivo, obrigatoria)
+     VALUES
+    ('MIS0001', 'Matar o Dragão louco', TRUE), 
+    ('MIS0002', 'Eliminar a Horda de TROLLs', TRUE),  
+    ('MIS0003', 'Caçar o LOBO Solitário', FALSE),  
+    ('MIS0004', 'Derrotar a Bruxa do Pântano', FALSE), 
+    ('MIS0005', 'Eliminar os Bandidos na Floresta', FALSE),
+    ('MIS0006', 'Recuperar a Espada Lendária', TRUE),  
+    ('MIS0007', 'Encontrar o Amuleto Perdido', TRUE),  
+    ('MIS0008', 'Obter o Escudo de Ébano', TRUE),  
+    ('MIS0009', 'Recuperar as Jóias Roubadas', FALSE),  
+    ('MIS0010', 'Coletar Ingredientes Raros', FALSE);
+
+## DIALOGOS
+
+     INSERT INTO DIALOGOS (id_dialogo, id_personagem, dialogo, missao)
+     VALUES
+     ('DIA0001', 'CHAR0004', 'Preciso da sua ajuda para uma missão importante. A cidade está em perigo!', 'MIS0001'),
+     ('DIA0007', 'CHAR0007' , 'Você é corajoso. Venha, junte-se a nós para derrotar o mal.', 'MIS0004'),
+     ('DIA0008', 'CHAR0004', 'Matar o troll é perigoso, mas recompensador. Ele guarda um tesouro valioso.', 'MIS0005');
+
+## MISSAO_MATAR_NPC
+
+      INSERT INTO MISSAO_MATAR_NPC (id_missao, nome_missao, id_pre_requisito, id_instancia_npc, nivel)
+     VALUES
+    ('MIS0001', 'Matar o Dragão louco', NULL, 'INPC0002', 10),
+    ('MIS0002', 'Eliminar a Horda de TROLLs', NULL, 'INPC0003', 8),
+    ('MIS0003', 'Caçar o LOBO Solitário', NULL, 'INPC0002', 5),
+    ('MIS0004', 'Derrotar a Bruxa do Pântano', NULL, 'INPC0007', 10);
+
+
+## INSTANCIA_ITEM
+
+     INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_lugar, id_lugar, eqp_status)
+     VALUES
+    ('IITEM001', 'ITEM001', 'Inventário', 'INV0001', true),
+    ('IITEM002', 'ITEM002', 'Inventário', 'INV0001', true),
+    ('IITEM106', 'ITEM106', 'Inventário', 'INV0002', false),
+    ('IITEM511', 'ITEM511', 'Inventário', 'INV0004', false);
+
+## MISSAO_OBTER_ITEM
+
+     INSERT INTO MISSAO_OBTER_ITEM (id_missao, nome, id_pre_requisito, id_instancia_item, id_item, id_inventario_origem, id_inventario_destino, nivel)
+     VALUES
+    ('MIS0006', 'Recuperar Espada Perdida', NULL, 'IITEM001', 'ITEM001', 'INV0007', 'INV0013', 1),
+    ('MIS0008', 'Obter o Escudo de Ébano', 'MIS0006', 'IITEM002', 'ITEM002', 'INV0007', 'INV0013', 1);
+
+
+  
