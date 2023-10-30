@@ -16,7 +16,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 30
  * [VIDA_PERSONAGEM](#VIDA_PERSONAGEM)
  * [HABILIDADE_ESPECIE](#HABILIDADE_ESPECIE)
  * [ESPECIE](#ESPECIE)
- * [HUMANOIDES](#HUMANOIDE)
+ * [HUMANOIDE](#HUMANOIDE)
  * [PLAY_CHARACTER](#PLAY_CHARACTER)
  * [MAGIA](#MAGIA)
  * [MAGIA_HUMANOIDE](#MAGIA_HUMANOIDE)
@@ -200,28 +200,27 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 
 ## HUMANOIDE
       CREATE TABLE HUMANOIDE (
-      id_humanoide CHAR(8) PRIMARY KEY,
-     eqp_bota BOOLEAN,
-     eqp_luva BOOLEAN,
-     eqp_calça BOOLEAN,
-     eqp_colar BOOLEAN,
-     eqp_peitoral BOOLEAN,
-     eqp_anel BOOLEAN,
-     eqp_cabeça BOOLEAN,
-     mão_esq BOOLEAN,
-     mão_dir BOOLEAN,
-     stamina_max INTEGER CHECK (stamina_max >= 0 AND stamina_max <= 100),
-     mana_max INTEGER CHECK (mana_max >= 0 AND mana_max <= 100),
-     id_especie CHAR(7),
-     CONSTRAINT fk_id_humanoide
+    id_humanoide CHAR(8) PRIMARY KEY,
+    eqp_bota BOOLEAN,
+    eqp_luva BOOLEAN,
+    eqp_calça BOOLEAN,
+    eqp_colar BOOLEAN,
+    eqp_peitoral BOOLEAN,
+    eqp_anel BOOLEAN,
+    eqp_cabeça BOOLEAN,
+    mão_esq BOOLEAN,
+    mão_dir BOOLEAN,
+    id_especie CHAR(7),
+    CONSTRAINT fk_id_humanoide
         FOREIGN KEY (id_humanoide) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
-    		 ON DELETE RESTRICT
-  	     ON UPDATE CASCADE, 
-     CONSTRAINT fk_id_especie
-         FOREIGN KEY (id_especie) REFERENCES ESPECIE(id_especie)
-         ON DELETE RESTRICT
-  	  	ON UPDATE CASCADE 
-    );
+  		ON DELETE RESTRICT
+  	    ON UPDATE CASCADE, 
+    CONSTRAINT fk_id_especie
+        FOREIGN KEY (id_especie) REFERENCES ESPECIE(id_especie)
+        ON DELETE RESTRICT
+  	 	ON UPDATE CASCADE 
+	);
+
 
 ## PLAY_CHARACTER
 
