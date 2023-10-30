@@ -985,7 +985,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
 
 | Versão | Alteração | Responsável | Revisor | Data |
 | - | - | - | - | - |
-| 1.0 | Criaçao das tabelas | Larissa Stéfane | - | 29/10/2023
-| 2.0 | Criaçao das tabelas | Larissa Stéfane | - | 30/10/2023
+| 1.0 | Criaçao das tabelas | Larissa Stéfane e Leonardo Gonçalves | - | 29/10/2023
+| 2.0 | Criaçao das tabelas | Larissa Stéfane e Leonardo Gonçalves | - | 30/10/2023
 
   
