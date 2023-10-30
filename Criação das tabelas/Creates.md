@@ -394,12 +394,11 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     );
 
 ## DIALOGOS
-
-    CREATE TABLE DIALOGOS (
+	CREATE TABLE DIALOGOS (
     id_dialogo CHAR(7),
-    id_personagem CHAR(8),
-    dialogo CHAR(50),
-    missao CHAR(7),
+    id_personagem CHAR(8)NOT NULL,
+    dialogo CHAR(80)NOT NULL,
+    missao CHAR(7)NOT NULL,
     PRIMARY KEY (id_dialogo, id_personagem),
     CHECK( id_dialogo LIKE 'DIA%'
        AND CAST(SUBSTRING(id_dialogo, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
@@ -410,7 +409,8 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     FOREIGN KEY (missao) REFERENCES TIPO_MISSAO (id_missao)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
-    );
+	);
+    
 
 ## INVENTARIO
 
