@@ -13,7 +13,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
  * [VIAGEM_SALAS](#VIAGEM_SALAS)
 
 
-## REGIÃO
+## REGIAO
      
       INSERT INTO REGIAO (id_regiao, nome)
       VALUES
@@ -85,7 +85,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
     ('LOC0040', 'Mirmulnir,s Roost', 'REG0005');
 
 
-## SALAS
+## SALA
 
     INSERT INTO SALA (id_sala, nome_sala, id_local)
     VALUES
