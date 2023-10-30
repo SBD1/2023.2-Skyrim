@@ -581,8 +581,11 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     FOREIGN KEY (id_inventario_destino) REFERENCES INVENTARIO(id_inventario)
     );
 
-## 5. Histórico de Versão
+##  Histórico de Versão
 
-| Versão | Alteração | Responsável | Revisor | 
-| - | - | - | - |
-| 1.0 | Criaçao das tabelas | Larissa Stéfane | - |
+| Versão | Alteração | Responsável | Revisor | Data |
+| - | - | - | - | - |
+| 1.0 | Criaçao das tabelas | Larissa Stéfane | - | 28/10/2023
+| 2.0 | Criaçao das tabelas | Larissa Stéfane | - | 29/10/2023
+| 3.0 | Criaçao das tabelas | Larissa Stéfane | - | 30/10/2023
+
