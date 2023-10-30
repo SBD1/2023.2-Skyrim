@@ -983,5 +983,9 @@ Aqui são apresentados os códigos ou scripts utilizados para a inserção das t
     ('MIS0006', 'Recuperar Espada Perdida', NULL, 'IITEM001', 'ITEM001', 'INV0007', 'INV0013', 1),
     ('MIS0008', 'Obter o Escudo de Ébano', 'MIS0006', 'IITEM002', 'ITEM002', 'INV0007', 'INV0013', 1);
 
+| Versão | Alteração | Responsável | Revisor | Data |
+| - | - | - | - | - |
+| 1.0 | Criaçao das tabelas | Larissa Stéfane | - | 29/10/2023
+| 2.0 | Criaçao das tabelas | Larissa Stéfane | - | 30/10/2023
 
   
