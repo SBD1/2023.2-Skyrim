@@ -232,7 +232,7 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
     vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
     mana_atual INTEGER CHECK (mana_atual >= 0 AND mana_atual <= 100),
     stamina_atual INTEGER CHECK (stamina_atual >= 0 AND stamina_atual <= 100),
-    id_sala CHAR(7),
+    id_sala CHAR(7) NOT NULL,
 	id_inventario CHAR(7),
     CONSTRAINT fk_id_play_character
         FOREIGN KEY (id_play_character) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
