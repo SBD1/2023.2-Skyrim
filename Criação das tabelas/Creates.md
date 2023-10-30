@@ -226,23 +226,28 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 ## PLAY_CHARACTER
 
       CREATE TABLE PLAY_CHARACTER (
-      id_play_character CHAR(8) PRIMARY KEY,
-      nome CHAR(20) UNIQUE NOT NULL,
-      nivel INTEGER CHECK (nivel >= 1 AND nivel <= 30),
-      xp INTEGER CHECK (xp >= 0 AND xp <= 100),
-      vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
-      mana_atual INTEGER CHECK (mana_atual >= 0 AND mana_atual <= 100),
-      stamina_atual INTEGER CHECK (stamina_atual >= 0 AND stamina_atual <= 100),
-      id_sala CHAR(7),
-      CONSTRAINT fk_id_play_character
-          FOREIGN KEY (id_play_character) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
-    	  	ON DELETE RESTRICT
-      	 	ON UPDATE CASCADE,
-     CONSTRAINT fk_id_sala
-       FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
-    		ON DELETE RESTRICT
-    	 	ON UPDATE CASCADE 
-    );
+    id_play_character CHAR(8) PRIMARY KEY,
+    nome CHAR(20) UNIQUE NOT NULL,
+    nivel INTEGER CHECK (nivel >= 1 AND nivel <= 30),
+    xp INTEGER CHECK (xp >= 0 AND xp <= 100),
+    vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
+    mana_atual INTEGER CHECK (mana_atual >= 0 AND mana_atual <= 100),
+    stamina_atual INTEGER CHECK (stamina_atual >= 0 AND stamina_atual <= 100),
+    id_sala CHAR(7),
+	id_inventario CHAR(7),
+    CONSTRAINT fk_id_play_character
+        FOREIGN KEY (id_play_character) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
+  		ON DELETE RESTRICT
+  	 	ON UPDATE CASCADE,
+    CONSTRAINT fk_id_sala
+        FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
+  		ON DELETE RESTRICT
+  	 	ON UPDATE CASCADE,
+	CONSTRAINT fk_id_inventario_pc
+  		FOREIGN KEY (id_inventario) REFERENCES INVENTARIO(id_inventario)
+  		ON DELETE RESTRICT
+        ON UPDATE CASCADE
+	);
 
 
 ## MAGIA
