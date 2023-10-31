@@ -47,3 +47,11 @@
 [Dicionário de Dados](https://github.com/SBD1/2023.2-Skyrim/tree/main/docs/dicion%C3%A1rio) (fazer o download do arquivo PDF)
 
 [Apresentação 1](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes) (fazer o download do vídeo para assistir)
+
+## Entrega 2
+
+[SQL Criação e Insersão nas Tabelas]()
+[SQL Consultas]()
+[Álgebra Relacional]()  (fazer o download do arquivo PDF)
+[Normalização]()
+[Apresentação 2]()
