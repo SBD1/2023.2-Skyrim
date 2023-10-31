@@ -63,6 +63,13 @@ Abaixo estão os códigos SQL das consultas e seus resultados no PostreSQL após
   Figura 10: Locais de uma região
 </div>
 
+<div align="center">
+  <img src="img15.jpeg">
+  
+  Figura 11: Salas de um local
+</div>
+
+
 ## Histórico de Versão
 
 | Versão | Alteração | Responsável | Revisor | Data |
@@ -71,8 +78,4 @@ Abaixo estão os códigos SQL das consultas e seus resultados no PostreSQL após
 | 2.0 | Consultas | Leonardo Gonçalves | Larissa Stéfane | 30/10/2023
 
 
-<div align="center">
-  <img src="img15.jpeg">
-  
-  Figura 11: Salas de um local
-</div>
+
