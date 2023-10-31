@@ -51,7 +51,11 @@
 ## Entrega 2
 
 [SQL Criação e Insersão nas Tabelas]()
+
 [SQL Consultas]()
+
 [Álgebra Relacional]()  (fazer o download do arquivo PDF)
+
 [Normalização]()
+
 [Apresentação 2]()
