@@ -47,3 +47,17 @@
 [Dicionário de Dados](https://github.com/SBD1/2023.2-Skyrim/tree/main/docs/dicion%C3%A1rio) (fazer o download do arquivo PDF)
 
 [Apresentação 1](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes) (fazer o download do vídeo para assistir)
+
+## Entrega 2
+
+[SQL Criação das Tabelas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Cria%C3%A7%C3%A3o%20das%20tabelas/Creates.md)
+
+[SQL Insersão nas Tabelas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Cria%C3%A7%C3%A3o%20das%20tabelas/Inser%C3%A7%C3%B5es%20iniciais.md)
+
+[SQL Consultas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/%C3%81lgebra%20Relacional/consultas.md)
+
+[Álgebra Relacional](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/%C3%81lgebra%20Relacional/Algebra_Relacional.pdf)  (fazer o download do arquivo PDF)
+
+[Normalização](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Normaliza%C3%A7%C3%A3o/Normalizazao.md)
+
+[Apresentação 2](https://github.com/SBD1/2023.2-Skyrim/tree/criacao2/Apresentacoes/Apresentacao2)
