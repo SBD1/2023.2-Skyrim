@@ -60,4 +60,4 @@
 
 [Normalização](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Normaliza%C3%A7%C3%A3o/Normalizazao.md)
 
-[Apresentação 2](https://github.com/SBD1/2023.2-Skyrim/tree/criacao2/Apresentacoes/Apresentacao2) (A apreserntação está dividida em três arquivos de vídeo nesse link)
+[Apresentação 2](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao2) (A apreserntação está dividida em três arquivos de vídeo nesse link)
