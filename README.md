@@ -50,12 +50,14 @@
 
 ## Entrega 2
 
-[SQL Criação e Insersão nas Tabelas]()
+[SQL Criação das Tabelas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Cria%C3%A7%C3%A3o%20das%20tabelas/Creates.md)
 
-[SQL Consultas]()
+[SQL Insersão nas Tabelas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Cria%C3%A7%C3%A3o%20das%20tabelas/Inser%C3%A7%C3%B5es%20iniciais.md)
 
-[Álgebra Relacional]()  (fazer o download do arquivo PDF)
+[SQL Consultas](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/%C3%81lgebra%20Relacional/consultas.md)
 
-[Normalização]()
+[Álgebra Relacional](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/%C3%81lgebra%20Relacional/Algebra_Relacional.pdf)  (fazer o download do arquivo PDF)
+
+[Normalização](https://github.com/SBD1/2023.2-Skyrim/blob/criacao2/Segunda%20Entrega/Normaliza%C3%A7%C3%A3o/Normalizazao.md)
 
 [Apresentação 2]()
