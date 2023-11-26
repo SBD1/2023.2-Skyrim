@@ -1,3 +1,4 @@
+
 # Criações das tabelas
 
 Aqui são apresentados os códigos ou scripts utilizados para a criação das 30 tabelas do modelo relacional do jogo. 
@@ -494,7 +495,9 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
   ## TIPO_ITEM
   
       CREATE TABLE TIPO_ITEM (
-          id_item CHAR(7) PRIMARY KEY,
+          id_item CHAR(7) PRIMARY KEY, 
+          nome_item CHAR(30),
+          valor INTEGER,
           tipo_item CHAR(20) NOT NULL
         	CHECK( id_item LIKE 'ITEM%'
              AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
