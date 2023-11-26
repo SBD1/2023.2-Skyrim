@@ -469,6 +469,7 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
   
       CREATE TABLE MISSAO_MATAR_NPC (
           id_missao CHAR(7) PRIMARY KEY,
+          xp_missao INTEGER,
           nome_missao CHAR(30) UNIQUE NOT NULL,
           id_pre_requisito CHAR(7),
           id_instancia_npc CHAR(8),
@@ -628,6 +629,7 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 
       CREATE TABLE MISSAO_OBTER_ITEM (
       	id_missao CHAR(7) PRIMARY KEY,
+        xp_missão INTEGER,
       	nome CHAR(30) NOT NULL,
       	id_pre_requisito CHAR(7),
       	id_instancia_item CHAR(8) NOT NULL,
