@@ -376,7 +376,7 @@ CREATE TABLE TIPO_ITEM (
 CREATE TABLE INSTANCIA_ITEM (
     id_instancia_item CHAR(8),
     id_item CHAR(7),
-	tipo_local CHAR(30) NOT NULL,
+	tipo_local CHAR(30),
     local_inventario CHAR(7),
 	local_sala CHAR(7),
 	eqp_status BOOLEAN NOT NULL,
