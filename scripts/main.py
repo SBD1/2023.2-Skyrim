@@ -12,5 +12,5 @@ def menu():
 		print("Até mais ..")
 		exit(0)
 
-print(config_database())		
+config_database()		
 #menu()
