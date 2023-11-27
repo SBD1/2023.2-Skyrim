@@ -403,7 +403,11 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
       	CONSTRAINT fk_id_inventario
         		FOREIGN KEY (id_inventario) REFERENCES INVENTARIO(id_inventario)
         		ON DELETE RESTRICT
-              ON UPDATE CASCADE
+              ON UPDATE CASCADE,
+        CONSTRAINT verificar_id_instancia_npc
+       CHECK( id_instancia_npc LIKE 'INPC%'
+       AND CAST(SUBSTRING(id_instancia_npc, 5,4) AS INTEGER) BETWEEN 0000 AND 9999
+       AND LENGTH(id_instancia_npc) = 8)
       );
 
 ## ESTA_MORTO
