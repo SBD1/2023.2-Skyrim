@@ -28,6 +28,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 30
  * [INSTANCIA_NPC](#INSTANCIA_NPC)
  * [ESTA_MORTO](#ESTA_MORTO)
  * [TIPO_MISSAO](#TIPO_MISSAO)
+ * [MISSAO_NIVEL](#MISSAO_NIVEL)
  * [CUMPRE_MISSAO](#CUMPRE_MISSAO)
  * [DIALOGOS](#DIALOGOS)
  * [MISSAO_MATAR_NPC](#MISSAO_MATAR_NPC)
@@ -435,6 +436,26 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
              AND LENGTH(id_missao) = 7)
       );
 
+
+## MISSAO_NIVEL
+
+      CREATE TABLE MISSAO_NIVEL (
+          id_missao CHAR(7),
+          id_nivel CHAR(7),
+          status BOOLEAN,
+          PRIMARY KEY (id_missao, id_nivel),
+          FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
+              ON DELETE RESTRICT
+              ON UPDATE CASCADE,
+          FOREIGN KEY (id_nivel) REFERENCES NIVEL(id_nivel)
+              ON DELETE RESTRICT
+              ON UPDATE CASCADE
+      );
+
+
+
+
+
 ## CUMPRE_MISSAO
 
       CREATE TABLE CUMPRE_MISSAO (
@@ -478,7 +499,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
           id_pre_requisito CHAR(7),
           id_instancia_npc CHAR(8),
       	tipo_npc CHAR(8),
-          nivel CHAR(7),
           CONSTRAINT fk_id_missao
               FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
               ON DELETE RESTRICT
@@ -489,10 +509,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
               ON UPDATE CASCADE,
           CONSTRAINT fk_id_instancia_npc
               FOREIGN KEY (id_instancia_npc) REFERENCES INSTANCIA_NPC (id_instancia_npc)
-              ON DELETE RESTRICT
-              ON UPDATE CASCADE,
-        	CONSTRAINT fk_nivel
-              FOREIGN KEY (nivel) REFERENCES NIVEL (id_nivel)
               ON DELETE RESTRICT
               ON UPDATE CASCADE
       );
@@ -638,7 +654,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
       	id_pre_requisito CHAR(7),
       	id_instancia_item CHAR(8) NOT NULL,
       	id_item CHAR(7) NOT NULL,
-        	nivel CHAR(7),
       	CONSTRAINT fk_id_missao
               FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
               ON DELETE RESTRICT
@@ -649,10 +664,6 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
               ON UPDATE CASCADE,
       	 CONSTRAINT fk_id_instancia_item
               FOREIGN KEY (id_instancia_item) REFERENCES INSTANCIA_ITEM (id_instancia_item)
-              ON DELETE RESTRICT
-              ON UPDATE CASCADE,
-      	CONSTRAINT fk_nivel
-              FOREIGN KEY (nivel) REFERENCES NIVEL (id_nivel)
               ON DELETE RESTRICT
               ON UPDATE CASCADE
       );
@@ -710,3 +721,5 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 | Versão | Alteração | Responsável | Revisor | Data |
 | - | - | - | - | - |
 | 1.0 | Criaçao das tabelas | Larissa Stéfane | - | 23/11/2023    
+| 2.0 | Correção de alguns pontos | Larissa Stéfane | - | 25/11/2023
+| 3.0 | Correção da forma normal | Larissa Stéfane | - | 27/11/2023
