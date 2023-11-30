@@ -243,31 +243,35 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 ## MAGIA
 
       CREATE TABLE MAGIA (
-          id_magia CHAR(7) PRIMARY KEY,
-        	nome CHAR(20) UNIQUE NOT NULL,
-          elemento CHAR(20) NOT NULL,
-          dano INTEGER CHECK (dano >= 0 AND dano <= 100),
-          nivel INTEGER CHECK (nivel >= 0 AND nivel <= 100),
-          custo_mana INTEGER CHECK (custo_mana >= 0 AND custo_mana <= 100),
-        	CONSTRAINT verificar_id_habilidade
-        	CHECK( id_magia LIKE 'MAG%'
-             AND CAST(SUBSTRING(id_magia, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
-             AND LENGTH(id_magia) = 7)
+      id_magia CHAR(7) PRIMARY KEY,
+    	nome CHAR(20) UNIQUE NOT NULL,
+      elemento CHAR(20) NOT NULL,
+      dano_inicial INTEGER CHECK (dano_inicial >= 0 AND dano_inicial <= 100),
+      custo_mana INTEGER CHECK (custo_mana >= 0 AND custo_mana <= 100),
+    	CONSTRAINT verificar_id_habilidade
+    	CHECK( id_magia LIKE 'MAG%'
+         AND CAST(SUBSTRING(id_magia, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
+         AND LENGTH(id_magia) = 7)
+  	
       );
-
 ## MAGIA_HUMANOIDE
       
-      CREATE TABLE MAGIA_HUMANOIDE (
-          id_humanoide CHAR(8),
-          id_magia CHAR(7),
-          PRIMARY KEY (id_humanoide, id_magia),
-          FOREIGN KEY (id_humanoide) REFERENCES HUMANOIDE (id_humanoide)
-              ON DELETE RESTRICT
-              ON UPDATE CASCADE,
-          FOREIGN KEY (id_magia) REFERENCES MAGIA (id_magia)
-              ON DELETE RESTRICT
-              ON UPDATE CASCADE
-      );
+        CREATE TABLE MAGIA_HUMANOIDE (
+        id_humanoide CHAR(8),
+        id_magia CHAR(7),
+    	nivel CHAR(7),
+        PRIMARY KEY (id_humanoide, id_magia),
+        FOREIGN KEY (id_humanoide) REFERENCES HUMANOIDE (id_humanoide)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+        FOREIGN KEY (id_magia) REFERENCES MAGIA (id_magia)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE,
+    	CONSTRAINT fk_nivel
+              FOREIGN KEY (nivel) REFERENCES NIVEL(id_nivel)
+        		ON DELETE RESTRICT
+        	 	ON UPDATE CASCADE
+    );
 
 ## BESTA
       
