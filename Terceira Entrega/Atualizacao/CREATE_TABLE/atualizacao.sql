@@ -455,6 +455,7 @@ CREATE TABLE ARMA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
+    dano INTEGER,
     tipo_arma CHAR(20),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
