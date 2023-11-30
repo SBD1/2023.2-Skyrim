@@ -259,18 +259,15 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
         CREATE TABLE MAGIA_HUMANOIDE (
         id_humanoide CHAR(8),
         id_magia CHAR(7),
-    	nivel CHAR(7),
+    	  nivel INTEGER CHECK (NIVEL >= 0 AND nivel <= 100),
+        dano INTEGER CHECK (dano >= 0 AND dano <= 100),
         PRIMARY KEY (id_humanoide, id_magia),
         FOREIGN KEY (id_humanoide) REFERENCES HUMANOIDE (id_humanoide)
             ON DELETE RESTRICT
             ON UPDATE CASCADE,
         FOREIGN KEY (id_magia) REFERENCES MAGIA (id_magia)
             ON DELETE RESTRICT
-            ON UPDATE CASCADE,
-    	CONSTRAINT fk_nivel
-              FOREIGN KEY (nivel) REFERENCES NIVEL(id_nivel)
-        		ON DELETE RESTRICT
-        	 	ON UPDATE CASCADE
+            ON UPDATE CASCADE
     );
 
 ## BESTA
