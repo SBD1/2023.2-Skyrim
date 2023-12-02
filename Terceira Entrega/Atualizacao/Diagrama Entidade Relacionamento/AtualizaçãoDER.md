@@ -9,6 +9,7 @@ Após o feedback do professor, foi replanejada a organização e a estrutura do 
  
   ## Mudanças:
   As principais mudanças que ocorreram foram:
+  
   1 - Reoganização da especialização da forma com base em uma entidade de forma.
     
   2 - Para desenvolver o play_character foi adotada uma entidade Nível.
