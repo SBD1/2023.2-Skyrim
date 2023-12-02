@@ -751,7 +751,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         WHEN ( NEW.nivel <> OLD.nivel)  -- A trigger só será acionada se o nível for alterado
         EXECUTE FUNCTION atualizar_magia_humanoide();
 
-##  Garantir integridade dos tipos itens: Consumível
+## Garantir integridade dos tipos itens: Consumível
 
 **Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Consumível.
 
