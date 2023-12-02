@@ -36,10 +36,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
  * [Atualizar o nível quando o XP é alterado](#Atualizar-o-nível-quando-o-XP-é-alterado)
  * [Garantir consistência quando for inserir em MAGIA_HUMANOIDE](#Garantir-consistência-quando-for-inserir-em-MAGIA_HUMANOIDE)
  * [Atualizar MAGIA_HUMANOIDE com o aumento de nível](#Atualizar-MAGIA_HUMANOIDE-com-o-aumento-de-nível)
- * [Garantir integridade dos tipos itens: Consumível](#Garantir-integridade-dos-tipos-itens:-Consumível)
- * [Garantir integridade dos tipos itens: Vestimenta](#Garantir-integridade-dos-tipos-itens:-Vestimenta)
- * [Garantir integridade dos tipos itens: Arma](#Garantir-integridade-dos-tipos-itens:-Arma)
- * [Garantir integridade dos tipos itens: Gema](#Garantir-integridade-dos-tipos-itens:-Gema)
+ * [Garantir integridade dos tipos itens:Consumível](#Garantir-integridade-dos-tipos-itens:Consumível)
+ * [Garantir integridade dos tipos itens:Vestimenta](#Garantir-integridade-dos-tipos-itens:Vestimenta)
+ * [Garantir integridade dos tipos itens:Arma](#Garantir-integridade-dos-tipos-itens:Arma)
+ * [Garantir integridade dos tipos itens:Gema](#Garantir-integridade-dos-tipos-itens:Gema)
  * [Integridade de dados para consumiveis](#Integridade-de-dados-para-consumiveis)
  * [Trigger para quantidade máxima de consumíveis](#Trigger-para-quantidade-máxima-de-consumíveis)
  * [Zerar a quantidade de consumíveis consumidos quando passar de nivel](#Zerar-a-quantidade-de-consumíveis-consumidos-quando-passar-de-nivel)
@@ -751,7 +751,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         WHEN ( NEW.nivel <> OLD.nivel)  -- A trigger só será acionada se o nível for alterado
         EXECUTE FUNCTION atualizar_magia_humanoide();
 
-## Garantir integridade dos tipos itens: Consumível
+## Garantir integridade dos tipos itens:Consumível
 
 **Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Consumível.
 
@@ -782,7 +782,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         FOR EACH ROW
         EXECUTE FUNCTION total_exclusivo_consumivel();
 
-## Garantir integridade dos tipos itens: Vestimenta
+## Garantir integridade dos tipos itens:Vestimenta
 
 **Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Vestimenta.
 
@@ -815,7 +815,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         FOR EACH ROW
         EXECUTE FUNCTION total_exclusivo_vestimenta();
 
-## Garantir integridade dos tipos itens: Arma
+## Garantir integridade dos tipos itens:Arma
 
 **Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Arma.
 
@@ -848,7 +848,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         FOR EACH ROW
         EXECUTE FUNCTION total_exclusivo_arma();
 
-## Garantir integridade dos tipos itens: Gema
+## Garantir integridade dos tipos itens:Gema
 
 **Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Arma.
 
