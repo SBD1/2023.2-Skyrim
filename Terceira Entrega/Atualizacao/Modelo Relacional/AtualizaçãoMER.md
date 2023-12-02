@@ -18,8 +18,8 @@ Após a correção do professor e com o novo Diagrama de Entidade e Relacionamen
 O modelo relacional pode ser observado por meio da imagem abaixo. No entanto, se desejar visualizá-lo de modo mais legível, é possivel por meio de 
 
 - MER em PDF no [link](ModeloRelacionalSkyrim_Reorganização_2.00.pdf)
-- MER em Drawio no [link]
-- MER em PNG no [link]
+- MER em Drawio no [link](ModeloRelacionalSkyrim_Reorganização_2.00.drawio)
+- MER em PNG no [link](ModeloRelacionalSkyrim_Reorganização_2.00.png)
 
   ### Versão Atualizada:
 
