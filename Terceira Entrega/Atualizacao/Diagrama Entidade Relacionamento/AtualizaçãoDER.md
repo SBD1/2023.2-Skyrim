@@ -32,16 +32,15 @@ Após o feedback do professor, foi replanejada a organização e a estrutura do 
 
   O diagrama pode ser observado por meio da imagem abaixo. No entanto, se desejar visualizá-lo de modo mais legível, é possivel por meio de 
 
-- Diagrama em PDF no [link]
-- Driagrama em Drawio no [link]
-- Diagrama em PNG no [link]
+- Diagrama em PDF no [link](ReorganizaçãoDER_Edicao2.0.pdf)
+- Driagrama em Drawio no [link](ganizaçãoDER_Edicao2.0.drawio)
+- Diagrama em PNG no [link](ReorganizaçãoDER_Edicao2.0.png)
 
   ### Versão Atualizada:
 
-    Foram corrigidos o últimos detalhes do Modelo Relacional.
+    O Diagrama foi corrigido e reestruturado
 <div align="center">
   <img src="ReorganizaçãoDER_Edicao2.0.png">
-  Figura 4: Modelo Relacional 4.0
 </div>
 
   ## Histórico de Versão
