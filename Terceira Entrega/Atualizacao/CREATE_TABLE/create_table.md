@@ -1,7 +1,7 @@
 
 # Criações das tabelas
 
-Aqui são apresentados os códigos ou scripts utilizados para a criação das 30 tabelas do modelo relacional do jogo. 
+Aqui são apresentados os códigos ou scripts utilizados para a criação das 42 tabelas do modelo relacional do jogo. 
 
 ## Sumário
 * [A questão das id](#A-questão-das-id)
