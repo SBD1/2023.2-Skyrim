@@ -3,6 +3,9 @@
 Aqui são apresentados os códigos ou scripts utilizados para a criação dos triggers para manter a integridade do jogo.
 
 ## Sumário
+
+* [Código Completo em SQL](#Código-Completo-em-SQL)
+
 * [Garantir que o peso do inventário não seja excedido.](#Garantir-que-o-peso-do-inventário-não-seja-excedido.)
 
  * [Garantir que o nome de uma sala seja único dentro de um local](#Garantir-que-o-nome-de-uma-sala-seja-único-dentro-de-um-local)
@@ -25,34 +28,34 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
  * [Garantir consistência quando for inserir em personagem não jogável](#Garantir-consistência-quando-for-inserir-em-personagem-não-jogável)
  * [Quando deletar personagem jogável](#Quando-deletar-personagem-jogável)
  * [Quando deletar npc](#Quando-deletar-npc)
+ * [Trigger para verificar a total exclusividade ao inserir em HUMANOIDE](#Trigger-para-verificar-a-total-exclusividade-ao-inserir-em-HUMANOIDE)
+ * [Quando deletar humanoide](#Quando-deletar-humanoide)
+ * [Trigger para verificar a total exclusividade ao inserir em BESTA](#Trigger-para-verificar-a-total-exclusividade-ao-inserir-em-BESTA)
+ * [Quando deletar Besta](#Quando-deletar-Besta)
+ * [Atualização do xp após a conclusão de uma missão](#Atualização-do-xp-após-a-conclusão-de-uma-missão)
+ * [Atualizar o nível quando o XP é alterado](#Atualizar-o-nível-quando-o-XP-é-alterado)
+ * [Garantir consistência quando for inserir em MAGIA_HUMANOIDE](#Garantir-consistência-quando-for-inserir-em-MAGIA_HUMANOIDE)
+ * [Atualizar MAGIA_HUMANOIDE com o aumento de nível](#Atualizar-MAGIA_HUMANOIDE-com-o-aumento-de-nível)
+ * [Garantir integridade dos tipos itens: Consumível](#Garantir-integridade-dos-tipos-itens:-Consumível)
+ * [Garantir integridade dos tipos itens: Vestimenta](#Garantir-integridade-dos-tipos-itens:-Vestimenta)
+ * [Garantir integridade dos tipos itens: Arma](#Garantir-integridade-dos-tipos-itens:-Arma)
+ * [Garantir integridade dos tipos itens: Gema](#Garantir-integridade-dos-tipos-itens:-Gema)
+ * [Integridade de dados para consumiveis](#Integridade-de-dados-para-consumiveis)
+ * [Trigger para quantidade máxima de consumíveis](#Trigger-para-quantidade-máxima-de-consumíveis)
+ * [Zerar a quantidade de consumíveis consumidos quando passar de nivel](#Zerar-a-quantidade-de-consumíveis-consumidos-quando-passar-de-nivel)
+ * [Histórico de Versão](#Histórico-de-Versão)
+   
 
+## Código Completo em SQL
 
-
-
-
-
- * [ESTA_MORTO](#ESTA_MORTO)
- * [TIPO_MISSAO](#TIPO_MISSAO)
- * [MISSAO_NIVEL](#MISSAO_NIVEL)
- * [CUMPRE_MISSAO](#CUMPRE_MISSAO)
- * [DIALOGOS](#DIALOGOS)
- * [MISSAO_MATAR_NPC](#MISSAO_MATAR_NPC)
- * [TIPO_ITEM](#TIPO_ITEM)
- * [INSTANCIA_ITEM](#INSTANCIA_ITEM)
- * [TIPO_ENCANTAMENTO](#TIPO_ENCANTAMENTO)
- * [VESTIMENTA](#VESTIMENTA)
- * [ENCANTAMENTO_VESTIMENTA](#ENCANTAMENTO_VESTIMENTA)
- * [CONSUMIVEL](#CONSUMIVEL)
- * [CONSOME](#CONSOME)
- * [ARMA](#ARMA)
- * [ENCANTAMENTO_ARMA](#ENCANTAMENTO_ARMA)
- * [MISSAO_OBTER_ITEM](#MISSAO_OBTER_ITEM)
- * [GEMA](#GEMA)
- * [PROPORCIONA_ENCANTAMENTO](#PROPORCIONA_ENCANTAMENTO)
- * [APRENDER_ENCANTAMENTO](#APRENDER_ENCANTAMENTO)
-
+Caso deseje visualizar o código completo dos triggers e Functions clique no link: [Triggers](triggers01_12.sql)
 
 ## Garantir que o peso do inventário não seja excedido.
+
+**Objetivo:** Garantir que o peso máximo do inventário não seja negativo.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_peso_maximo()
         RETURNS TRIGGER AS $check_peso_maximo$
         BEGIN
@@ -72,6 +75,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_peso_maximo();
 
 ## Garantir que o nome de uma sala seja único dentro de um local
+
+**Objetivo:** Garantir que o nome da sala seja único dentro de um local.
+
+**Código:**
 
         RETURNS TRIGGER AS $verificar_nome_sala_unica$
         BEGIN
@@ -100,6 +107,9 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para humanoide
 
+**Objetivo:** Garantir que os atributos de vida, mana e stamina de um humanoide não sejam negativos.
+
+**Código:** 
         CREATE OR REPLACE FUNCTION check_atributos_humanoides()
         RETURNS TRIGGER AS $check_atributos_humanoides$
         BEGIN
@@ -115,6 +125,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_humanoides();
 
 ## Restrição de valor mínimo para Magia
+
+**Objetivo:** Garantir que os atributos de dano, nível e custo de mana de uma magia não sejam negativos.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_magia()
         RETURNS TRIGGER AS $check_atributos_magia$
@@ -132,6 +146,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para nível
 
+**Objetivo:** Garantir que os atributos de XP mínimo e máximo de um nível não sejam negativos.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_atributos_nivel()
         RETURNS TRIGGER AS $check_atributos_nivel$
         BEGIN
@@ -147,6 +165,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_nivel();
 
 ## Restrição de valor mínimo para play_character
+
+**Objetivo:** Garantir que diversos atributos de um personagem jogável não sejam negativos.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_personagem()
         RETURNS TRIGGER AS $check_atributos_personagem$
@@ -165,6 +187,9 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para not_play_character
 
+**Objetivo:** Garantir que diversos atributos de um NPC não sejam negativos.
+
+**Código:**
         CREATE OR REPLACE FUNCTION check_atributos_npc()
         RETURNS TRIGGER AS $check_atributos_npc$
         BEGIN
@@ -180,6 +205,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_npc();
 
 ## Restrição de valor mínimo para inventário
+
+**Objetivo:** Garantir que o atributo "carteira" do inventário não seja negativo.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_inventario()
         RETURNS TRIGGER AS $check_atributos_inventario$
@@ -197,6 +226,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para Golpes
 
+**Objetivo:** Garantir que diversos atributos de um golpe não sejam negativos.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_atributos_golpes()
         RETURNS TRIGGER AS $check_atributos_golpes$
         BEGIN
@@ -212,6 +245,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_golpes();
 
 ## Restrição de valor mínimo para Venstimentas
+
+**Objetivo:** Garante que os atributos de valor, peso e resistência das Vestimentas não sejam negativos.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_vestimenta()
         RETURNS TRIGGER AS $check_atributos_vestimenta$
@@ -229,6 +266,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para Encantamento de Vestimentas
 
+**Objetivo:** Garante que o atributo resistência do Encantamento de Vestimenta não seja negativo.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_atributos_encantamento_vestimenta()
         RETURNS TRIGGER AS $check_atributos_encantamento_vestimenta$
         BEGIN
@@ -244,6 +285,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_encantamento_vestimenta();
 
 ## Restrição de valor mínimo para Consumível
+
+**Objetivo:** Garante que os atributos de valor, peso e aumento dos Consumíveis não sejam negativos.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_consumivel()
         RETURNS TRIGGER AS $check_atributos_consumivel$
@@ -261,6 +306,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para Arma
 
+**Objetivo:** Garante que os atributos de valor, peso, número de mãos e custo de stamina das Armas não sejam negativos.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_atributos_arma()
         RETURNS TRIGGER AS $check_atributos_arma$
         BEGIN
@@ -276,6 +325,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_arma();
 
 ## Restrição de valor mínimo para Encantamento de Arma
+
+**Objetivo:** Garante que o atributo dano do Encantamento de Arma não seja negativo.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION check_atributos_encantamento_arma()
         RETURNS TRIGGER AS $check_atributos_encantamento_arma$
@@ -294,6 +347,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para Gema
 
+**Objetivo:** Garante que os atributos de valor, peso e potência da Gema não sejam negativos.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION check_atributos_gema()
         RETURNS TRIGGER AS $check_atributos_gema$
         BEGIN
@@ -310,6 +367,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Restrição de valor mínimo para missão_matar_npc
 
+**Objetivo:** Garante que o atributo xp_missao da missão para matar NPC não seja negativo.
+
+**Código:**
+
         RETURNS TRIGGER AS $check_atributos_missao_matar_npc$
         BEGIN
             IF NEW.xp_missao < 0 THEN
@@ -324,6 +385,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_missao_matar_npc();
 
 ## Restrição de valor mínimo para missão_obter_item
+
+**Objetivo:** Garante que o atributo xp_missao da missão para obter item não seja negativo.
+
+**Código:**
         
         CREATE OR REPLACE FUNCTION check_atributos_missao_obter_item()
         RETURNS TRIGGER AS $check_atributos_missao_obter_item$
@@ -340,6 +405,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         FOR EACH ROW EXECUTE FUNCTION check_atributos_missao_obter_item();
 
 ## Garantir consistência quando for inserir personagem jogável
+
+**Objetivo:** Impede a inserção de uma chave duplicada na tabela TIPO_PERSONAGEM_HISTORIA ao inserir um personagem jogável.
+
+**Código:**
 
         CREATE OR REPLACE FUNCTION inserir_tipo_personagem_play_character()
         RETURNS TRIGGER AS $inserir_tipo_personagem_play_character$
@@ -363,6 +432,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         EXECUTE FUNCTION inserir_tipo_personagem_play_character();
 
 ## Garantir consistência quando for inserir em personagem não jogável
+
+**Objetivo:** mpede a inserção de uma chave duplicada na tabela TIPO_PERSONAGEM_HISTORIA ao inserir um personagem não jogável.
+
+**Código:**
         
         CREATE OR REPLACE FUNCTION inserir_tipo_personagem_not_play_character()
         RETURNS TRIGGER AS $inserir_tipo_personagem_not_play_character$
@@ -387,6 +460,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Quando deletar personagem jogável
 
+**Objetivo:** Remove a entrada correspondente na tabela TIPO_PERSONAGEM_HISTORIA quando um personagem jogável é deletado.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION excluir_tipo_personagem_play_character()
         RETURNS TRIGGER AS $excluir_tipo_personagem_play_character$
         BEGIN
@@ -404,6 +481,10 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         
 ## Quando deletar npc
 
+**Objetivo:** Remove a entrada correspondente na tabela TIPO_PERSONAGEM_HISTORIA quando um NPC é deletado.
+
+**Código:**
+
         CREATE OR REPLACE FUNCTION excluir_tipo_personagem_not_play_character()
         RETURNS TRIGGER AS $excluir_tipo_personagem_not_play_character$
         BEGIN
@@ -418,3 +499,466 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
         AFTER DELETE ON NOT_PLAY_CHARACTER
         FOR EACH ROW
         EXECUTE FUNCTION excluir_tipo_personagem_not_play_character();
+
+
+## Trigger para verificar a total exclusividade ao inserir em HUMANOIDE
+
+**Objetivo:** Verifica se o personagem já possui uma forma e se a chave existe em TIPO_PERSONAGEM_HISTORIA ao inserir um Humanoide.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_humanoide()
+        RETURNS TRIGGER AS $total_exclusivo_humanoide$
+        BEGIN
+            -- Verifica se a chave id_personagem existe em TIPO_PERSONAGEM_HISTORIA
+            IF NOT EXISTS (SELECT 1 FROM TIPO_PERSONAGEM_HISTORIA WHERE id_personagem = NEW.id_humanoide) THEN
+                RAISE EXCEPTION 'Chave id_personagem não existe em TIPO_PERSONAGEM_HISTORIA.';
+            END IF;
+        
+            -- Verifica se a chave id_personagem não existe em FORMA
+            IF EXISTS (SELECT 1 FROM FORMA WHERE id_personagem = NEW.id_humanoide) THEN
+                RAISE EXCEPTION 'Cada personagem só pode assumir uma forma. Chave já cadastrada.';
+            END IF;
+        
+            -- Insere em FORMA com forma igual a 'Humanoide'
+            INSERT INTO FORMA (id_personagem, forma) VALUES (NEW.id_humanoide, 'Humanoide');
+        
+            RETURN NEW;
+        END;
+        $total_exclusivo_humanoide$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER trigger_total_exclusivo_humanoide
+        BEFORE INSERT ON HUMANOIDE
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_humanoide();
+
+## Quando deletar humanoide
+
+**Objetivo:** Remove a entrada correspondente na tabela FORMA quando um Humanoide é deletado.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION excluir_forma_humanoide()
+        RETURNS TRIGGER AS $excluir_forma_humanoide$
+        BEGIN
+            -- Exclui a tupla correspondente em FORMA
+            DELETE FROM FORMA WHERE id_personagem = OLD.id_humanoide;
+        
+            RETURN OLD;
+        END;
+        $excluir_forma_humanoide$ LANGUAGE plpgsql;
+        
+        
+        CREATE TRIGGER trigger_excluir_forma_humanoide
+        AFTER DELETE ON HUMANOIDE
+        FOR EACH ROW
+        EXECUTE FUNCTION excluir_forma_humanoide();
+
+## Trigger para verificar a total exclusividade ao inserir em BESTA
+
+**Objetivo:** Verifica se o personagem não jogável já possui uma forma e se a chave existe em NOT_PLAY_CHARACTER ao inserir uma Besta.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_besta()
+        RETURNS TRIGGER AS $total_exclusivo_besta$
+        BEGIN
+            -- Verifica se a chave id_personagem existe em NOT_PLAY_CHARACTER
+            IF NOT EXISTS (SELECT 1 FROM NOT_PLAY_CHARACTER WHERE id_npc = NEW.id_besta) THEN
+                RAISE EXCEPTION 'Chave id_personagem não existe em NOT_PLAY_CHARACTER.';
+            END IF;
+        
+            -- Verifica se a chave id_personagem não existe em FORMA
+            IF EXISTS (SELECT 1 FROM FORMA WHERE id_personagem = NEW.id_besta) THEN
+                RAISE EXCEPTION 'Cada personagem só pode assumir uma forma. Chave já cadastrada.';
+            END IF;
+        
+            -- Insere em FORMA com forma igual a 'Besta'
+            INSERT INTO FORMA (id_personagem, forma) VALUES (NEW.id_besta, 'Besta');
+        
+            RETURN NEW;
+        END;
+        $total_exclusivo_besta$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER trigger_total_exclusivo_besta
+        BEFORE INSERT ON BESTA
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_besta();
+
+## Quando deletar Besta
+
+**Objetivo:** Remove a entrada correspondente na tabela FORMA quando uma Besta é deletada.
+
+**Código:**
+        CREATE OR REPLACE FUNCTION excluir_forma_besta()
+        RETURNS TRIGGER AS $excluir_forma_besta$
+        BEGIN
+        
+            DELETE FROM FORMA WHERE id_personagem = OLD.id_besta;
+        
+            RETURN OLD;
+        END;
+        $excluir_forma_besta$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER trigger_excluir_forma_besta
+        AFTER DELETE ON BESTA
+        FOR EACH ROW
+        EXECUTE FUNCTION excluir_forma_besta();
+
+## Atualização do xp após a conclusão de uma missão
+
+**Objetivo:** Atualiza o XP do personagem jogável após a conclusão bem-sucedida de uma missão.
+
+**Código:**
+        
+        CREATE OR REPLACE FUNCTION atualizar_xp_missao_matar_npc()
+        RETURNS TRIGGER AS $atualizar_xp_missao_matar_npc$
+        BEGIN
+            IF NEW.status = TRUE AND EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
+                UPDATE PLAY_CHARACTER
+                SET xp = xp + (SELECT xp_missao FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao)
+                WHERE id_play_character = NEW.id_play_character;
+            END IF;
+            RETURN NEW;
+        END;
+        $atualizar_xp_missao_matar_npc$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER atualizar_xp_missao_matar_npc_trigger
+        AFTER UPDATE ON CUMPRE_MISSAO
+        FOR EACH ROW
+        EXECUTE FUNCTION atualizar_xp_missao_matar_npc();
+        
+        
+        CREATE OR REPLACE FUNCTION atualizar_xp_missao_obter_item()
+        RETURNS TRIGGER AS $atualizar_xp_missao_obter_item$
+        BEGIN
+            IF NEW.status = TRUE AND EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
+                UPDATE PLAY_CHARACTER
+                SET xp = xp + (SELECT xp_missao FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao)
+                WHERE id_play_character = NEW.id_play_character;
+            END IF;
+        	
+            RETURN NEW;
+        END;
+        $atualizar_xp_missao_obter_item$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER atualizar_xp_missao_obter_item_trigger
+        AFTER UPDATE ON CUMPRE_MISSAO
+        FOR EACH ROW
+        EXECUTE FUNCTION atualizar_xp_missao_obter_item();
+        
+        CREATE OR REPLACE PROCEDURE concluir_missao(
+            p_id_missao CHAR(7),
+            p_id_play_character CHAR(8)
+        )
+        LANGUAGE plpgsql AS $concluir_missao$
+        BEGIN
+            UPDATE CUMPRE_MISSAO
+            SET status = TRUE
+            WHERE id_missao = p_id_missao AND id_play_character = p_id_play_character;
+        END;
+        $concluir_missao$;
+
+## Atualizar o nível quando o XP é alterado
+
+**Objetivo:** Atualiza o nível do personagem jogável quando o XP é alterado.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION atualizar_nivel()
+        RETURNS TRIGGER AS $atualizar_nivel$
+        BEGIN
+            IF NEW.xp > (SELECT XP_MAXIMO FROM NIVEL WHERE id_nivel = NEW.nivel) THEN
+                -- Aumenta o nível se o XP atual for maior que o XP máximo para o nível atual
+                UPDATE PLAY_CHARACTER
+                SET nivel = (SELECT id_nivel FROM NIVEL WHERE NEW.xp >= xp_minimo ORDER BY xp_minimo DESC LIMIT 1)
+                WHERE id_play_character = NEW.id_play_character;
+            END IF;
+            RETURN NEW;
+        END;
+        $atualizar_nivel$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER atualizar_nivel_trigger
+        AFTER UPDATE ON PLAY_CHARACTER
+        FOR EACH ROW
+        WHEN (NEW.xp <> OLD.xp)  -- A trigger só será acionada se o XP for alterado
+        EXECUTE FUNCTION atualizar_nivel();
+        
+## Garantir consistência quando for inserir em MAGIA_HUMANOIDE
+
+**Objetivo:** Verifica se o nível é 1 e o dano é igual ao dano_inicial ao inserir em MAGIA_HUMANOIDE.
+
+**Código**
+        
+        CREATE OR REPLACE FUNCTION verificar_insert_magia_humanoide()
+        RETURNS TRIGGER AS $verificar_insert_magia_humanoide$
+        BEGIN
+            -- Verifica se o nível é 1 e o dano é igual ao dano_inicial
+            IF NEW.nivel <> 1 OR NEW.dano <> (SELECT dano_inicial FROM MAGIA WHERE id_magia = NEW.id_magia) THEN
+                RAISE EXCEPTION 'Os valores de nivel e dano em MAGIA_HUMANOIDE devem ser 1 e igual ao dano_inicial em MAGIA.';
+            END IF;
+            RETURN NEW;
+        END;
+        $verificar_insert_magia_humanoide$ LANGUAGE plpgsql;
+        
+        -- Trigger para chamar a função antes do INSERT em MAGIA_HUMANOIDE
+        CREATE TRIGGER trigger_verificar_insert_magia_humanoide
+        BEFORE INSERT ON MAGIA_HUMANOIDE
+        FOR EACH ROW
+        EXECUTE FUNCTION verificar_insert_magia_humanoide();
+
+##  Atualizar MAGIA_HUMANOIDE com o aumento de nível
+
+**Objetivo:** Atualiza automaticamente o nível e o dano de MAGIA_HUMANOIDE quando o XP ou o nível do personagem jogável são atualizados.
+
+**Código**
+
+        CREATE OR REPLACE FUNCTION atualizar_magia_humanoide()
+        RETURNS TRIGGER AS $atualizar_magia_humanoide$
+        DECLARE
+            v_id_personagem CHAR(8);
+            v_novo_nivel INTEGER;
+        BEGIN
+            -- Obtém o ID do personagem
+            v_id_personagem := NEW.id_play_character;
+        
+            -- Verifica se o personagem possui uma entrada na tabela MAGIA_HUMANOIDE
+            IF NOT EXISTS (SELECT 1 FROM MAGIA_HUMANOIDE WHERE id_humanoide = v_id_personagem) THEN
+                RETURN NEW;
+            END IF;
+        
+            -- Verifica se houve mudança de nível
+            IF NEW.nivel <> OLD.nivel THEN
+            
+        
+                -- Atualiza o nível na tabela MAGIA_HUMANOIDE
+                UPDATE MAGIA_HUMANOIDE
+                SET nivel =  nivel + 1,  -- Incrementa o nível
+                    dano = dano + 10      -- Aumenta o dano em 10 pontos
+                WHERE id_humanoide = v_id_personagem;
+        
+                -- Adicione mais condições ou ajustes conforme necessário para outros níveis
+            END IF;
+        
+            RETURN NEW;
+        END;
+        $atualizar_magia_humanoide$ LANGUAGE plpgsql;
+        
+        -- Trigger para chamar a função quando o XP ou o nível são atualizados
+        CREATE TRIGGER atualizar_magia_humanoide_trigger
+        AFTER UPDATE ON PLAY_CHARACTER
+        FOR EACH ROW
+        WHEN ( NEW.nivel <> OLD.nivel)  -- A trigger só será acionada se o nível for alterado
+        EXECUTE FUNCTION atualizar_magia_humanoide();
+
+##  Garantir integridade dos tipos itens: Consumível
+
+**Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Consumível.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_consumivel()
+        RETURNS TRIGGER AS $total_exclusivo_consumivel$
+        BEGIN
+            IF(TG_OP = 'INSERT')THEN
+            	IF EXISTS (SELECT 1 FROM TIPO_ITEM WHERE id_item = NEW.id_consumivel) THEN
+                	RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ITEM.';
+            	END IF;
+        
+            	INSERT INTO TIPO_ITEM (id_item, tipo_item)
+            	VALUES (NEW.id_consumivel, 'Consumivel');
+        	
+        	END IF;
+        	
+        	IF(TG_OP = 'DELETE')THEN
+        		DELETE FROM TIPO_ITEM WHERE id_item = OLD.id_consumivel;
+        	END IF;
+            RETURN NEW;
+        END;
+        $total_exclusivo_consumivel$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER total_exclusivo_consumivel
+        BEFORE INSERT OR DELETE ON CONSUMIVEL
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_consumivel();
+
+## Garantir integridade dos tipos itens: Vestimenta
+
+**Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Vestimenta.
+
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_vestimenta()
+        RETURNS TRIGGER AS $total_exclusivo_vestimenta$
+        BEGIN
+            IF (TG_OP = 'INSERT') THEN
+                IF EXISTS (SELECT 1 FROM TIPO_ITEM WHERE id_item = NEW.id_vestimenta) THEN
+                    RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ITEM.';
+                END IF;
+        
+                INSERT INTO TIPO_ITEM (id_item, tipo_item)
+                VALUES (NEW.id_vestimenta, 'Vestimenta');
+        
+            END IF;
+        
+            IF (TG_OP = 'DELETE') THEN
+                DELETE FROM TIPO_ITEM WHERE id_item = OLD.id_vestimenta;
+            END IF;
+        
+            RETURN NEW;
+        END;
+        $total_exclusivo_vestimenta$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER total_exclusivo_vestimenta
+        BEFORE INSERT OR DELETE ON VESTIMENTA
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_vestimenta();
+
+## Garantir integridade dos tipos itens: Arma
+
+**Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Arma.
+
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_arma()
+        RETURNS TRIGGER AS $total_exclusivo_arma$
+        BEGIN
+            IF (TG_OP = 'INSERT') THEN
+                IF EXISTS (SELECT 1 FROM TIPO_ITEM WHERE id_item = NEW.id_arma) THEN
+                    RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ITEM.';
+                END IF;
+        
+                INSERT INTO TIPO_ITEM (id_item, tipo_item)
+                VALUES (NEW.id_arma, 'Arma');
+        
+            END IF;
+        
+            IF (TG_OP = 'DELETE') THEN
+                DELETE FROM TIPO_ITEM WHERE id_item = OLD.id_arma;
+            END IF;
+        
+            RETURN NEW;
+        END;
+        $total_exclusivo_arma$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER total_exclusivo_arma
+        BEFORE INSERT OR DELETE ON ARMA
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_arma();
+
+## Garantir integridade dos tipos itens: Gema
+
+**Objetivo:** Mantém a tabela TIPO_ITEM atualizada para refletir os itens do tipo Arma.
+
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION total_exclusivo_gema()
+        RETURNS TRIGGER AS $total_exclusivo_gema$
+        BEGIN
+            IF (TG_OP = 'INSERT') THEN
+                IF EXISTS (SELECT 1 FROM TIPO_ITEM WHERE id_item = NEW.id_gema) THEN
+                    RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ITEM.';
+                END IF;
+        
+                INSERT INTO TIPO_ITEM (id_item, tipo_item)
+                VALUES (NEW.id_gema, 'Gema');
+        
+            END IF;
+        
+            IF (TG_OP = 'DELETE') THEN
+                DELETE FROM TIPO_ITEM WHERE id_item = OLD.id_gema;
+            END IF;
+        
+            RETURN NEW;
+        END;
+        $total_exclusivo_gema$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER total_exclusivo_gema
+        BEFORE INSERT OR DELETE ON GEMA
+        FOR EACH ROW
+        EXECUTE FUNCTION total_exclusivo_gema();
+
+## Integridade de dados para consumiveis
+
+**Objetivo:** Verifica se o tipo de consumível é válido ao inserir em CONSUMIVEL.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION validar_tipo_consumivel()
+        RETURNS TRIGGER AS $validar_tipo_consumivel$
+        BEGIN
+            
+            IF NEW.tipo_consumivel <> 'Force' AND NEW.tipo_consumivel <> 'Heal' AND NEW.tipo_consumivel <> 'Energy' THEN
+                RAISE EXCEPTION 'Tipo de consumível inválido. Use "Force" para força, "Heal" para cura e "Energy" para energia.' USING HINT = 'Valores permitidos são "Force", "Heal" e "Energy".';
+            END IF;
+        
+        
+            RETURN NEW;
+        END;
+        $validar_tipo_consumivel$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER validar_tipo_consumivel_trigger
+        BEFORE INSERT ON CONSUMIVEL
+        FOR EACH ROW
+        EXECUTE FUNCTION validar_tipo_consumivel();
+        
+## Trigger para quantidade máxima de consumíveis
+
+**Objetivo:** Impede que a quantidade de consumo seja maior que 3 em CONSOME.
+
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION check_quantidade_limite()
+        RETURNS TRIGGER AS $check_quantidade_limite$
+        BEGIN
+            -- Verifica se a quantidade é menor ou igual a 3
+            IF NEW.quantidade > 3 THEN
+                RAISE EXCEPTION 'A quantidade de consumo deve ser no máximo 3.';
+            END IF;
+        
+            RETURN NEW;
+        END;
+        $check_quantidade_limite$ LANGUAGE plpgsql;
+        
+        CREATE TRIGGER check_quantidade_limite_trigger
+        BEFORE INSERT OR UPDATE ON CONSOME
+        FOR EACH ROW
+        EXECUTE FUNCTION check_quantidade_limite();
+
+## Zerar a quantidade de consumíveis consumidos quando passar de nivel
+
+**Objetivo:** Zera a quantidade de consumíveis consumidos quando o personagem jogável passa de nível.
+
+**Código:**
+
+        CREATE OR REPLACE FUNCTION zerar_quantidade_nivel()
+        RETURNS TRIGGER AS $zerar_quantidade_nivel$
+        BEGIN
+            -- Zera a quantidade quando o Play_character passa de nível
+            UPDATE CONSOME
+            SET quantidade = 0
+            WHERE id_play_character = NEW.id_play_character;
+        
+            RETURN NEW;
+        END;
+        $zerar_quantidade_nivel$ LANGUAGE plpgsql;
+        
+        -- Trigger para executar quando o nível do Play_character é atualizado
+        CREATE TRIGGER zerar_quantidade_nivel_trigger
+        AFTER UPDATE OF nivel ON PLAY_CHARACTER
+        FOR EACH ROW
+        EXECUTE FUNCTION zerar_quantidade_nivel();
+
+
+## Histórico de Versão
+
+
+| Versão | Alteração | Responsável | Revisor | Data |
+| - | - | - | - | - |
+| 1.0 | Criaçao das Triggers | Larissa Stéfane | - | 26/11/2023    
+| 2.0 | Adicionar mais triggers | Larissa Stéfane | - | 30/11/2023
+| 3.0 | Correção do md | Larissa Stéfane | - | 02/12/2023
