@@ -26,7 +26,7 @@ Após o feedback do professor, foi replanejada a organização e a estrutura do 
     
   8 - O relacionamento com diálogo passou a ser com a entidade Personagem (envolve tan PCs quanto NPCs) e com as missões.
     
-  9 - Nas missões de matar NPCs, será realizado um procede para verificar o tipo de PC, a instância é só para indicar que mata instância e não o PC em si.
+  9 - Nas missões de matar NPCs, será realizado um procede para verificar o tipo de  NPC por meio de um atributo "Tipo_intância_NPC". Assim, por exemplo, se a missão é para batar lobos, é para matar instancias que foram originadas a partir do npc lobo.
 
 ## Diagrama:
 
