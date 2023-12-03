@@ -721,6 +721,7 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
       CREATE TABLE APRENDER_ENCANTAMENTO(
       	id_encantamento CHAR(7),
       	id_play_character CHAR(8),
+        status BOOLEAN,
       	primary key(id_encantamento,id_play_character),
       	CONSTRAINT fk_id_encantamento
               FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
