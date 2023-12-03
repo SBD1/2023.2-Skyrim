@@ -22,7 +22,7 @@ Após o feedback do professor, foi replanejada a organização e a estrutura do 
     
   6- Para desenvolver o PC, magia possui um nível específico.
     
-  7 - Para um instância poder apontar para dois lugares que podem estar, ela tem um relacionamento de possibilidade com relação ao inventário e à sala.
+  7 - Para um instância poder apontar para dois lugares que podem estar, ela tem um relacionamento de possibilidade com relação ao inventário e à sala. Isso também é útil para saber quais instância estão localizadas em lojas.
     
   8 - O relacionamento com diálogo passou a ser com a entidade Personagem (envolve tan PCs quanto NPCs) e com as missões.
     
