@@ -12,7 +12,7 @@ Aqui estão os procedures desenvolvidos para o funcionamento do jogo
 
 ## Código Completo em SQL
 
-Caso deseje visualizar o código completo dos Procedures clique no link: [Procedure](procedures.sql)
+Caso deseje visualizar o código completo dos Procedures clique no link: [Procedure](Procedures.sql)
 
 ## Atualização da mana com o uso de magia com combate
 
