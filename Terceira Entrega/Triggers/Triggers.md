@@ -53,7 +53,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
 
 ## Código Completo em SQL
 
-Caso deseje visualizar o código completo dos triggers e Functions clique no link: [Triggers](triggers01_12.sql)
+Caso deseje visualizar o código completo dos triggers e Functions clique no link: [Triggers](triggers_03_12.sql)
 
 ## Garantir que o peso do inventário não seja excedido.
 
