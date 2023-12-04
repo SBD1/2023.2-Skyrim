@@ -1,4 +1,5 @@
 from config import config_database 
+import os 
 
 def menu():
 	print("Seja bem-vindo ao jogo Skyrim")
@@ -12,5 +13,6 @@ def menu():
 		print("Até mais ..")
 		exit(0)
 
-config_database()		
-#menu()
+config_database()
+os.system('clear')
+menu()

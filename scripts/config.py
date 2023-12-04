@@ -13,11 +13,20 @@ def config_database():
 	
 	try:
 		helper.info('info','Conectando ao banco de dados ...') 
-		ptr = db.connect(dbname=db_name,user=db_user,password=db_pass,host=db_host)
-		helper.info('info','Banco de dados conectado ...') 
-		return ptr.cursor()
+		cursor = db.connect(dbname=db_name,user=db_user,password=db_pass,host=db_host).cursor()
+		helper.info('info','Banco de dados conectado ...')
+		
+		try:
+			sql = open('../Terceira Entrega/Atualizacao/CREATE_TABLE/Codigo_completo.sql').read()
+			cursor.execute(sql)
+			return cursor
+		
+		except FileNotFoundError as e:
+			helper.info('e',e)
+			exit(e.errno)
+	
 	except db.Error as e:
 		helper.info('e','Erro na conexão com o banco de dados. Verifique as configurações e tente novamente .')
 		helper.info('e',e)
-		return None
+		exit(-1)
 	
