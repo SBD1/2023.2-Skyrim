@@ -43,6 +43,11 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
  * [Integridade de dados para consumiveis](#Integridade-de-dados-para-consumiveis)
  * [Trigger para quantidade máxima de consumíveis](#Trigger-para-quantidade-máxima-de-consumíveis)
  * [Zerar a quantidade de consumíveis consumidos quando passar de nivel](#Zerar-a-quantidade-de-consumíveis-consumidos-quando-passar-de-nivel)
+ * [Garantir integridade em Missões de matar_npc](Garantir-integridade-em-Missões-de-matar_npc)
+ * [Garantir integridade em missões obter item](Garantir-integridade-em-missões-obter-item)
+ * [Inserir na tabela aprende_encantamento](Inserir-na-tabela-aprende_encantamento)
+ * [Integridade em encantamento total exclusivo vestimenta](Integridade-em-encantamento-total-exclusivo-vestimenta)
+ * [Integridade em encantamento total exclusivo arma](Integridade-em-encantamento-total-exclusivo-arma)
  * [Histórico de Versão](#Histórico-de-Versão)
    
 
@@ -953,7 +958,153 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
         FOR EACH ROW
         EXECUTE FUNCTION zerar_quantidade_nivel();
 
+## Garantir integridade em Missões de matar_npc
 
+**Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
+
+**Código**
+         CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
+             RETURNS TRIGGER AS $inserir_missao_matar_npc$
+             BEGIN
+                 IF TG_OP = 'INSERT' THEN
+                     -- Verifica se a chave já existe em TIPO_MISSAO
+                     IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
+                         RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
+                     END IF;
+         			
+         			
+                 END IF;
+         
+                 IF TG_OP = 'DELETE' THEN
+                     DELETE FROM TIPO_MISSAO WHERE id_MISSAO = OLD.id_missao;
+                 END IF;
+         
+                 RETURN NEW;
+             END;
+             $inserir_missao_matar_npc$ LANGUAGE plpgsql;
+         
+         CREATE TRIGGER inserir_missao_matar_npc
+             BEFORE INSERT OR DELETE ON MISSAO_MATAR_NPC
+             FOR EACH ROW
+             EXECUTE FUNCTION inserir_missao_matar_npc();
+         
+
+## Garantir integridade em missões obter item
+
+**Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
+
+**Código** 
+            CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
+                RETURNS TRIGGER AS $inserir_missao_obter_item$
+                BEGIN
+                    IF TG_OP = 'INSERT' THEN
+                        -- Verifica se a chave já existe em TIPO_MISSAO
+                        IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
+                            RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
+                        END IF;
+            			
+            			
+                    END IF;
+            
+                    IF TG_OP = 'DELETE' THEN
+                        DELETE FROM TIPO_MISSAO WHERE id_MISSAO = OLD.id_missao;
+                    END IF;
+            
+                    RETURN NEW;
+                END;
+                $inserir_missao_obter_item$ LANGUAGE plpgsql;
+            
+            CREATE TRIGGER inserir_missao_obter_item
+                BEFORE INSERT OR DELETE ON MISSAO_OBTER_ITEM
+                FOR EACH ROW
+                EXECUTE FUNCTION inserir_missao_obter_item();
+
+## Inserir na tabela aprende_encantamento
+
+**Objetivo:** Quando um novo play_character é cadastrado, automaticamente, são feitos inserts na tabela Aprender_ENCANTAMENTO, mas os seus status são sempre FALSE.
+
+**Código**
+         CREATE OR REPLACE FUNCTION inserir_aprendizado_encantamentos()
+         RETURNS TRIGGER AS $inserir_aprendizado_encantamentos$
+         BEGIN
+             -- Inserir aprendizado para todos os tipos de encantamento com status FALSE
+             INSERT INTO APRENDER_ENCANTAMENTO (id_encantamento, id_play_character, status)
+             SELECT id_encantamento, NEW.id_play_character, FALSE
+             FROM TIPO_ENCANTAMENTO;
+         
+             RETURN NEW;
+         END;
+         $inserir_aprendizado_encantamentos$ LANGUAGE plpgsql;
+         
+         CREATE TRIGGER inserir_aprendizado_encantamentos
+         AFTER INSERT ON PLAY_CHARACTER
+         FOR EACH ROW
+         EXECUTE FUNCTION inserir_aprendizado_encantamentos();
+
+## Integridade em encantamento total exclusivo vestimenta
+
+**Objetivo:** Garantir a integridade ao inserir na tabela de encantamento de vestimenta
+
+**Código**
+         CREATE OR REPLACE FUNCTION total_exclusivo_encantamento_vestimenta()
+         RETURNS TRIGGER AS $total_exclusivo_encantamento_vestimenta$
+         BEGIN
+             IF (TG_OP = 'INSERT') THEN
+                 IF EXISTS (SELECT 1 FROM TIPO_ENCANTAMENTO WHERE id_encantamento = NEW.id_encantamento) THEN
+                     RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ENCANTAMENTO.';
+                 END IF;
+         
+                 INSERT INTO TIPO_ENCANTAMENTO (id_encantamento, tipo_encatamento)
+                 VALUES (NEW.id_encantamento, 'Encantamento de Vestimenta');
+         
+             END IF;
+         
+             IF (TG_OP = 'DELETE') THEN
+                 DELETE FROM TIPO_ENCANTAMENTO WHERE id_encantamento = OLD.id_encantamento;
+             END IF;
+         
+             RETURN NEW;
+         END;
+         $total_exclusivo_encantamento_vestimenta$ LANGUAGE plpgsql;
+         
+         CREATE TRIGGER total_exclusivo_encantamento_vestimenta
+         BEFORE INSERT OR DELETE ON ENCANTAMENTO_VESTIMENTA
+         FOR EACH ROW
+         EXECUTE FUNCTION total_exclusivo_encantamento_vestimenta();
+
+## Integridade em encantamento total exclusivo arma
+
+**Objetivo:** Garantir a integridade ao inserir na tabela de encantamento arma
+
+**Código**
+
+         CREATE OR REPLACE FUNCTION total_exclusivo_encantamento_arma()
+         RETURNS TRIGGER AS $total_exclusivo_encantamento_arma$
+         BEGIN
+             IF (TG_OP = 'INSERT') THEN
+                 IF EXISTS (SELECT 1 FROM TIPO_ENCANTAMENTO WHERE id_encantamento = NEW.id_encantamento) THEN
+                     RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ENCANTAMENTO.';
+                 END IF;
+         
+                 INSERT INTO TIPO_ENCANTAMENTO (id_encantamento, tipo_encatamento)
+                 VALUES (NEW.id_encantamento, 'Encantamento de Arma');
+         
+             END IF;
+         
+             IF (TG_OP = 'DELETE') THEN
+                 DELETE FROM TIPO_ENCANTAMENTO WHERE id_encantamento = OLD.id_encantamento;
+             END IF;
+         
+             RETURN NEW;
+         END;
+         $total_exclusivo_encantamento_arma$ LANGUAGE plpgsql;
+         
+         CREATE TRIGGER total_exclusivo_encantamento_arma
+         BEFORE INSERT OR DELETE ON ENCANTAMENTO_ARMA
+         FOR EACH ROW
+         EXECUTE FUNCTION total_exclusivo_encantamento_arma();
+
+         
 ## Histórico de Versão
 
 
@@ -962,3 +1113,4 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 | 1.0 | Criaçao das Triggers | Larissa Stéfane | - | 26/11/2023    
 | 2.0 | Adicionar mais triggers | Larissa Stéfane | - | 30/11/2023
 | 3.0 | Correção do md | Larissa Stéfane | - | 02/12/2023
+| 4.0 | Adicionar mais triggers | Larissa Stéfane | - | 03/12/2023
