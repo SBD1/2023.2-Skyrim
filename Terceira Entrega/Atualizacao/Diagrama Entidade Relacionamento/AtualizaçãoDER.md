@@ -27,6 +27,8 @@ Após o feedback do professor, foi replanejada a organização e a estrutura do 
   8 - O relacionamento com diálogo passou a ser com a entidade Personagem (envolve tan PCs quanto NPCs) e com as missões.
     
   9 - Nas missões de matar NPCs, será realizado um procede para verificar o tipo de  NPC por meio de um atributo "Tipo_intância_NPC". Assim, por exemplo, se a missão é para batar lobos, é para matar instancias que foram originadas a partir do npc lobo.
+  
+  10 - As relações de aliança ou não virou um autorelacionamento na entidade personagem. 
 
 ## Diagrama:
 
