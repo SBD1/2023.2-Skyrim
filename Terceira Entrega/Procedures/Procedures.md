@@ -7,6 +7,7 @@ Aqui estão os procedures desenvolvidos para o funcionamento do jogo
 * [Atualização da mana com o uso de magia com combate](Atualização-da-mana-com-o-uso-de-magia-com-combate)
 * [Atualizações quando concluir missão](Atualizações-quando-concluirmissão)
 * [Relação de consumir em determinado nível](Relação-de-consumir-em-determinado-nível)
+* [Realizar Encantamento](Realizar-Encantamento)
 * [Histórico de Versão](#Histórico-de-Versão)
 
 ## Código Completo em SQL
@@ -159,6 +160,84 @@ Caso deseje visualizar o código completo dos Procedures clique no link: [Proced
           END;
           $consumir$;
 
+## Realizar Encantamento
+
+**Objetivo:** Garantir que todos os pré-requisitos para fazer um certo encantamento estão feitos.
+
+**Funcionamento**
+ - Verificar qual é a gema necessária para realizar o encantamento.
+ - Verificar se o PC possui uma das instâncias que foram geradas a partir da gema do encantamento.
+ - Verificar se o PC sabe o encantamento. Se não souber, não pode realizá-lo.
+
+**Código**
+
+         CREATE OR REPLACE PROCEDURE realizar_encantamento(
+             p_id_play_character CHAR(8),
+             p_id_encantamento CHAR(7)
+         )
+         LANGUAGE plpgsql AS $realizar_encantamento$
+         DECLARE
+             v_id_inventario CHAR(7);
+         	v_id_gema CHAR(7);
+             v_qtd_gemas INTEGER;
+             v_gema_valida BOOLEAN;
+         BEGIN
+             -- Obtém o id_inventario do Play Character
+             SELECT id_inventario
+             INTO v_id_inventario
+             FROM PLAY_CHARACTER
+             WHERE id_play_character = p_id_play_character;
+         	
+         	-- Verificar a gema do encantamento
+         	SELECT id_gema
+             INTO v_id_gema
+             FROM PROPORCIONA_ENCANTAMENTO
+             WHERE id_encantamento = p_id_encantamento;
+         
+             -- Verifica quantas gemas do encantamento o Play Character possui no inventário
+             SELECT COUNT(*)
+             INTO v_qtd_gemas
+             FROM INSTANCIA_ITEM i
+             JOIN GEMA ON i.id_item = GEMA.id_gema
+             WHERE i.local_inventario = v_id_inventario
+               AND GEMA.id_gema = v_id_gema;
+         
+             -- Se o Play Character possui mais de uma gema, verifica se alguma é válida
+             IF v_qtd_gemas > 0 THEN
+                 -- Verifica se pelo menos uma gema é válida para o encantamento
+                 SELECT EXISTS (
+                     SELECT 1
+                     FROM PROPORCIONA_ENCANTAMENTO pe
+                     WHERE pe.id_gema = v_id_gema
+                 )
+                 INTO v_gema_valida;
+         
+                 IF NOT v_gema_valida THEN
+                     RAISE EXCEPTION 'Nenhuma gema válida para o encantamento encontrada no inventário.';
+                 END IF;
+         
+                 -- Verifica se o Play Character pode realizar o encantamento (status = TRUE)
+                 IF NOT EXISTS (
+                     SELECT 1
+                     FROM APRENDER_ENCANTAMENTO
+                     WHERE id_play_character = p_id_play_character
+                       AND id_encantamento = p_id_encantamento
+                       AND status = TRUE
+                 ) THEN
+                     RAISE EXCEPTION 'Play Character não sabe o encantamento.';
+                 END IF;
+         
+                 -- Lógica para realizar o encantamento
+                 -- Adicione aqui o código para aplicar o encantamento
+         
+         
+             ELSE
+                 RAISE EXCEPTION 'Play Character não possui a gema necessária para o encantamento no inventário.';
+             END IF;
+         
+         END;
+         $realizar_encantamento$;
+
 
 ## Histórico de Versão
 
@@ -168,3 +247,4 @@ Caso deseje visualizar o código completo dos Procedures clique no link: [Proced
 | 1.0 | Criação dos procedures | Larissa Stéfane | - | 01/12/2023    
 | 2.0 | Criação dos procedures | Leonardo Machado | - | 01/12/2023
 | 3.0 | Criação do md | Larissa Stéfane | - | 02/12/2023
+| 4.0 | Adicionar mais procedures | Larissa Stéfane | - | 03/12/2023
