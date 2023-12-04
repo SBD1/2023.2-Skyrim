@@ -1,9 +1,10 @@
 
 # Criações das tabelas
 
-Aqui são apresentados os códigos ou scripts utilizados para a criação das 42 tabelas do modelo relacional do jogo. 
+Aqui são apresentados os códigos ou scripts utilizados para a criação das 46 tabelas do modelo relacional do jogo. 
 
 ## Sumário
+* [Códigos em sql](#Códigos-em-sql)
 * [A questão das id](#A-questão-das-id)
 
  * [REGIAO](#REGIAO)
@@ -46,7 +47,11 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 42
  * [PROPORCIONA_ENCANTAMENTO](#PROPORCIONA_ENCANTAMENTO)
  * [APRENDER_ENCANTAMENTO](#APRENDER_ENCANTAMENTO)
 
+## Códigos em sql
 
+Caso você deseje visualizar apenas a criação das tabelas em sql -> clique em [CREATE_TABLES](CREATE_TABLES.sql)
+
+Caso deseje visualizar o código completo com a criação das tabelas, os triggers e os procedures -> clique em [Codigo_completo](Codigo_completo.sql)
 
 ## A questão das id:
 Para a criação das ids de cada tabela, foram levados em consideração padroẽs para cada um, ou seja, cada id será avaliada por um conjunto de regras para por der cadastrada no banco.
