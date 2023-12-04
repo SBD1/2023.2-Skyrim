@@ -2,7 +2,7 @@ networks:
   skyrim_net:
 services:
   postgres:
-    container_name: skyrim_database
+    container_name: skyrim_db
     image:  postgres:14
     env_file:
       - .env

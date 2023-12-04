@@ -16,7 +16,8 @@ def config_database():
 		ptr = db.connect(dbname=db_name,user=db_user,password=db_pass,host=db_host)
 		helper.info('info','Banco de dados conectado ...') 
 		return ptr.cursor()
-	except :
+	except db.Error as e:
 		helper.info('e','Erro na conexão com o banco de dados. Verifique as configurações e tente novamente .')
+		helper.info('e',e)
 		return None
 	
