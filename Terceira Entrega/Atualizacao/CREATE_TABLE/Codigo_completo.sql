@@ -605,6 +605,7 @@ CREATE TABLE PROPORCIONA_ENCANTAMENTO(
 CREATE TABLE APRENDER_ENCANTAMENTO(
 	id_encantamento CHAR(7),
 	id_play_character CHAR(8),
+	status BOOLEAN,
 	primary key(id_encantamento,id_play_character),
 	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -1545,6 +1546,208 @@ $uso_magia$ LANGUAGE plpgsql;
 
 
 
+
+
+--- Garantir integridade em Missões de matar_npc
+CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
+    RETURNS TRIGGER AS $inserir_missao_matar_npc$
+    BEGIN
+        IF TG_OP = 'INSERT' THEN
+            -- Verifica se a chave já existe em TIPO_MISSAO
+            IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
+                RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
+            END IF;
+			
+			
+        END IF;
+
+        IF TG_OP = 'DELETE' THEN
+            DELETE FROM TIPO_MISSAO WHERE id_MISSAO = OLD.id_missao;
+        END IF;
+
+        RETURN NEW;
+    END;
+    $inserir_missao_matar_npc$ LANGUAGE plpgsql;
+
+CREATE TRIGGER inserir_missao_matar_npc
+    BEFORE INSERT OR DELETE ON MISSAO_MATAR_NPC
+    FOR EACH ROW
+    EXECUTE FUNCTION inserir_missao_matar_npc();
+
+--- Garantir integridade em missãos obter item:
+
+CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
+    RETURNS TRIGGER AS $inserir_missao_obter_item$
+    BEGIN
+        IF TG_OP = 'INSERT' THEN
+            -- Verifica se a chave já existe em TIPO_MISSAO
+            IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
+                RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
+            END IF;
+			
+			
+        END IF;
+
+        IF TG_OP = 'DELETE' THEN
+            DELETE FROM TIPO_MISSAO WHERE id_MISSAO = OLD.id_missao;
+        END IF;
+
+        RETURN NEW;
+    END;
+    $inserir_missao_obter_item$ LANGUAGE plpgsql;
+
+CREATE TRIGGER inserir_missao_obter_item
+    BEFORE INSERT OR DELETE ON MISSAO_OBTER_ITEM
+    FOR EACH ROW
+    EXECUTE FUNCTION inserir_missao_obter_item();
+
+--- Garantir integridade quando for realizar um encantamento:
+CREATE OR REPLACE PROCEDURE realizar_encantamento(
+    p_id_play_character CHAR(8),
+    p_id_encantamento CHAR(7)
+)
+LANGUAGE plpgsql AS $realizar_encantamento$
+DECLARE
+    v_id_inventario CHAR(7);
+	v_id_gema CHAR(7);
+    v_qtd_gemas INTEGER;
+    v_gema_valida BOOLEAN;
+BEGIN
+    -- Obtém o id_inventario do Play Character
+    SELECT id_inventario
+    INTO v_id_inventario
+    FROM PLAY_CHARACTER
+    WHERE id_play_character = p_id_play_character;
+	
+	-- Verificar a gema do encantamento
+	SELECT id_gema
+    INTO v_id_gema
+    FROM PROPORCIONA_ENCANTAMENTO
+    WHERE id_encantamento = p_id_encantamento;
+
+    -- Verifica quantas gemas do encantamento o Play Character possui no inventário
+    SELECT COUNT(*)
+    INTO v_qtd_gemas
+    FROM INSTANCIA_ITEM i
+    JOIN GEMA ON i.id_item = GEMA.id_gema
+    WHERE i.local_inventario = v_id_inventario
+      AND GEMA.id_gema = v_id_gema;
+
+    -- Se o Play Character possui mais de uma gema, verifica se alguma é válida
+    IF v_qtd_gemas > 0 THEN
+        -- Verifica se pelo menos uma gema é válida para o encantamento
+        SELECT EXISTS (
+            SELECT 1
+            FROM PROPORCIONA_ENCANTAMENTO pe
+            WHERE pe.id_gema = v_id_gema
+        )
+        INTO v_gema_valida;
+
+        IF NOT v_gema_valida THEN
+            RAISE EXCEPTION 'Nenhuma gema válida para o encantamento encontrada no inventário.';
+        END IF;
+
+        -- Verifica se o Play Character pode realizar o encantamento (status = TRUE)
+        IF NOT EXISTS (
+            SELECT 1
+            FROM APRENDER_ENCANTAMENTO
+            WHERE id_play_character = p_id_play_character
+              AND id_encantamento = p_id_encantamento
+              AND status = TRUE
+        ) THEN
+            RAISE EXCEPTION 'Play Character não sabe o encantamento.';
+        END IF;
+
+        -- Lógica para realizar o encantamento
+        -- Adicione aqui o código para aplicar o encantamento
+
+
+    ELSE
+        RAISE EXCEPTION 'Play Character não possui a gema necessária para o encantamento no inventário.';
+    END IF;
+
+END;
+$realizar_encantamento$;
+
+--- Inserir na tabela aprende_encantamento
+
+CREATE OR REPLACE FUNCTION inserir_aprendizado_encantamentos()
+RETURNS TRIGGER AS $inserir_aprendizado_encantamentos$
+BEGIN
+    -- Inserir aprendizado para todos os tipos de encantamento com status FALSE
+    INSERT INTO APRENDER_ENCANTAMENTO (id_encantamento, id_play_character, status)
+    SELECT id_encantamento, NEW.id_play_character, FALSE
+    FROM TIPO_ENCANTAMENTO;
+
+    RETURN NEW;
+END;
+$inserir_aprendizado_encantamentos$ LANGUAGE plpgsql;
+
+CREATE TRIGGER inserir_aprendizado_encantamentos
+AFTER INSERT ON PLAY_CHARACTER
+FOR EACH ROW
+EXECUTE FUNCTION inserir_aprendizado_encantamentos();
+
+-- Integridade em encantamento total exclusivo vestimenta
+CREATE OR REPLACE FUNCTION total_exclusivo_encantamento_vestimenta()
+RETURNS TRIGGER AS $total_exclusivo_encantamento_vestimenta$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        IF EXISTS (SELECT 1 FROM TIPO_ENCANTAMENTO WHERE id_encantamento = NEW.id_encantamento) THEN
+            RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ENCANTAMENTO.';
+        END IF;
+
+        INSERT INTO TIPO_ENCANTAMENTO (id_encantamento, tipo_encatamento)
+        VALUES (NEW.id_encantamento, 'Encantamento de Vestimenta');
+
+    END IF;
+
+    IF (TG_OP = 'DELETE') THEN
+        DELETE FROM TIPO_ENCANTAMENTO WHERE id_encantamento = OLD.id_encantamento;
+    END IF;
+
+    RETURN NEW;
+END;
+$total_exclusivo_encantamento_vestimenta$ LANGUAGE plpgsql;
+
+CREATE TRIGGER total_exclusivo_encantamento_vestimenta
+BEFORE INSERT OR DELETE ON ENCANTAMENTO_VESTIMENTA
+FOR EACH ROW
+EXECUTE FUNCTION total_exclusivo_encantamento_vestimenta();
+
+-- Integridade em encantamento total exclusivo arma
+
+CREATE OR REPLACE FUNCTION total_exclusivo_encantamento_arma()
+RETURNS TRIGGER AS $total_exclusivo_encantamento_arma$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        IF EXISTS (SELECT 1 FROM TIPO_ENCANTAMENTO WHERE id_encantamento = NEW.id_encantamento) THEN
+            RAISE EXCEPTION 'Chave duplicada na tabela TIPO_ENCANTAMENTO.';
+        END IF;
+
+        INSERT INTO TIPO_ENCANTAMENTO (id_encantamento, tipo_encatamento)
+        VALUES (NEW.id_encantamento, 'Encantamento de Arma');
+
+    END IF;
+
+    IF (TG_OP = 'DELETE') THEN
+        DELETE FROM TIPO_ENCANTAMENTO WHERE id_encantamento = OLD.id_encantamento;
+    END IF;
+
+    RETURN NEW;
+END;
+$total_exclusivo_encantamento_arma$ LANGUAGE plpgsql;
+
+CREATE TRIGGER total_exclusivo_encantamento_arma
+BEFORE INSERT OR DELETE ON ENCANTAMENTO_ARMA
+FOR EACH ROW
+EXECUTE FUNCTION total_exclusivo_encantamento_arma();
+
+
+
+
+-- Integridade em encantamento vestimenta.
+
 -- TESTE:
 
 INSERT INTO REGIAO (id_regiao, nome)
@@ -1565,6 +1768,13 @@ INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
 VALUES ('INV0001', 50.0, 100, FALSE);
 INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
 VALUES ('INV0002', 50.0, 100, FALSE);
+
+
+INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
+VALUES ('ITEM003', 'Vestimento de Aventura', 50, 5.0, 'Robe', 10, 'Torso');
+
+INSERT INTO ENCANTAMENTO_VESTIMENTA (id_encantamento, id_vestimenta, elemento, resistencia)
+VALUES ('ENCV001', 'ITEM003', 'Fogo', 5);
 
 
 -- Inserção na tabela nivel
@@ -1589,6 +1799,7 @@ VALUES ('MIS0001', 'Objetivo de Exemplo', TRUE);
 INSERT INTO MISSAO_MATAR_NPC (id_missao, xp_missao, nome_missao, id_pre_requisito, id_instancia_npc, tipo_npc)
 VALUES ('MIS0001', 60, 'Missão de Matar NPC', NULL, 'INPC0001', 'CHAR0002');
 
+
 INSERT INTO MAGIA (id_magia, nome, elemento, dano_inicial, custo_mana)
 VALUES ('MAG0001', 'Magia de Fogo', 'Fogo', 60, 8);
 
@@ -1609,6 +1820,12 @@ VALUES ('CHAR0001', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 'ESPEC
 INSERT INTO CONSUMIVEL (id_consumivel, nome, valor, peso, tipo_consumivel, aumento)
 VALUES ( 'ITEM001', 'Bebida de fogo', 12, 22.2, 'Heal', 10);
 
+INSERT INTO GEMA (id_gema, nome, valor, peso, potencia)
+VALUES ('ITEM002', 'Gema de Cristal', 34, 2.5, 8);
+
+INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_local, local_inventario, local_sala, eqp_status)
+VALUES ('IITEM002', 'ITEM002', 'Inventário', 'INV0001', NULL , FALSE);
+
 INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_local, local_inventario, local_sala, eqp_status)
 VALUES ('IITEM001', 'ITEM001', 'Sala', NULL, 'ROOM001', FALSE);
 
@@ -1622,13 +1839,23 @@ Values ('MIS0001', 'N01');
 INSERT INTO CUMPRE_MISSAO (id_missao, id_play_character, status)
 VALUES ('MIS0001', 'CHAR0001', FALSE);
 
+INSERT INTO PROPORCIONA_ENCANTAMENTO(id_gema, id_encantamento)
+VALUES ('ITEM002','ENCV001');
+
+UPDATE APRENDER_ENCANTAMENTO 
+SET status = TRUE
+WHERE id_encantamento = 'ENCV001' AND id_play_character = 'CHAR0001';
+--select * from cumpre_missao;
+
+-- Atualização do nível
+
+-- Trigger para atualizar o nível quando o XP é alterad
+
 
 --CALL concluir_missao('MIS0001', 'CHAR0001');
 --CALL consumir('ITEM001', 'CHAR0001');
-CALL uso_magia('CHAR0001', 'MAG0001', 'INPC0001');
+CALL realizar_encantamento('CHAR0001', 'ENCV001');
 --select * FROM PLAY_CHARACTER;
-SELECT * FROM ESTA_MORTO;
-
-
+--SELECT * FROM INSTANCIA_ITEM;
 
 

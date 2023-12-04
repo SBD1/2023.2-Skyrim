@@ -120,7 +120,7 @@ CREATE TABLE NIVEL(
 	--CONSTRAINT id_nivel
 	--CHECK( id_nivel LIKE 'N'
       -- AND CAST(SUBSTRING(id_nivel, 2,2) AS INTEGER) BETWEEN 00 AND 99
-      -- AND LENGTH(id_nivel) = 3)
+       --AND LENGTH(id_nivel) = 3)
 );
 
 CREATE TABLE FORMA (
@@ -528,7 +528,6 @@ CREATE TABLE ARMA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-	dano INTEGER,
     tipo_arma CHAR(20),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
@@ -606,6 +605,7 @@ CREATE TABLE PROPORCIONA_ENCANTAMENTO(
 CREATE TABLE APRENDER_ENCANTAMENTO(
 	id_encantamento CHAR(7),
 	id_play_character CHAR(8),
+	status BOOLEAN,
 	primary key(id_encantamento,id_play_character),
 	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -617,4 +617,3 @@ CREATE TABLE APRENDER_ENCANTAMENTO(
         ON UPDATE CASCADE
 
 );
-

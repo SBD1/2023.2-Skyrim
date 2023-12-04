@@ -1,5 +1,4 @@
-
---Atualização da mana com o uso de magia com combate:
+-- Atualização da mana com o uso de magia com combate
 CREATE OR REPLACE PROCEDURE uso_magia(
     p_id_play_character CHAR(8),
     p_id_magia CHAR(7),
@@ -30,30 +29,33 @@ BEGIN
 
     -- Verificar se o play_character tem mana suficiente
     IF (SELECT mana_atual FROM PLAY_CHARACTER WHERE id_play_character = p_id_play_character) >= v_custo_mana THEN
-
+        -- Atualizar mana do play_character
         UPDATE PLAY_CHARACTER
         SET mana_atual = mana_atual - v_custo_mana
         WHERE id_play_character = p_id_play_character;
 
-
+        -- Calcular dano no NPC
         SELECT vida_atual
         INTO v_vida_atual_npc
         FROM INSTANCIA_NPC
         WHERE id_instancia_npc = p_id_instancia_npc;
 
         IF v_vida_atual_npc - (v_dano_magia / ((SELECT nivel FROM NOT_PLAY_CHARACTER WHERE id_npc = (SELECT id_npc FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)) + (SELECT nivel FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc))) <= 0 THEN
-
+            -- NPC morto, inserir em ESTA_MORTO
             INSERT INTO ESTA_MORTO (id_play_character, id_instancia_npc)
             VALUES (p_id_play_character, p_id_instancia_npc);
 
             RAISE NOTICE 'Personagem morto';
         END IF;
+
+        -- Aqui você pode adicionar mais lógica, se necessário, para atualizar a vida do NPC ou realizar outras ações.
     ELSE
         RAISE EXCEPTION 'Mana insuficiente para lançar a magia';
     END IF;
 END;
 $uso_magia$ LANGUAGE plpgsql;
 
+-- Atualizações quando concluir missão
 
 
 CREATE OR REPLACE PROCEDURE concluir_missao(
@@ -67,7 +69,6 @@ BEGIN
     WHERE id_missao = p_id_missao AND id_play_character = p_id_play_character;
 END;
 $concluir_missao$;
-
 
 -- Relação ce consumir em determinado nível:
 CREATE OR REPLACE PROCEDURE consumir(
@@ -111,3 +112,71 @@ BEGIN
 
 END;
 $consumir$;
+
+--- Garantir integridade quando for realizar um encantamento:
+CREATE OR REPLACE PROCEDURE realizar_encantamento(
+    p_id_play_character CHAR(8),
+    p_id_encantamento CHAR(7)
+)
+LANGUAGE plpgsql AS $realizar_encantamento$
+DECLARE
+    v_id_inventario CHAR(7);
+	v_id_gema CHAR(7);
+    v_qtd_gemas INTEGER;
+    v_gema_valida BOOLEAN;
+BEGIN
+    -- Obtém o id_inventario do Play Character
+    SELECT id_inventario
+    INTO v_id_inventario
+    FROM PLAY_CHARACTER
+    WHERE id_play_character = p_id_play_character;
+	
+	-- Verificar a gema do encantamento
+	SELECT id_gema
+    INTO v_id_gema
+    FROM PROPORCIONA_ENCANTAMENTO
+    WHERE id_encantamento = p_id_encantamento;
+
+    -- Verifica quantas gemas do encantamento o Play Character possui no inventário
+    SELECT COUNT(*)
+    INTO v_qtd_gemas
+    FROM INSTANCIA_ITEM i
+    JOIN GEMA ON i.id_item = GEMA.id_gema
+    WHERE i.local_inventario = v_id_inventario
+      AND GEMA.id_gema = v_id_gema;
+
+    -- Se o Play Character possui mais de uma gema, verifica se alguma é válida
+    IF v_qtd_gemas > 0 THEN
+        -- Verifica se pelo menos uma gema é válida para o encantamento
+        SELECT EXISTS (
+            SELECT 1
+            FROM PROPORCIONA_ENCANTAMENTO pe
+            WHERE pe.id_gema = v_id_gema
+        )
+        INTO v_gema_valida;
+
+        IF NOT v_gema_valida THEN
+            RAISE EXCEPTION 'Nenhuma gema válida para o encantamento encontrada no inventário.';
+        END IF;
+
+        -- Verifica se o Play Character pode realizar o encantamento (status = TRUE)
+        IF NOT EXISTS (
+            SELECT 1
+            FROM APRENDER_ENCANTAMENTO
+            WHERE id_play_character = p_id_play_character
+              AND id_encantamento = p_id_encantamento
+              AND status = TRUE
+        ) THEN
+            RAISE EXCEPTION 'Play Character não sabe o encantamento.';
+        END IF;
+
+        -- Lógica para realizar o encantamento
+        -- Adicione aqui o código para aplicar o encantamento
+
+
+    ELSE
+        RAISE EXCEPTION 'Play Character não possui a gema necessária para o encantamento no inventário.';
+    END IF;
+
+END;
+$realizar_encantamento$;
