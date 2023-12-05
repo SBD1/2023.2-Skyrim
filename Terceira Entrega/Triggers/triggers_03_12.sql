@@ -1123,5 +1123,41 @@ BEFORE INSERT OR DELETE ON ENCANTAMENTO_ARMA
 FOR EACH ROW
 EXECUTE FUNCTION total_exclusivo_encantamento_arma();
 
+-- Atualizar o nível da habilidade de acordo com a passagem de nível do personagem
+
+CREATE OR REPLACE FUNCTION atualizar_especie_humanoide()
+RETURNS TRIGGER AS $atualizar_especie_humanoide$
+DECLARE
+    v_id_personagem CHAR(8);
+    v_novo_nivel INTEGER;
+BEGIN
+    -- Obtém o ID do personagem
+    v_id_personagem := NEW.id_play_character;
+
+    -- Verifica se o personagem possui uma entrada na tabela ESPECIE_HUMANOIDE
+    IF NOT EXISTS (SELECT 1 FROM ESPECIE_HUMANOIDE WHERE id_humanoide = v_id_personagem) THEN
+        RETURN NEW;
+    END IF;
+
+    -- Verifica se houve mudança de nível
+    IF NEW.nivel <> OLD.nivel THEN
+        -- Atualiza o nível na tabela ESPECIE_HUMANOIDE
+        UPDATE ESPECIE_HUMANOIDE
+        SET nivel = nivel + 1,  -- Incrementa o nível
+            dano = dano + 10      -- Aumenta o dano em 10 pontos (ajuste conforme necessário)
+        WHERE id_humanoide = v_id_personagem;
+
+    END IF;
+
+    RETURN NEW;
+END;
+$atualizar_especie_humanoide$ LANGUAGE plpgsql;
+
+-- Trigger para chamar a função quando o XP ou o nível são atualizados
+CREATE TRIGGER atualizar_especie_humanoide_trigger
+AFTER UPDATE ON PLAY_CHARACTER
+FOR EACH ROW
+WHEN (NEW.nivel <> OLD.nivel)  -- A trigger só será acionada se o nível for alterado
+EXECUTE FUNCTION atualizar_especie_humanoide();
 
 

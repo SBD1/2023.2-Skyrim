@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS GOLPES;
 DROP TABLE IF EXISTS BESTA;
 DROP TABLE IF EXISTS MAGIA_HUMANOIDE;
 DROP TABLE IF EXISTS MAGIA;
+DROP TABLE IF EXISTS ESPECIE_HUMANOIDE;
 DROP TABLE IF EXISTS HUMANOIDE;
 DROP TABLE IF EXISTS ESPECIE;
 DROP TABLE IF EXISTS HABILIDADE_ESPECIE;
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS  SALA(
   id_sala CHAR(7) PRIMARY KEY,
   nome_sala CHAR(40) NOT NULL,
   id_local CHAR(7),
-  descricao_sala varchar(255),
+  descricao CHAR(40),
   CONSTRAINT verificar_id_sala
   	CHECK( id_sala LIKE 'ROOM%'
           AND CAST(SUBSTRING(id_sala, 5,3) AS INTEGER) BETWEEN 000 AND 999
@@ -188,6 +189,9 @@ CREATE TABLE IF NOT EXISTS  HUMANOIDE (
   	 	ON UPDATE CASCADE 
 );
 
+
+
+
 CREATE TABLE IF NOT EXISTS  MAGIA (
     id_magia CHAR(7) PRIMARY KEY,
   	nome CHAR(20) UNIQUE NOT NULL,
@@ -201,6 +205,19 @@ CREATE TABLE IF NOT EXISTS  MAGIA (
 	
 );
 
+CREATE TABLE IF NOT EXISTS  ESPECIE_HUMANOIDE (
+    id_humanoide CHAR(8),
+    id_habilidade CHAR(7),
+	nivel INTEGER CHECK (NIVEL >= 0 AND nivel <= 100),
+	dano INTEGER CHECK (dano >= 0 AND dano <= 100),
+    PRIMARY KEY (id_humanoide, id_habilidade),
+    FOREIGN KEY (id_humanoide) REFERENCES HUMANOIDE (id_humanoide)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_habilidade) REFERENCES HABILIDADE_ESPECIE (id_habilidade)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS  MAGIA_HUMANOIDE (
     id_humanoide CHAR(8),
@@ -1489,6 +1506,7 @@ EXECUTE FUNCTION zerar_quantidade_nivel();
 
 
 --Atualização da mana com o uso de magia com combate:
+-- Atualização da mana com o uso de magia com combate:
 CREATE OR REPLACE PROCEDURE uso_magia(
     p_id_play_character CHAR(8),
     p_id_magia CHAR(7),
@@ -1530,22 +1548,28 @@ BEGIN
         FROM INSTANCIA_NPC
         WHERE id_instancia_npc = p_id_instancia_npc;
 
-        IF v_vida_atual_npc - (v_dano_magia / ((SELECT nivel FROM NOT_PLAY_CHARACTER WHERE id_npc = (SELECT id_npc FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)) + (SELECT nivel FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc))) <= 0 THEN
-            -- NPC morto, inserir em ESTA_MORTO
+        -- Calcular dano no NPC considerando a fórmula fornecida
+        v_vida_atual_npc := v_vida_atual_npc - (v_dano_magia / ((SELECT nivel FROM NOT_PLAY_CHARACTER WHERE id_npc = (SELECT id_npc FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)) + (SELECT nivel FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)));
+
+        -- Atualizar a vida do NPC
+        UPDATE INSTANCIA_NPC
+        SET vida_atual = v_vida_atual_npc
+        WHERE id_instancia_npc = p_id_instancia_npc;
+
+        -- Verificar se o NPC está morto e inserir em ESTA_MORTO
+        IF v_vida_atual_npc <= 0 THEN
             INSERT INTO ESTA_MORTO (id_play_character, id_instancia_npc)
             VALUES (p_id_play_character, p_id_instancia_npc);
 
             RAISE NOTICE 'Personagem morto';
         END IF;
 
-        -- Aqui você pode adicionar mais lógica, se necessário, para atualizar a vida do NPC ou realizar outras ações.
+        -- Aqui você pode adicionar mais lógica, se necessário, para outras ações.
     ELSE
         RAISE EXCEPTION 'Mana insuficiente para lançar a magia';
     END IF;
 END;
 $uso_magia$ LANGUAGE plpgsql;
-
-
 
 
 
@@ -1745,6 +1769,153 @@ FOR EACH ROW
 EXECUTE FUNCTION total_exclusivo_encantamento_arma();
 
 
+-- Procede para o uso da habilidade
+
+CREATE OR REPLACE PROCEDURE uso_habilidade(
+    p_id_play_character CHAR(8),
+    p_id_habilidade CHAR(7),
+    p_id_instancia_npc CHAR(8))
+AS $uso_habilidade$
+DECLARE
+    v_custo_stamina INTEGER;
+    v_dano_habilidade INTEGER;
+    v_vida_atual_npc FLOAT;
+BEGIN
+    -- Verificar se a habilidade pertence à espécie do personagem
+    IF NOT EXISTS (
+        SELECT 1
+        FROM ESPECIE_HUMANOIDE eh
+        WHERE eh.id_humanoide = p_id_play_character
+          AND eh.id_habilidade = p_id_habilidade
+    ) THEN
+        RAISE EXCEPTION 'Esta habilidade não pertence à especie do personagem citado';
+    END IF;
+
+    -- Obter custo_stamina e dano_habilidade da tabela ESPECIE_HUMANOIDE
+    SELECT eh.dano, h.custo_stamina
+    INTO v_dano_habilidade, v_custo_stamina
+    FROM ESPECIE_HUMANOIDE eh
+    JOIN HABILIDADE_ESPECIE h ON eh.id_habilidade = h.id_habilidade
+    WHERE eh.id_humanoide = p_id_play_character
+      AND eh.id_habilidade = p_id_habilidade;
+
+    -- Verificar se o play_character tem stamina suficiente
+    IF (SELECT stamina_atual FROM PLAY_CHARACTER WHERE id_play_character = p_id_play_character) >= v_custo_stamina THEN
+        -- Atualizar stamina do play_character
+        UPDATE PLAY_CHARACTER
+        SET stamina_atual = stamina_atual - v_custo_stamina
+        WHERE id_play_character = p_id_play_character;
+
+        -- Calcular dano na NPC
+        SELECT vida_atual
+        INTO v_vida_atual_npc
+        FROM INSTANCIA_NPC
+        WHERE id_instancia_npc = p_id_instancia_npc;
+
+        -- Calcular dano na NPC considerando a fórmula fornecida
+        v_vida_atual_npc := v_vida_atual_npc - (v_dano_habilidade / ((SELECT nivel FROM NOT_PLAY_CHARACTER WHERE id_npc = (SELECT id_npc FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)) + (SELECT nivel FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)));
+
+        -- Atualizar a vida do NPC
+        UPDATE INSTANCIA_NPC
+        SET vida_atual = v_vida_atual_npc
+        WHERE id_instancia_npc = p_id_instancia_npc;
+
+        -- Verificar se o NPC está morto e inserir em ESTA_MORTO
+        IF v_vida_atual_npc <= 0 THEN
+            INSERT INTO ESTA_MORTO (id_play_character, id_instancia_npc)
+            VALUES (p_id_play_character, p_id_instancia_npc);
+
+            RAISE NOTICE 'Personagem morto';
+        END IF;
+
+        -- Adicionar mais lógica, se necessário, para outras ações.
+    ELSE
+        RAISE EXCEPTION 'Stamina insuficiente para usar a habilidade';
+    END IF;
+END;
+$uso_habilidade$ LANGUAGE plpgsql;
+
+-- Atualizar o nível da habilidade de acordo com a passagem de nível do personagem
+
+CREATE OR REPLACE FUNCTION atualizar_especie_humanoide()
+RETURNS TRIGGER AS $atualizar_especie_humanoide$
+DECLARE
+    v_id_personagem CHAR(8);
+    v_novo_nivel INTEGER;
+BEGIN
+    -- Obtém o ID do personagem
+    v_id_personagem := NEW.id_play_character;
+
+    -- Verifica se o personagem possui uma entrada na tabela ESPECIE_HUMANOIDE
+    IF NOT EXISTS (SELECT 1 FROM ESPECIE_HUMANOIDE WHERE id_humanoide = v_id_personagem) THEN
+        RETURN NEW;
+    END IF;
+
+    -- Verifica se houve mudança de nível
+    IF NEW.nivel <> OLD.nivel THEN
+        -- Atualiza o nível na tabela ESPECIE_HUMANOIDE
+        UPDATE ESPECIE_HUMANOIDE
+        SET nivel = nivel + 1,  -- Incrementa o nível
+            dano = dano + 10      -- Aumenta o dano em 10 pontos (ajuste conforme necessário)
+        WHERE id_humanoide = v_id_personagem;
+
+    END IF;
+
+    RETURN NEW;
+END;
+$atualizar_especie_humanoide$ LANGUAGE plpgsql;
+
+-- Trigger para chamar a função quando o XP ou o nível são atualizados
+CREATE TRIGGER atualizar_especie_humanoide_trigger
+AFTER UPDATE ON PLAY_CHARACTER
+FOR EACH ROW
+WHEN (NEW.nivel <> OLD.nivel)  -- A trigger só será acionada se o nível for alterado
+EXECUTE FUNCTION atualizar_especie_humanoide();
+
+----------------------------------------------------------------------------------------
+
+drop procedure if exists PILHAR_ITEM;
+create procedure PILHAR_ITEM(DESTINO_INV CHAR(7), ITEM_PILHADO CHAR(8)) AS $$
+DECLARE
+	ITEM CHAR(7);
+    CONTAGEM INTEGER;
+    ID_NOVO CHAR(30);
+BEGIN
+	ID_NOVO := 'IITEM';
+	SELECT ID_ITEM INTO ITEM FROM INSTANCIA_ITEM WHERE ID_INSTANCIA = ITEM_PILHADO;
+    SELECT COUNT(*) INTO CONTAGEM FROM INSTANCIA_ITEM;
+	ID_NOVO := ID_NOVO || CAST(CONTAGEM AS CHAR(3));
+        insert into INSTANCIA_ITEM (ID_INSTANCIA_ITEM, ID_ITEM, LOCAL_INVENTARIO, EQP_STATUS) 
+        	VALUES (ID_NOVO, ITEM, DESTINO_INV, 0);
+END;
+$$ lANGUAGE plpgsql;
+
+--- DAR_DANO_ARMA
+drop procedure if exists dar_dano_arma;
+CREATE PROCEDURE DAR_DANO_ARMA(NPC CHAR(8), ARMA CHAR(7)) AS $$
+DECLARE 
+	DANO_ARMA INTEGER;
+BEGIN
+	SELECT DANO INTO DANO_ARMA FROM ARMA WHERE ID_ARMA = ARMA;
+    UPDATE INSTANCIA_NPC SET VIDA_ATUAL = VIDA_ATUAL - DANO_ARMA WHERE ID_INSTANCIA_NPC = NPC;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+--- DEIXA_MORTO
+
+DROP PROCEDURE IF EXISTS DEIXA_MORTO;
+CREATE PROCEDURE DEIXA_MORTO(NPC CHAR(8), PC CHAR(8)) AS $$
+BEGIN
+	IF (SELECT VIDA_ATUAL FROM INSTANCIA_NPC WHERE ID_INSTANCIA_NPC = NPC) > 0
+	THEN RAISE EXCEPTION 'AINDA NÃO MORREU';
+    	
+    INSERT INTO ESTA_MORTO VALUES(PC, NPC);
+	END IF;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
 
 
 -- Integridade em encantamento vestimenta.
@@ -1857,5 +2028,4 @@ WHERE id_encantamento = 'ENCV001' AND id_play_character = 'CHAR0001';
 --CALL consumir('ITEM001', 'CHAR0001');
 CALL realizar_encantamento('CHAR0001', 'ENCV001');
 --select * FROM PLAY_CHARACTER;
---SELECT * FROM INSTANCIA_ITEM;
-
+SELECT * FROM PLAY_CHARACTER;
