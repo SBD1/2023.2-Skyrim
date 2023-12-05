@@ -63,3 +63,23 @@
 [Normalização](https://github.com/SBD1/2023.2-Skyrim/blob/Entrega2/Segunda%20Entrega/Normaliza%C3%A7%C3%A3o/Normalizazao.md)
 
 [Apresentação 2](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao2) (A apresentação está dividida em três arquivos de vídeo nesse link)
+
+## Entrega 3 
+
+[Atualizações no DER](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/Diagrama%20Entidade%20Relacionamento/Atualiza%C3%A7%C3%A3oDER.md)
+
+[Atualizações no MER](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/Modelo%20Relacional/Atualiza%C3%A7%C3%A3oMER.md)
+
+[Atualizações no Create Tables](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/CREATE_TABLE/create_table.md)
+
+[Criações dos Triggers](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Triggers/Triggers.md)
+
+[Criações dos Procedures](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Procedures/Procedures.md)
+
+[Inserts](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/INSERT_TABLE/insert.sql)
+
+[Código Completo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/CREATE_TABLE/Codigo_completo.sql)
+
+[Apresentação](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao3)
+
+
