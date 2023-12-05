@@ -43,12 +43,12 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação dos tr
  * [Integridade de dados para consumiveis](#Integridade-de-dados-para-consumiveis)
  * [Trigger para quantidade máxima de consumíveis](#Trigger-para-quantidade-máxima-de-consumíveis)
  * [Zerar a quantidade de consumíveis consumidos quando passar de nivel](#Zerar-a-quantidade-de-consumíveis-consumidos-quando-passar-de-nivel)
- * [Garantir integridade em Missões de matar_npc](Garantir-integridade-em-Missões-de-matar_npc)
- * [Garantir integridade em missões obter item](Garantir-integridade-em-missões-obter-item)
- * [Inserir na tabela aprende_encantamento](Inserir-na-tabela-aprende_encantamento)
- * [Integridade em encantamento total exclusivo vestimenta](Integridade-em-encantamento-total-exclusivo-vestimenta)
- * [Integridade em encantamento total exclusivo arma](Integridade-em-encantamento-total-exclusivo-arma)
- * [Atualizar_especie_humanoide](Atualizar_especie_humanoide)
+ * [Garantir integridade em Missões de matar_npc](#Garantir-integridade-em-Missões-de-matar_npc)
+ * [Garantir integridade em missões obter item](#Garantir-integridade-em-missões-obter-item)
+ * [Inserir na tabela aprende_encantamento](#Inserir-na-tabela-aprende_encantamento)
+ * [Integridade em encantamento total exclusivo vestimenta](#Integridade-em-encantamento-total-exclusivo-vestimenta)
+ * [Integridade em encantamento total exclusivo arma](#Integridade-em-encantamento-total-exclusivo-arma)
+ * [Atualizar_especie_humanoide](#Atualizar_especie_humanoide)
  * [Histórico de Versão](#Histórico-de-Versão)
    
 
