@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS  SALA(
   id_sala CHAR(7) PRIMARY KEY,
   nome_sala CHAR(40) NOT NULL,
   id_local CHAR(7),
+  descricao_sala varchar(255),
   CONSTRAINT verificar_id_sala
   	CHECK( id_sala LIKE 'ROOM%'
           AND CAST(SUBSTRING(id_sala, 5,3) AS INTEGER) BETWEEN 000 AND 999
@@ -1857,5 +1858,4 @@ WHERE id_encantamento = 'ENCV001' AND id_play_character = 'CHAR0001';
 CALL realizar_encantamento('CHAR0001', 'ENCV001');
 --select * FROM PLAY_CHARACTER;
 --SELECT * FROM INSTANCIA_ITEM;
-
 
