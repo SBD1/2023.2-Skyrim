@@ -1133,14 +1133,13 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
                      dano = dano + 10      -- Aumenta o dano em 10 pontos (ajuste conforme necessário)
                  WHERE id_humanoide = v_id_personagem;
          
-                 -- Adicione mais condições ou ajustes conforme necessário para outros níveis
              END IF;
          
              RETURN NEW;
          END;
          $atualizar_especie_humanoide$ LANGUAGE plpgsql;
          
-         -- Trigger para chamar a função quando o XP ou o nível são atualizados
+     
          CREATE TRIGGER atualizar_especie_humanoide_trigger
          AFTER UPDATE ON PLAY_CHARACTER
          FOR EACH ROW
