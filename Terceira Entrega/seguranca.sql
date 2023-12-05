@@ -1,0 +1,39 @@
+/* Criação do banco de dados */
+
+CREATE DATABASE skyrim_db
+    WITH
+    OWNER = pg_database_owner
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+GRANT TEMPORARY, CONNECT ON DATABASE skyrim_db TO PUBLIC;
+
+GRANT ALL ON DATABASE skyrim_db TO dba;
+
+GRANT ALL ON DATABASE skyrim_db TO pg_database_owner;
+
+GRANT CREATE, CONNECT ON DATABASE skyrim_db TO skyrim_app;
+
+/* Criação dos roles */
+
+CREATE ROLE skyrim_app WITH
+  LOGIN
+  NOSUPERUSER
+  NOINHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+
+CREATE ROLE dba WITH
+  LOGIN
+  SUPERUSER
+  INHERIT
+  CREATEDB
+  CREATEROLE
+  REPLICATION
+  ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:XIf2/IwY4wJ2edJteXUajg==$4MUPCgcz+9pslGGUQo0At2OMAdNT7Z/CA7nKfmTifkk=:mWgEon35LIaRz6NBAEg0NA2QgtQ8n9WB8Rt1UggnBpQ=';
