@@ -4,10 +4,14 @@ Aqui estão os procedures desenvolvidos para o funcionamento do jogo
 ## Sumário
 
 * [Código Completo em SQL](#Código-Completo-em-SQL)
-* [Atualização da mana com o uso de magia com combate](Atualização-da-mana-com-o-uso-de-magia-com-combate)
-* [Atualizações quando concluir missão](Atualizações-quando-concluirmissão)
-* [Relação de consumir em determinado nível](Relação-de-consumir-em-determinado-nível)
-* [Realizar Encantamento](Realizar-Encantamento)
+* [Atualização da mana com o uso de magia com combate](#Atualização-da-mana-com-o-uso-de-magia-com-combate)
+* [Atualizações quando concluir missão](#Atualizações-quando-concluirmissão)
+* [Relação de consumir em determinado nível](#Relação-de-consumir-em-determinado-nível)
+* [Realizar Encantamento](#Realizar-Encantamento)
+* [Uso habilidade](#Uso-habilidade)
+* [Pilhar_item](#Pilhar_item)
+* [Dar_dano_arma](#Dar_dano_arma)
+* [Deixar_morto](#Deixar_morto)
 * [Histórico de Versão](#Histórico-de-Versão)
 
 ## Código Completo em SQL
@@ -238,6 +242,137 @@ Caso deseje visualizar o código completo dos Procedures clique no link: [Proced
          END;
          $realizar_encantamento$;
 
+         
+## Uso habilidade
+
+**Objetivo:** Atualizar a stamina do personagem e a vida do PC e o que a instância do NPC sobre após o uso de uma habilidade durante um combate.
+
+**Funcionamento:**
+ - Verifica se a habilidade pertence à espécie do personagem.
+ - Obtém informações sobre a habilidade, incluindo o custo de stamina e o dano.
+ - Verifica se o personagem tem stamina suficiente para usar a habilidade.
+ - Atualiza a stamina do personagem.
+ - Calcula o dano na vida do NPC usando a fórmula fornecida.
+ - Atualiza a vida do NPC.
+ - Se o NPC fica sem vida, registra que ele está morto.
+
+**Código**
+          
+          CREATE OR REPLACE PROCEDURE uso_habilidade(
+              p_id_play_character CHAR(8),
+              p_id_habilidade CHAR(7),
+              p_id_instancia_npc CHAR(8))
+          AS $uso_habilidade$
+          DECLARE
+              v_custo_stamina INTEGER;
+              v_dano_habilidade INTEGER;
+              v_vida_atual_npc FLOAT;
+          BEGIN
+              -- Verificar se a habilidade pertence à espécie do personagem
+              IF NOT EXISTS (
+                  SELECT 1
+                  FROM ESPECIE_HUMANOIDE eh
+                  WHERE eh.id_humanoide = p_id_play_character
+                    AND eh.id_habilidade = p_id_habilidade
+              ) THEN
+                  RAISE EXCEPTION 'Esta habilidade não pertence à especie do personagem citado';
+              END IF;
+          
+              -- Obter custo_stamina e dano_habilidade da tabela ESPECIE_HUMANOIDE
+              SELECT eh.dano, h.custo_stamina
+              INTO v_dano_habilidade, v_custo_stamina
+              FROM ESPECIE_HUMANOIDE eh
+              JOIN HABILIDADE_ESPECIE h ON eh.id_habilidade = h.id_habilidade
+              WHERE eh.id_humanoide = p_id_play_character
+                AND eh.id_habilidade = p_id_habilidade;
+          
+              -- Verificar se o play_character tem stamina suficiente
+              IF (SELECT stamina_atual FROM PLAY_CHARACTER WHERE id_play_character = p_id_play_character) >= v_custo_stamina THEN
+                  -- Atualizar stamina do play_character
+                  UPDATE PLAY_CHARACTER
+                  SET stamina_atual = stamina_atual - v_custo_stamina
+                  WHERE id_play_character = p_id_play_character;
+          
+                  -- Calcular dano na NPC
+                  SELECT vida_atual
+                  INTO v_vida_atual_npc
+                  FROM INSTANCIA_NPC
+                  WHERE id_instancia_npc = p_id_instancia_npc;
+          
+                  -- Calcular dano na NPC considerando a fórmula fornecida
+                  v_vida_atual_npc := v_vida_atual_npc - (v_dano_habilidade / ((SELECT nivel FROM NOT_PLAY_CHARACTER WHERE id_npc = (SELECT id_npc FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)) + (SELECT nivel FROM INSTANCIA_NPC WHERE id_instancia_npc = p_id_instancia_npc)));
+          
+                  -- Atualizar a vida do NPC
+                  UPDATE INSTANCIA_NPC
+                  SET vida_atual = v_vida_atual_npc
+                  WHERE id_instancia_npc = p_id_instancia_npc;
+          
+                  -- Verificar se o NPC está morto e inserir em ESTA_MORTO
+                  IF v_vida_atual_npc <= 0 THEN
+                      INSERT INTO ESTA_MORTO (id_play_character, id_instancia_npc)
+                      VALUES (p_id_play_character, p_id_instancia_npc);
+          
+                      RAISE NOTICE 'Personagem morto';
+                  END IF;
+          
+                  -- Adicionar mais lógica, se necessário, para outras ações.
+              ELSE
+                  RAISE EXCEPTION 'Stamina insuficiente para usar a habilidade';
+              END IF;
+          END;
+          $uso_habilidade$ LANGUAGE plpgsql;
+
+
+## Pilhar_item
+
+**Código**
+          
+          drop procedure if exists PILHAR_ITEM;
+          create procedure PILHAR_ITEM(DESTINO_INV CHAR(7), ITEM_PILHADO CHAR(8)) AS $$
+          DECLARE
+          	ITEM CHAR(7);
+              CONTAGEM INTEGER;
+              ID_NOVO CHAR(30);
+          BEGIN
+          	ID_NOVO := 'IITEM';
+          	SELECT ID_ITEM INTO ITEM FROM INSTANCIA_ITEM WHERE ID_INSTANCIA = ITEM_PILHADO;
+              SELECT COUNT(*) INTO CONTAGEM FROM INSTANCIA_ITEM;
+          	ID_NOVO := ID_NOVO || CAST(CONTAGEM AS CHAR(3));
+                  insert into INSTANCIA_ITEM (ID_INSTANCIA_ITEM, ID_ITEM, LOCAL_INVENTARIO, EQP_STATUS) 
+                  	VALUES (ID_NOVO, ITEM, DESTINO_INV, 0);
+          END;
+          $$ lANGUAGE plpgsql;
+
+## Dar_dano_arma
+
+**Código**
+
+        drop procedure if exists dar_dano_arma;
+        CREATE PROCEDURE DAR_DANO_ARMA(NPC CHAR(8), ARMA CHAR(7)) AS $$
+        DECLARE 
+        	DANO_ARMA INTEGER;
+        BEGIN
+        	SELECT DANO INTO DANO_ARMA FROM ARMA WHERE ID_ARMA = ARMA;
+            UPDATE INSTANCIA_NPC SET VIDA_ATUAL = VIDA_ATUAL - DANO_ARMA WHERE ID_INSTANCIA_NPC = NPC;
+        END;
+        $$ LANGUAGE PLPGSQL;
+        
+
+## Deixar_morto
+
+**Código**
+
+      DROP PROCEDURE IF EXISTS DEIXA_MORTO;
+      CREATE PROCEDURE DEIXA_MORTO(NPC CHAR(8), PC CHAR(8)) AS $$
+      BEGIN
+      	IF (SELECT VIDA_ATUAL FROM INSTANCIA_NPC WHERE ID_INSTANCIA_NPC = NPC) > 0
+      	THEN RAISE EXCEPTION 'AINDA NÃO MORREU';
+          	
+          INSERT INTO ESTA_MORTO VALUES(PC, NPC);
+      	END IF;
+      END;
+      $$ LANGUAGE PLPGSQL;
+
 
 ## Histórico de Versão
 
@@ -248,3 +383,5 @@ Caso deseje visualizar o código completo dos Procedures clique no link: [Proced
 | 2.0 | Criação dos procedures | Leonardo Machado | - | 01/12/2023
 | 3.0 | Criação do md | Larissa Stéfane | - | 02/12/2023
 | 4.0 | Adicionar mais procedures | Larissa Stéfane | - | 03/12/2023
+| 5.0 | Adicionar mais procedures | Larissa Stéfane | - | 04/12/2023
+| 6.0 | Corrigir o md | Larissa Stéfane | - | 04/12/2023
