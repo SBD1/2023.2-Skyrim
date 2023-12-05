@@ -80,6 +80,6 @@
 
 [Código Completo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Terceira%20Entrega/Atualizacao/CREATE_TABLE/Codigo_completo.sql)
 
-[Apresentação](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao3)
+[Apresentação](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao3) (fazer o download do vídeo para assistir)
 
 
