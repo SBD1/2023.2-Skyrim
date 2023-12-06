@@ -8,5 +8,5 @@ c = Conexao(d)
 # c.select('REGIAO',['ass'])
 # c.select('REGIAO',['*'])
 # c.select('REGIAO',['*'],{'id':3})
-
-c.inner_join('pessoa','jogo','id_pessoa','id_jogo')
+# c.inner_join('pessoa','jogo','id_pessoa','id_jogo')
+c.delete('PESSOA',{'id':'12'})
