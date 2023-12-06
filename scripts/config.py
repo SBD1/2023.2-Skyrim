@@ -19,6 +19,8 @@ def config_database():
 		try:
 			sql = open('../Terceira Entrega/Atualizacao/CREATE_TABLE/Codigo_completo.sql').read()
 			cursor.execute(sql)
+			sql = open('../Terceira Entrega/Atualizacao/INSERT_TABLE/insert.sql').read()
+			cursor.execute(sql)
 			return cursor
 		
 		except FileNotFoundError as e:
