@@ -1,27 +1,25 @@
-INSERT INTO REGIAO (id_regiao, nome) VALUES('whit','whiterun')
-INSERT INTO LUGAR (id_local, nome_local,id_regiao) VALUES('whid','whindhelm','whit')
-INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s2','barracks','whid','the place where the guards sleep and train')
-INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s3','whindhelm_exterior','whid','exterior whindhelm')
-INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s4','execution_block','whid','the prisoners who were supposed to be executed are fight ing! one of them comes in your direction, put him down!')
-INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s5','trader','whid','what ever you would like to buiy, they got it.')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v1','barracks','whindhelm_exterior')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v2','whindhelm_exterior','barracks')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v3','whindhelm_exterior','execution_block')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v4','whindhelm_exterior','trader')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v5','trader','whindhelm_exterior')
-INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v6','execution_block','whindhelm_exterior')
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p1','TRUE')
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p2',FALSE)
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p3',FALSE)
-INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome,nivel,xp,vida_maxima,mana_max,stamina_max) VALUES('p2','captain',1,0,100,100)
-INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome,nivel,xp,vida_maxima,mana_max,stamina_max) VALUES('p3','stormcloack_soldier',1,0,100,100)
-INSERT INTO PLAY_CHARACTER (id_play_character, nome,nivel,xp,vida_atual,mana_atual,stamina_atual,vida_maxima,mana_max,stamina_max,id_sala,id_inventario) VALUES('p1','player','0',0,100,100,100,100,100,100,'s2','pc01')
-INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('pc01',100,100,FALSE)
-INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('npc01',100,10,FALSE)
-INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('npc02',100,10,FALSE)
-INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('loja01',100,10,TRUE)
-INSERT INTO INSTANCIA_NPC (id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario)
-VALUES ('01','p2',1,100,100,100,s2,'npc01')
-INSERT INTO INSTANCIA_NPC (id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario)
-VALUES ('01','p3',1,100,100,100,s4,'npc02')
-INSERT INTO TIPO_MISSAO (id_missao,tipo_objetivo,obrigatoria)('main01','matar_npc',1)
+INSERT INTO REGIAO (id_regiao, nome) VALUES('whit','whiterun');
+INSERT INTO LUGAR (id_local, nome_local,id_regiao) VALUES('whid','whindhelm','whit');
+INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s2','barracks','whid','the place where the guards sleep and train');
+INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s3','whindhelm_exterior','whid','exterior whindhelm');
+INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s4','execution_block','whid','the prisoners who were supposed to be executed are fight ing! one of them comes in your direction, put him down!');
+INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s5','trader','whid','what ever you would like to buiy, they got it.');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v1','barracks','whindhelm_exterior');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v2','whindhelm_exterior','barracks');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v3','whindhelm_exterior','execution_block');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v4','whindhelm_exterior','trader');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v5','trader','whindhelm_exterior');
+INSERT INTO VIAGEM_SALAS (id_viagem, sala_origem, sala_destino) VALUES('v6','execution_block','whindhelm_exterior');
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p1','TRUE');
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p2',FALSE);
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem, jogavel) VALUES('p3',FALSE);
+INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome,nivel,xp,vida_maxima,mana_max,stamina_max) VALUES('p2','captain',1,0,100,100);
+INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome,nivel,xp,vida_maxima,mana_max,stamina_max) VALUES('p3','stormcloack_soldier',1,0,100,100);
+INSERT INTO PLAY_CHARACTER (id_play_character, nome,nivel,xp,vida_atual,mana_atual,stamina_atual,vida_maxima,mana_max,stamina_max,id_sala,id_inventario) VALUES('p1','player','0',0,100,100,100,100,100,100,'s2','pc01');
+INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('pc01',100,100,FALSE);
+INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('npc01',100,10,FALSE);
+INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('npc02',100,10,FALSE);
+INSERT INTO INVENTARIO (id_inventario,peso_maximo,carteira,eh_loja) VALUES ('loja01',100,10,TRUE);
+INSERT INTO INSTANCIA_NPC (id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario) VALUES ('01','p2',1,100,100,100,s2,'npc01');
+INSERT INTO INSTANCIA_NPC (id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario) VALUES ('01','p3',1,100,100,100,s4,'npc02');
+INSERT INTO TIPO_MISSAO (id_missao,tipo_objetivo,obrigatoria) VALUES ('main01','matar_npc',1);
