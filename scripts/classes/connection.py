@@ -37,7 +37,7 @@ class Conexao:
         # print(q)
     
     def inner_join(self,from_table : str, to_table : str,id_from: str, id_to : str):
-        q = 'SELECT * FROM {} INNER JOIN {} ON {}.{}={}.{}'.format(from_table,to_table,from_table,id_from,to_table,id_to)
+        q = 'SELECT * FROM {} INNER JOIN {} ON {}.{}={}.{};'.format(from_table,to_table,from_table,id_from,to_table,id_to)
         # print(q)
         
     def close_connection(self):
