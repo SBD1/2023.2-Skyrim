@@ -1,4 +1,4 @@
-INSERT INTO REGIAO (id_regiao, nome) VALUES('whit','whiterun');
+INSERT INTO REGIAO (id_regiao, nome) VALUES('REG01','whiterun'),('REG02',whit');
 INSERT INTO LUGAR (id_local, nome_local,id_regiao) VALUES('whid','whindhelm','whit');
 INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s2','barracks','whid','the place where the guards sleep and train');
 INSERT INTO SALA (id_sala, nome_sala,id_local, descricao_sala) VALUES('s3','whindhelm_exterior','whid','exterior whindhelm');
