@@ -1,6 +1,6 @@
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0001','TRUE');
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0002','TRUE');
-INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0003','TRUE');
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0015','TRUE');
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0014','TRUE');
+INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0013','TRUE');
 
 INSERT INTO NIVEL (id_nivel, xp_minimo, XP_MAXIMO) VALUES ('N01', 0, 50);
 INSERT INTO NIVEL (id_nivel, xp_minimo, XP_MAXIMO) VALUES ('N02', 0, 100);
@@ -48,6 +48,17 @@ INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja) VALUES ('
 INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja) VALUES ('INV0004', 30.0, 60, FALSE);
 
 
+INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
+VALUES ('CHAR0001', 'Thrandor Silverblade', 'N01', 1, 10, 10, 10, 99, 10, 10, 'ROOM001', 'INV0001');
 
+INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
+VALUES ('CHAR0002', 'SeranaDarkSoul', 'N02', 1, 10, 10, 10, 99, 10, 10, 'ROOM002', 'INV0002');
 
+INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
+VALUES ('CHAR0003', 'Nara Nightshade', 'N01', 1, 10, 10, 10, 99, 10, 10, 'ROOM003', 'INV0003');
 
+INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
+VALUES ('CHAR0004', 'Lyndra Fireheart', 'N02', 1, 10, 10, 10, 99, 10, 10, 'ROOM004', 'INV0004');
+
+INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
+VALUES ('CHAR0005', 'Elara Moonshadow', 'N02', 1, 10, 10, 10, 99, 10, 10, 'ROOM005', 'INV0002');
