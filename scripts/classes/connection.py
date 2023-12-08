@@ -44,7 +44,7 @@ class Conexao:
         key = list(whereCondition.keys())[0]
         value = whereCondition[key]
         q = 'DELETE FROM {} WHERE {}={};'.format(table,key,value)
-        print(q)
+        # print(q)
         
     def close_connection(self):
         self.getCursor().close()
