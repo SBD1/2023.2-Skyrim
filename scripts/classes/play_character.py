@@ -1,3 +1,4 @@
+from os import  system
 from classes.connection import Conexao
 class PlayCharacter:
     def __init__(self,
@@ -96,16 +97,40 @@ class PlayCharacter:
         self._id_inventario = id_inventario
     
     def mostrar_sala(self):
-        return self.get_connection().select('SALA',['nome_sala'],{'id_sala' : self.get_id_sala()})[0][0]
+        return self.get_connection().select('SALA',['nome_sala','id_local'],{'id_sala' : self.get_id_sala()})[0]
+    
+    def mostrar_local(self,id_local : str):
+        return self.get_connection().select('LUGAR',['nome_local','id_regiao'],{'id_local' : id_local})
+    
+    def mostrar_regiao(self,id_regiao : str):
+        return self.get_connection().select('REGIAO',['nome'],{'id_regiao' : id_regiao})[0][0]
+    
+    def mostrar_inventario(self):
+        return self.get_connection().select('INVENTARIO',['peso_maximo','carteira'],{'id_inventario' : self.get_id_inventario()})[0]
 
     def show_player(self) -> None:
+        system('clear')
+        print(f"Informações sobre o Player Character:")
+        print(f"================================")
         print(f"ID: {self._id_play_character}")
         print(f"Nome: {self._nome}")
         print(f"Nível: {self._nivel}")
         print(f"XP: {self._xp}")
         print(f"Vida Atual/Maxima: {self._vida_atual}/{self._vida_maxima}")
         print(f"Mana Atual/Max: {self._mana_atual}/{self._mana_max}")
-        print(f"Stamina Atual/Max: {self._stamina_atual}/{self._stamina_max}")
-        print(f"Nome da Sala: {self.mostrar_sala()}")
-        print(f"ID Inventario: {self._id_inventario}")
+        print(f"Stamina Atual/Max: {self._stamina_atual}/{self._stamina_max}",end='\n\n')
+        print(f"Informações sobre a localização:")
+        print(f"================================")
+        sala = self.mostrar_sala()
+        print(f"Nome da Sala: {sala[0]}")
+        local = self.mostrar_local(sala[1])[0]
+        print(f"Nome do local: {local[0]}")
+        print(f"Nome da região: {self.mostrar_regiao(local[1])}")
+        print(f"================================",end='\n\n')
+        print(f"Informações sobre o inventário:")
+        print(f"================================")
+        print(f"Peso máximo: {self.mostrar_inventario()[0]}")
+        print(f"Carteira: {self.mostrar_inventario()[1]}")
+        print(f"================================")
+
     
