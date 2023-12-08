@@ -11,7 +11,7 @@ def menu(con: Conexao):
 	
 	if opcao == 1:
 		os.system('clear')
-		select_player(con)
+		player = select_player(con)
 
 	elif opcao == 2:
 		reset_database()
@@ -25,3 +25,9 @@ cursor = config_database()
 conexao = Conexao(cursor)
 os.system('clear')
 menu(conexao)
+
+
+# - Cadastrar,Ver, Eliminar, personagem
+# - Andar pelo mapa ( salas ou lugares)
+# - A cada sala tem um inimigo aleatório
+# - Quando se deparar com o inimigo, e lutar vai subtrair a vida
