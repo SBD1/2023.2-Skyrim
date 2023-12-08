@@ -17,9 +17,11 @@ def config_database():
 		helper.info('info','Banco de dados conectado ...')
 		
 		try:
+			helper.info('info','Executar as migrations ...')
 			sql = open('../Terceira Entrega/Atualizacao/CREATE_TABLE/Codigo_completo.sql').read()
 			cursor.execute(sql)
-			sql = open('../Terceira Entrega/Atualizacao/INSERT_TABLE/insert.sql').read()
+			helper.info('info','Executar os seeds ...')
+			sql = open('../Terceira Entrega/Atualizacao/INSERT_TABLE/seeds.sql').read()
 			cursor.execute(sql)
 			return cursor
 		
