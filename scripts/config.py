@@ -33,11 +33,12 @@ def config_database():
 				helper.info('info','Executar os seeds ...')
 				sql = open('../Terceira Entrega/Atualizacao/INSERT_TABLE/seeds.sql').read()
 				cursor.execute(sql)
-				return cursor
+				
 		
 			except FileNotFoundError as e:
 				helper.info('e',e)
 				exit(e.errno)
+		return cursor
 	except db.Error as e:
 		helper.info('e','Erro na conexão com o banco de dados. Verifique as configurações e tente novamente .')
 		helper.info('e',e)
