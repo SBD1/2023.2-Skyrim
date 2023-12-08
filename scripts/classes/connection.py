@@ -32,7 +32,7 @@ class Conexao:
         if whereCondition :
             key = list(whereCondition.keys())[0]
             value = whereCondition[key]
-            q += ' WHERE {}={}'.format(key,value)
+            q += ' WHERE {}=\'{}\''.format(key,value)
         q += ';'
         self.cursor.execute(q)
         return self.cursor.fetchall()

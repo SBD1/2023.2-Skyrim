@@ -35,6 +35,6 @@ def select_player(con: Conexao):
 	id_sala = player[10]
 	id_inventario = player[11]
 	
-	player = PlayCharacter(id_play_character,nome,nivel,xp,vida_atual,mana_atual,stamina_atual,vida_maxima,mana_max,stamina_max,id_sala,id_inventario)
-	player.showPlayer()
+	player = PlayCharacter(con,id_play_character,nome,nivel,xp,vida_atual,mana_atual,stamina_atual,vida_maxima,mana_max,stamina_max,id_sala,id_inventario)
+	player.show_player()
 	return player

@@ -1,9 +1,12 @@
+from classes.connection import Conexao
 class PlayCharacter:
     def __init__(self,
+                 conexao : Conexao,
                  id_play_character: str, nome: str, nivel: str, xp: int, 
                  vida_atual: int, mana_atual: int, stamina_atual: int, 
                  vida_maxima: int, mana_max: int, stamina_max: int, 
                  id_sala: str, id_inventario: str) -> None:
+        self._conexao = conexao
         self._id_play_character = id_play_character
         self._nome = nome
         self._nivel = nivel
@@ -17,9 +20,11 @@ class PlayCharacter:
         self._id_sala = id_sala
         self._id_inventario = id_inventario
 
-    # Getters
     def get_id_play_character(self) -> str:
         return self._id_play_character
+    
+    def get_connection(self) -> Conexao:
+        return self._conexao
 
     def get_nome(self) -> str:
         return self._nome
@@ -54,7 +59,6 @@ class PlayCharacter:
     def get_id_inventario(self) -> str:
         return self._id_inventario
 
-    # Setters
     def set_id_play_character(self, id_play_character: str) -> None:
         self._id_play_character = id_play_character
 
@@ -90,8 +94,11 @@ class PlayCharacter:
 
     def set_id_inventario(self, id_inventario: str) -> None:
         self._id_inventario = id_inventario
+    
+    def mostrar_sala(self):
+        return self.get_connection().select('SALA',['nome_sala'],{'id_sala' : self.get_id_sala()})[0][0]
 
-    def showPlayer(self) -> None:
+    def show_player(self) -> None:
         print(f"ID: {self._id_play_character}")
         print(f"Nome: {self._nome}")
         print(f"Nível: {self._nivel}")
@@ -99,5 +106,6 @@ class PlayCharacter:
         print(f"Vida Atual/Maxima: {self._vida_atual}/{self._vida_maxima}")
         print(f"Mana Atual/Max: {self._mana_atual}/{self._mana_max}")
         print(f"Stamina Atual/Max: {self._stamina_atual}/{self._stamina_max}")
-        print(f"ID Sala: {self._id_sala}")
+        print(f"Nome da Sala: {self.mostrar_sala()}")
         print(f"ID Inventario: {self._id_inventario}")
+    
