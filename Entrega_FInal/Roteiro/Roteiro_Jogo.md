@@ -1,5 +1,13 @@
 # Herdeiros da Tempestade: Em busca de Aldrich Stormwalker
 
+## Sinopse da História: (Criação de Larissa Stéfane)
+
+Quando Aldrich Stormwalker, seu irmão, desaparece deixando o nome de um antigo inimigo da família anotado em seu indispensável caderno, lord Malachar Darkthorn, você e seu fiel amigo, Ealdred Swiftblade, partem em uma jornada épica.
+
+Agora vocês devem Enfrentar desafios, descubrir os segredos sombrios da sua família e desvendar uma trama repleta de magia e mistério.
+
+Com cada passo, desbloqueie habilidades e encantamentos, encarando criaturas lendárias e revelando a verdade por trás do desaparecimento de Aldrich.
+
 ## Nível 1: O Desaparecimento 
 
 ### Introdução:
