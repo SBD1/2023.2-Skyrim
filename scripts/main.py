@@ -12,6 +12,8 @@ def menu(con: Conexao):
 	if opcao == 1:
 		os.system('clear')
 		player = select_player(con)
+		player.show_player()
+		
 
 	elif opcao == 2:
 		reset_database()
