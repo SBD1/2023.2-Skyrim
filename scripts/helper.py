@@ -161,17 +161,6 @@ def obter_salas(con: Conexao) -> list:
     con = con.select('SALA', ['*'])
 
 
-def play_menu(player: PlayCharacter):
-    print("1 - Mudar de sala")
-    print("X - Qualquer outro número para sair .")
-    print(": ", end='')
-    n = int(input())
-    if n == 1:
-        pass
-    else:
-        exit(0)
-
-
 def select_player(con: Conexao) -> PlayCharacter:
     fields = 'id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario'
     players_list = con.select('PLAY_CHARACTER', fields.split(','))
