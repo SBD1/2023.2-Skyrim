@@ -18,6 +18,13 @@ class Conexao:
         q += '%s);'
         self.cursor.execute(q)
 
+    def select_except(self, table: str,fields : list,except_condition : dict = None ):
+        key = list(except_condition.keys())[0]
+        value = except_condition[key]
+        q = "SELECT * FROM {} EXCEPT SELECT * FROM {} WHERE {}='{}';".format(table,table,key,value)
+       
+        self.cursor.execute(q)
+        return self.cursor.fetchall()
     
     def select(self, table: str,fields : list,whereCondition : dict = None ):
         q = 'SELECT '
