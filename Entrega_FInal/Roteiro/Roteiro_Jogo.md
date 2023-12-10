@@ -2,7 +2,7 @@
 
 ## Sinopse da História: (Criação de Larissa Stéfane)
 
-Quando Aldrich Stormwalker, seu irmão, desaparece deixando o nome de um antigo inimigo da família anotado em seu indispensável caderno, lord Malachar Darkthorn, você e seu fiel amigo, Ealdred Swiftblade, partem em uma jornada épica.
+Quando seu irmão, Aldrich Stormwalker, desaparece deixando o nome de um antigo inimigo da família, lord Malachar Darkthorn, anotado em seu indispensável caderno você e seu fiel amigo, Ealdred Swiftblade, partem em uma jornada épica.
 
 Agora vocês devem Enfrentar desafios, descubrir os segredos sombrios da sua família e desvendar uma trama repleta de magia e mistério.
 
