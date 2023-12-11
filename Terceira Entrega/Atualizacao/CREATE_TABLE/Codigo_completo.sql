@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS  FORMA (
 
 CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
    id_habilidade CHAR(7) PRIMARY KEY,
-   nome CHAR(20) UNIQUE NOT NULL,
+   nome CHAR(40) UNIQUE NOT NULL,
    mod_vida INTEGER CHECK (mod_vida >= 0 AND mod_vida <= 100),
    mod_stamina INTEGER CHECK (mod_stamina >= 0 AND mod_stamina <= 100),
    mod_mana INTEGER CHECK (mod_mana >= 0 AND mod_mana <= 100),
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
 
 CREATE TABLE IF NOT EXISTS  ESPECIE (
    id_especie CHAR(7) PRIMARY KEY,
-   nome CHAR(20) UNIQUE NOT NULL,
+   nome CHAR(40) UNIQUE NOT NULL,
    id_habilidade CHAR(7),
    CONSTRAINT verificar_id_especie
     CHECK ( id_especie LIKE 'ESPEC%'
@@ -194,8 +194,8 @@ CREATE TABLE IF NOT EXISTS  HUMANOIDE (
 
 CREATE TABLE IF NOT EXISTS  MAGIA (
     id_magia CHAR(7) PRIMARY KEY,
-  	nome CHAR(20) UNIQUE NOT NULL,
-    elemento CHAR(20) NOT NULL,
+  	nome CHAR(40) UNIQUE NOT NULL,
+    elemento CHAR(40) NOT NULL,
     dano_inicial INTEGER CHECK (dano_inicial >= 0 AND dano_inicial <= 100),
     custo_mana INTEGER CHECK (custo_mana >= 0 AND custo_mana <= 100),
   	CONSTRAINT verificar_id_habilidade
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS  BESTA (
 
 CREATE TABLE IF NOT EXISTS  GOLPES (
     id_golpe CHAR(7) PRIMARY KEY,
-    nome CHAR(20) NOT NULL,
+    nome CHAR(40) NOT NULL,
     dano INTEGER CHECK (dano BETWEEN 0 AND 100),
     elemento INTEGER CHECK (elemento BETWEEN 0 AND 100),
     CHECK( id_golpe LIKE 'STRO%'
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS  HOSTILIDADE (
 
 CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
     id_play_character CHAR(8) PRIMARY KEY,
-    nome VARCHAR(20) UNIQUE NOT NULL,
+    nome VARCHAR(40) UNIQUE NOT NULL,
     nivel CHAR(3),
     xp INTEGER CHECK (xp >= 0 AND xp <= 100),
     vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
 
 CREATE TABLE IF NOT EXISTS  NOT_PLAY_CHARACTER (
 	id_npc CHAR(8) PRIMARY KEY,
-	nome CHAR(20) UNIQUE NOT NULL,
+	nome CHAR(40) UNIQUE NOT NULL,
 	nivel FLOAT CHECK (nivel BETWEEN 1 AND 30),
 	xp INTEGER CHECK (xp BETWEEN 0 AND 100),
 	vida_maxima FLOAT CHECK (vida_maxima >= 0 AND vida_maxima <= 100),
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS  MISSAO_MATAR_NPC (
 
 CREATE TABLE IF NOT EXISTS  TIPO_ITEM (
     id_item CHAR(7) PRIMARY KEY,
-    tipo_item CHAR(20) NOT NULL
+    tipo_item CHAR(40) NOT NULL
   	CHECK( id_item LIKE 'ITEM%'
        AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_item) = 7)
@@ -487,9 +487,9 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_vestimenta CHAR(20) NOT NULL,
+    tipo_vestimenta CHAR(40) NOT NULL,
     resistencia INTEGER NOT NULL,
-    parte_corpo CHAR(20) NOT NULL,
+    parte_corpo CHAR(40) NOT NULL,
     PRIMARY KEY (id_vestimenta),
     CONSTRAINT fk_id_vestimenta
         FOREIGN KEY (id_vestimenta) REFERENCES TIPO_ITEM (id_item)
@@ -500,7 +500,7 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_VESTIMENTA (
     id_encantamento CHAR(7) PRIMARY KEY,
     id_vestimenta CHAR(7) NOT NULL,
-    elemento CHAR(20) NOT NULL,
+    elemento CHAR(40) NOT NULL,
     resistencia INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -517,7 +517,7 @@ CREATE TABLE IF NOT EXISTS  CONSUMIVEL (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_consumivel CHAR(20),
+    tipo_consumivel CHAR(40),
     aumento INTEGER NOT NULL,
     CONSTRAINT fk_id_item
         FOREIGN KEY (id_consumivel) REFERENCES TIPO_ITEM (id_item)
@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS  ARMA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_arma CHAR(20),
+    tipo_arma CHAR(40),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
     PRIMARY KEY (id_arma),
@@ -560,7 +560,7 @@ CREATE TABLE IF NOT EXISTS  ARMA (
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_ARMA (
     id_encantamento CHAR(7) PRIMARY KEY,
     id_arma CHAR(7),
-    elemento CHAR(20) NOT NULL,
+    elemento CHAR(40) NOT NULL,
     dano INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -1430,7 +1430,7 @@ CREATE OR REPLACE PROCEDURE consumir(
 )
 LANGUAGE plpgsql AS $consumir$
 DECLARE
-    v_tipo_consumivel CHAR(20);
+    v_tipo_consumivel CHAR(40);
     v_aumento INTEGER;
 BEGIN
     -- Verifica se a instância do item é consumível e obtém o tipo e o aumento
