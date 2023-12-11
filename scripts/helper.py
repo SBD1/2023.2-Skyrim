@@ -15,7 +15,7 @@ def investigar_sala():
     print("         |_____________________________________________|")
 
 
-def introducao():
+def introducao(player: PlayCharacter):
     escolha = 0
     tecla = ""
 
