@@ -40,8 +40,8 @@ DROP TABLE IF EXISTS LUGAR;
 DROP TABLE IF EXISTS REGIAO;
 
 CREATE TABLE IF NOT EXISTS  REGIAO(
-  id_regiao VARCHAR(7) PRIMARY KEY,
-  nome VARCHAR(30) UNIQUE NOT NULL,
+  id_regiao CHAR(7) PRIMARY KEY,
+  nome CHAR(30) UNIQUE NOT NULL,
   CONSTRAINT verificar_id_regiao
     CHECK (id_regiao LIKE 'REG%'
   		AND CAST(SUBSTRING(id_regiao, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS  REGIAO(
 );
 
 CREATE TABLE IF NOT EXISTS  LUGAR(
-  id_local VARCHAR(7) PRIMARY KEY,
+  id_local CHAR(7) PRIMARY KEY,
   nome_local VARCHAR(60) UNIQUE NOT NULL,
-  id_regiao VARCHAR(7),
+  id_regiao CHAR(7),
   CONSTRAINT verificar_id_local
   	CHECK( id_local LIKE 'LOC%'
           AND CAST(SUBSTRING(id_local, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
@@ -64,9 +64,9 @@ CREATE TABLE IF NOT EXISTS  LUGAR(
   
   
 CREATE TABLE IF NOT EXISTS  SALA(
-  id_sala VARCHAR(7) PRIMARY KEY,
+  id_sala CHAR(7) PRIMARY KEY,
   nome_sala VARCHAR(60) NOT NULL,
-  id_local VARCHAR(7),
+  id_local CHAR(7),
   descricao VARCHAR(60),
   CONSTRAINT verificar_id_sala
   	CHECK( id_sala LIKE 'ROOM%'
@@ -79,9 +79,9 @@ CREATE TABLE IF NOT EXISTS  SALA(
   );
   
  CREATE TABLE IF NOT EXISTS  VIAGEM_SALAS(
-   id_viagem VARCHAR(7) PRIMARY KEY,
-   sala_origem VARCHAR(7) ,
-   sala_destino VARCHAR(7),
+   id_viagem CHAR(7) PRIMARY KEY,
+   sala_origem CHAR(7) ,
+   sala_destino CHAR(7),
    CHECK( id_viagem LIKE 'V%'
           AND CAST(SUBSTRING(id_viagem, 2,6) AS INTEGER) BETWEEN 000000 AND 999999
           AND LENGTH(id_viagem) = 7),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS  SALA(
 );
 
 CREATE TABLE IF NOT EXISTS  INVENTARIO (
-    id_inventario VARCHAR(7) PRIMARY KEY,
+    id_inventario CHAR(7) PRIMARY KEY,
     peso_maximo FLOAT,
     carteira INTEGER,
     eh_loja BOOLEAN,
@@ -106,17 +106,17 @@ CREATE TABLE IF NOT EXISTS  INVENTARIO (
 );
 
 CREATE TABLE IF NOT EXISTS  TIPO_PERSONAGEM_HISTORIA (
-   id_personagem VARCHAR(8) PRIMARY KEY,
+   id_personagem CHAR(8) PRIMARY KEY,
    jogavel BOOLEAN,
    CONSTRAINT verificar_id_personagem
-   CHECK( id_personagem LIKE 'VARCHAR%'
+   CHECK( id_personagem LIKE 'CHAR%'
        AND CAST(SUBSTRING(id_personagem, 5,4) AS INTEGER) BETWEEN 0000 AND 9999
        AND LENGTH(id_personagem) = 8)
 );
 
 
 CREATE TABLE IF NOT EXISTS  NIVEL(
-	id_nivel VARCHAR(3) PRIMARY KEY,
+	id_nivel CHAR(3) PRIMARY KEY,
 	xp_minimo INTEGER,
 	XP_MAXIMO INTEGER
 	--CONSTRAINT id_nivel
@@ -126,8 +126,8 @@ CREATE TABLE IF NOT EXISTS  NIVEL(
 );
 
 CREATE TABLE IF NOT EXISTS  FORMA (
-	id_personagem VARCHAR(8) PRIMARY KEY,
-	forma VARCHAR(10) NOT NULL CHECK (forma IN ('Humanoide', 'Besta')),
+	id_personagem CHAR(8) PRIMARY KEY,
+	forma CHAR(10) NOT NULL CHECK (forma IN ('Humanoide', 'Besta')),
 	CONSTRAINT fk_forma_personagem
     FOREIGN KEY (id_personagem) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
     ON DELETE RESTRICT
@@ -136,8 +136,8 @@ CREATE TABLE IF NOT EXISTS  FORMA (
 );
 
 CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
-   id_habilidade VARCHAR(7) PRIMARY KEY,
-   nome VARCHAR(40) UNIQUE NOT NULL,
+   id_habilidade CHAR(7) PRIMARY KEY,
+   nome CHAR(40) UNIQUE NOT NULL,
    mod_vida INTEGER CHECK (mod_vida >= 0 AND mod_vida <= 100),
    mod_stamina INTEGER CHECK (mod_stamina >= 0 AND mod_stamina <= 100),
    mod_mana INTEGER CHECK (mod_mana >= 0 AND mod_mana <= 100),
@@ -151,9 +151,9 @@ CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
 );
 
 CREATE TABLE IF NOT EXISTS  ESPECIE (
-   id_especie VARCHAR(7) PRIMARY KEY,
-   nome VARCHAR(40) UNIQUE NOT NULL,
-   id_habilidade VARCHAR(7),
+   id_especie CHAR(7) PRIMARY KEY,
+   nome CHAR(40) UNIQUE NOT NULL,
+   id_habilidade CHAR(7),
    CONSTRAINT verificar_id_especie
     CHECK ( id_especie LIKE 'ESPEC%'
       AND CAST(SUBSTRING(id_especie, 6,2) AS INTEGER) BETWEEN 00 AND 99
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS  ESPECIE (
 );
 
 CREATE TABLE IF NOT EXISTS  HUMANOIDE (
-    id_humanoide VARCHAR(8) PRIMARY KEY,
+    id_humanoide CHAR(8) PRIMARY KEY,
     eqp_bota BOOLEAN,
     eqp_luva BOOLEAN,
     eqp_calça BOOLEAN,
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS  HUMANOIDE (
     eqp_cabeça BOOLEAN,
     mao_esq BOOLEAN,
     mao_dir BOOLEAN,
-    id_especie VARCHAR(7),
+    id_especie CHAR(7),
 	vida_maxima INTEGER CHECK (vida_maxima >= 0 AND vida_maxima <= 100),
   	mana_max INTEGER CHECK (mana_max >= 0 AND mana_max <= 100),
   	stamina_max INTEGER CHECK (stamina_max >= 0 AND stamina_max <= 100),
@@ -193,9 +193,9 @@ CREATE TABLE IF NOT EXISTS  HUMANOIDE (
 
 
 CREATE TABLE IF NOT EXISTS  MAGIA (
-    id_magia VARCHAR(7) PRIMARY KEY,
-  	nome VARCHAR(40) UNIQUE NOT NULL,
-    elemento VARCHAR(40) NOT NULL,
+    id_magia CHAR(7) PRIMARY KEY,
+  	nome CHAR(40) UNIQUE NOT NULL,
+    elemento CHAR(40) NOT NULL,
     dano_inicial INTEGER CHECK (dano_inicial >= 0 AND dano_inicial <= 100),
     custo_mana INTEGER CHECK (custo_mana >= 0 AND custo_mana <= 100),
   	CONSTRAINT verificar_id_habilidade
@@ -206,8 +206,8 @@ CREATE TABLE IF NOT EXISTS  MAGIA (
 );
 
 CREATE TABLE IF NOT EXISTS  ESPECIE_HUMANOIDE (
-    id_humanoide VARCHAR(8),
-    id_habilidade VARCHAR(7),
+    id_humanoide CHAR(8),
+    id_habilidade CHAR(7),
 	nivel INTEGER CHECK (NIVEL >= 0 AND nivel <= 100),
 	dano INTEGER CHECK (dano >= 0 AND dano <= 100),
     PRIMARY KEY (id_humanoide, id_habilidade),
@@ -220,8 +220,8 @@ CREATE TABLE IF NOT EXISTS  ESPECIE_HUMANOIDE (
 );
 
 CREATE TABLE IF NOT EXISTS  MAGIA_HUMANOIDE (
-    id_humanoide VARCHAR(8),
-    id_magia VARCHAR(7),
+    id_humanoide CHAR(8),
+    id_magia CHAR(7),
 	nivel INTEGER CHECK (NIVEL >= 0 AND nivel <= 100),
 	dano INTEGER CHECK (dano >= 0 AND dano <= 100),
     PRIMARY KEY (id_humanoide, id_magia),
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS  MAGIA_HUMANOIDE (
 
 
 CREATE TABLE IF NOT EXISTS  BESTA (
-    id_besta VARCHAR(8) PRIMARY KEY,
+    id_besta CHAR(8) PRIMARY KEY,
     mod_defesa_frio INTEGER,
     mod_defesa_fogo INTEGER,
     mod_defesa_raio INTEGER,
@@ -245,8 +245,8 @@ CREATE TABLE IF NOT EXISTS  BESTA (
 );
 
 CREATE TABLE IF NOT EXISTS  GOLPES (
-    id_golpe VARCHAR(7) PRIMARY KEY,
-    nome VARCHAR(40) NOT NULL,
+    id_golpe CHAR(7) PRIMARY KEY,
+    nome CHAR(40) NOT NULL,
     dano INTEGER CHECK (dano BETWEEN 0 AND 100),
     elemento INTEGER CHECK (elemento BETWEEN 0 AND 100),
     CHECK( id_golpe LIKE 'STRO%'
@@ -256,8 +256,8 @@ CREATE TABLE IF NOT EXISTS  GOLPES (
 
 
 CREATE TABLE IF NOT EXISTS  GOLPES_BESTA (
-    id_golpe VARCHAR(7),
-    id_besta VARCHAR(8),
+    id_golpe CHAR(7),
+    id_besta CHAR(8),
     PRIMARY KEY (id_golpe, id_besta),
     FOREIGN KEY (id_golpe) REFERENCES GOLPES (id_golpe)
         ON DELETE RESTRICT
@@ -268,8 +268,8 @@ CREATE TABLE IF NOT EXISTS  GOLPES_BESTA (
 );
 
 CREATE TABLE IF NOT EXISTS  HOSTILIDADE (
-    id_personagem1 VARCHAR(8),
-    id_personagem2 VARCHAR(8),
+    id_personagem1 CHAR(8),
+    id_personagem2 CHAR(8),
     Hostil BOOLEAN,
     PRIMARY KEY (id_personagem1, id_personagem2),
     FOREIGN KEY (id_personagem1) REFERENCES TIPO_PERSONAGEM_HISTORIA (id_personagem)
@@ -282,9 +282,9 @@ CREATE TABLE IF NOT EXISTS  HOSTILIDADE (
 
 
 CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
-    id_play_character VARCHAR(8) PRIMARY KEY,
+    id_play_character CHAR(8) PRIMARY KEY,
     nome VARCHAR(40) UNIQUE NOT NULL,
-    nivel VARCHAR(3),
+    nivel CHAR(3),
     xp INTEGER CHECK (xp >= 0 AND xp <= 100),
     vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
     mana_atual INTEGER CHECK (mana_atual >= 0 AND mana_atual <= 100),
@@ -292,8 +292,8 @@ CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
 	vida_maxima INTEGER CHECK (vida_maxima >= 0 AND vida_maxima <= 100),
   	mana_max INTEGER CHECK (mana_max >= 0 AND mana_max <= 100),
   	stamina_max INTEGER CHECK (stamina_max >= 0 AND stamina_max <= 100),
-    id_sala VARCHAR(7),
-	id_inventario VARCHAR(7) NOT NULL,
+    id_sala CHAR(7),
+	id_inventario CHAR(7) NOT NULL,
     CONSTRAINT fk_id_play_character
         FOREIGN KEY (id_play_character) REFERENCES TIPO_PERSONAGEM_HISTORIA(id_personagem)
   		ON DELETE RESTRICT
@@ -313,8 +313,8 @@ CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
 );
 
 CREATE TABLE IF NOT EXISTS  NOT_PLAY_CHARACTER (
-	id_npc VARCHAR(8) PRIMARY KEY,
-	nome VARCHAR(40) UNIQUE NOT NULL,
+	id_npc CHAR(8) PRIMARY KEY,
+	nome CHAR(40) UNIQUE NOT NULL,
 	nivel FLOAT CHECK (nivel BETWEEN 1 AND 30),
 	xp INTEGER CHECK (xp BETWEEN 0 AND 100),
 	vida_maxima FLOAT CHECK (vida_maxima >= 0 AND vida_maxima <= 100),
@@ -327,14 +327,14 @@ CREATE TABLE IF NOT EXISTS  NOT_PLAY_CHARACTER (
 );
 
 CREATE TABLE IF NOT EXISTS  INSTANCIA_NPC (
-    id_instancia_npc VARCHAR(8),
-    id_npc VARCHAR(8),
+    id_instancia_npc CHAR(8),
+    id_npc CHAR(8),
 	nivel FLOAT CHECK (nivel BETWEEN 1 AND 30),
     vida_atual FLOAT CHECK (vida_atual BETWEEN 0 AND 100),
     mana_atual INTEGER CHECK (mana_atual BETWEEN 0 AND 100),
     stamina_atual INTEGER CHECK (stamina_atual BETWEEN 0 AND 100),
-    id_sala VARCHAR(7),
-	id_inventario VARCHAR(7),
+    id_sala CHAR(7),
+	id_inventario CHAR(7),
 	PRIMARY KEY (id_instancia_npc),
     CONSTRAINT fk_id_npc 
   		FOREIGN KEY (id_npc) REFERENCES NOT_PLAY_CHARACTER(id_npc)
@@ -355,8 +355,8 @@ CREATE TABLE IF NOT EXISTS  INSTANCIA_NPC (
 );
 
 CREATE TABLE IF NOT EXISTS  ESTA_MORTO (
-    id_play_character VARCHAR(8),
-    id_instancia_npc VARCHAR(8),
+    id_play_character CHAR(8),
+    id_instancia_npc CHAR(8),
     PRIMARY KEY (id_play_character, id_instancia_npc),
     FOREIGN KEY (id_play_character) REFERENCES PLAY_CHARACTER (id_play_character)
         ON DELETE RESTRICT
@@ -367,8 +367,8 @@ CREATE TABLE IF NOT EXISTS  ESTA_MORTO (
 );
 
 CREATE TABLE IF NOT EXISTS  TIPO_MISSAO (
-    id_missao VARCHAR(7) PRIMARY KEY,
-    tipo_objetivo VARCHAR(40),
+    id_missao CHAR(7) PRIMARY KEY,
+    tipo_objetivo CHAR(40),
     obrigatoria BOOLEAN
  	CHECK( id_missao LIKE 'MIS%'
        AND CAST(SUBSTRING(id_missao, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
@@ -376,8 +376,8 @@ CREATE TABLE IF NOT EXISTS  TIPO_MISSAO (
 );
 
 CREATE TABLE IF NOT EXISTS  MISSAO_NIVEL (
-    id_missao VARCHAR(7),
-    id_nivel VARCHAR(7),
+    id_missao CHAR(7),
+    id_nivel CHAR(7),
     status BOOLEAN,
     PRIMARY KEY (id_missao, id_nivel),
     FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
@@ -390,8 +390,8 @@ CREATE TABLE IF NOT EXISTS  MISSAO_NIVEL (
 
 
 CREATE TABLE IF NOT EXISTS  CUMPRE_MISSAO (
-    id_missao VARCHAR(7),
-    id_play_character VARCHAR(8),
+    id_missao CHAR(7),
+    id_play_character CHAR(8),
     status BOOLEAN,
     PRIMARY KEY (id_missao, id_play_character),
     FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
@@ -403,10 +403,10 @@ CREATE TABLE IF NOT EXISTS  CUMPRE_MISSAO (
 );
 
 CREATE TABLE IF NOT EXISTS  DIALOGOS (
-    id_dialogo VARCHAR(7),
-    id_personagem VARCHAR(8)NOT NULL,
-    dialogo VARCHAR(80)NOT NULL,
-    missao VARCHAR(7)NOT NULL,
+    id_dialogo CHAR(7),
+    id_personagem CHAR(8)NOT NULL,
+    dialogo CHAR(80)NOT NULL,
+    missao CHAR(7)NOT NULL,
     PRIMARY KEY (id_dialogo, id_personagem),
     CHECK( id_dialogo LIKE 'DIA%'
        AND CAST(SUBSTRING(id_dialogo, 4,4) AS INTEGER) BETWEEN 0000 AND 9999
@@ -420,12 +420,12 @@ CREATE TABLE IF NOT EXISTS  DIALOGOS (
 );
 
 CREATE TABLE IF NOT EXISTS  MISSAO_MATAR_NPC (
-    id_missao VARCHAR(7) PRIMARY KEY,
+    id_missao CHAR(7) PRIMARY KEY,
 	xp_missao INTEGER,
-    nome_missao VARCHAR(30) UNIQUE NOT NULL,
-    id_pre_requisito VARCHAR(7),
-    id_instancia_npc VARCHAR(8),
-	tipo_npc VARCHAR(8),
+    nome_missao CHAR(30) UNIQUE NOT NULL,
+    id_pre_requisito CHAR(7),
+    id_instancia_npc CHAR(8),
+	tipo_npc CHAR(8),
     CONSTRAINT fk_id_missao
         FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
         ON DELETE RESTRICT
@@ -442,7 +442,7 @@ CREATE TABLE IF NOT EXISTS  MISSAO_MATAR_NPC (
 );
 
 CREATE TABLE IF NOT EXISTS  TIPO_ITEM (
-    id_item VARCHAR(7) PRIMARY KEY,
+    id_item CHAR(7) PRIMARY KEY,
     tipo_item VARCHAR(20) NOT NULL
   	CHECK( id_item LIKE 'ITEM%'
        AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
@@ -450,11 +450,11 @@ CREATE TABLE IF NOT EXISTS  TIPO_ITEM (
 );
 
 CREATE TABLE IF NOT EXISTS  INSTANCIA_ITEM (
-    id_instancia_item VARCHAR(8),
-    id_item VARCHAR(7),
-	tipo_local VARCHAR(30) NOT NULL,
-    local_inventario VARCHAR(7) DEFAULT NULL,
-	local_sala VARCHAR(7) DEFAULT NULL,
+    id_instancia_item CHAR(8),
+    id_item CHAR(7),
+	tipo_local CHAR(30) NOT NULL,
+    local_inventario CHAR(7) DEFAULT NULL,
+	local_sala CHAR(7) DEFAULT NULL,
 	eqp_status BOOLEAN NOT NULL,
     PRIMARY KEY (id_instancia_item),
     CHECK( id_instancia_item LIKE 'IITEM%'
@@ -475,21 +475,21 @@ CREATE TABLE IF NOT EXISTS  INSTANCIA_ITEM (
 );
 
 CREATE TABLE IF NOT EXISTS  TIPO_ENCANTAMENTO(
-	id_encantamento VARCHAR(7) primary key,
-	tipo_encatamento VARCHAR(30),
+	id_encantamento CHAR(7) primary key,
+	tipo_encatamento CHAR(30),
 	CHECK( id_encantamento LIKE 'ENCV%'
        AND CAST(SUBSTRING(id_encantamento, 5,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_encantamento) = 7)
 );
 
 CREATE TABLE IF NOT EXISTS  VESTIMENTA (
-    id_vestimenta VARCHAR(7),
-    nome VARCHAR(30) NOT NULL,
+    id_vestimenta CHAR(7),
+    nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
     tipo_vestimenta VARCHAR(20) NOT NULL,
     resistencia INTEGER NOT NULL,
-    parte_corpo VARCHAR(40) NOT NULL,
+    parte_corpo CHAR(40) NOT NULL,
     PRIMARY KEY (id_vestimenta),
     CONSTRAINT fk_id_vestimenta
         FOREIGN KEY (id_vestimenta) REFERENCES TIPO_ITEM (id_item)
@@ -498,9 +498,9 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
 );
 
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_VESTIMENTA (
-    id_encantamento VARCHAR(7) PRIMARY KEY,
-    id_vestimenta VARCHAR(7) NOT NULL,
-    elemento VARCHAR(40) NOT NULL,
+    id_encantamento CHAR(7) PRIMARY KEY,
+    id_vestimenta CHAR(7) NOT NULL,
+    elemento CHAR(40) NOT NULL,
     resistencia INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -513,11 +513,11 @@ CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_VESTIMENTA (
 );
 
 CREATE TABLE IF NOT EXISTS  CONSUMIVEL (
-    id_consumivel VARCHAR(7) PRIMARY KEY,
-    nome VARCHAR(30) NOT NULL,
+    id_consumivel CHAR(7) PRIMARY KEY,
+    nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_consumivel VARCHAR(40),
+    tipo_consumivel CHAR(40),
     aumento INTEGER NOT NULL,
     CONSTRAINT fk_id_item
         FOREIGN KEY (id_consumivel) REFERENCES TIPO_ITEM (id_item)
@@ -526,8 +526,8 @@ CREATE TABLE IF NOT EXISTS  CONSUMIVEL (
 );
 
 CREATE TABLE IF NOT EXISTS  CONSOME(
-	id_consumivel VARCHAR(7),
-	id_play_character VARCHAR(8),
+	id_consumivel CHAR(7),
+	id_play_character CHAR(8),
 	Quantidade INTEGER,
 	PRIMARY KEY (id_consumivel, id_play_character),
 	CONSTRAINT fk_id_consumivel
@@ -542,11 +542,11 @@ CREATE TABLE IF NOT EXISTS  CONSOME(
 
 
 CREATE TABLE IF NOT EXISTS  ARMA (
-    id_arma VARCHAR(7),
-    nome VARCHAR(30) NOT NULL,
+    id_arma CHAR(7),
+    nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_arma VARCHAR(40),
+    tipo_arma CHAR(40),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
     PRIMARY KEY (id_arma),
@@ -558,9 +558,9 @@ CREATE TABLE IF NOT EXISTS  ARMA (
 
 
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_ARMA (
-    id_encantamento VARCHAR(7) PRIMARY KEY,
-    id_arma VARCHAR(7),
-    elemento VARCHAR(40) NOT NULL,
+    id_encantamento CHAR(7) PRIMARY KEY,
+    id_arma CHAR(7),
+    elemento CHAR(40) NOT NULL,
     dano INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -573,12 +573,12 @@ CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_ARMA (
 );
 
 CREATE TABLE IF NOT EXISTS  MISSAO_OBTER_ITEM (
-	id_missao VARCHAR(7) PRIMARY KEY,
+	id_missao CHAR(7) PRIMARY KEY,
 	xp_missao INTEGER,
-	nome VARCHAR(30) NOT NULL,
-	id_pre_requisito VARCHAR(7),
-	id_instancia_item VARCHAR(8) NOT NULL,
-	id_item VARCHAR(7) NOT NULL,
+	nome CHAR(30) NOT NULL,
+	id_pre_requisito CHAR(7),
+	id_instancia_item CHAR(8) NOT NULL,
+	id_item CHAR(7) NOT NULL,
 	CONSTRAINT fk_id_missao
         FOREIGN KEY (id_missao) REFERENCES TIPO_MISSAO (id_missao)
         ON DELETE RESTRICT
@@ -594,8 +594,8 @@ CREATE TABLE IF NOT EXISTS  MISSAO_OBTER_ITEM (
 );
 
 CREATE TABLE IF NOT EXISTS  GEMA(
-	id_gema VARCHAR(7) PRIMARY KEY,
-	nome VARCHAR(30) NOT NULL,
+	id_gema CHAR(7) PRIMARY KEY,
+	nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
 	potencia INTEGER NOT NULL,
@@ -607,7 +607,7 @@ CREATE TABLE IF NOT EXISTS  GEMA(
 );
 
 CREATE TABLE IF NOT EXISTS  PROPORCIONA_ENCANTAMENTO(
-	id_gema VARCHAR(7),
+	id_gema CHAR(7),
 	id_encantamento char(7),
 	PRIMARY KEY( id_gema, id_encantamento),
 	CONSTRAINT fk_id_gema
@@ -621,8 +621,8 @@ CREATE TABLE IF NOT EXISTS  PROPORCIONA_ENCANTAMENTO(
 );
 
 CREATE TABLE IF NOT EXISTS  APRENDER_ENCANTAMENTO(
-	id_encantamento VARCHAR(7),
-	id_play_character VARCHAR(8),
+	id_encantamento CHAR(7),
+	id_play_character CHAR(8),
 	status BOOLEAN,
 	primary key(id_encantamento,id_play_character),
 	CONSTRAINT fk_id_encantamento
@@ -1198,8 +1198,8 @@ FOR EACH ROW
 EXECUTE FUNCTION atualizar_xp_missao_obter_item();
 
 CREATE OR REPLACE PROCEDURE concluir_missao(
-    p_id_missao VARCHAR(7),
-    p_id_play_character VARCHAR(8)
+    p_id_missao CHAR(7),
+    p_id_play_character CHAR(8)
 )
 LANGUAGE plpgsql AS $concluir_missao$
 BEGIN
@@ -1256,7 +1256,7 @@ EXECUTE FUNCTION verificar_insert_magia_humanoide();
 CREATE OR REPLACE FUNCTION atualizar_magia_humanoide()
 RETURNS TRIGGER AS $atualizar_magia_humanoide$
 DECLARE
-    v_id_personagem VARCHAR(8);
+    v_id_personagem CHAR(8);
     v_novo_nivel INTEGER;
 BEGIN
     -- Obtém o ID do personagem
@@ -1425,12 +1425,12 @@ EXECUTE FUNCTION validar_tipo_consumivel();
 
 -- Relação ce consumir em determinado nível:
 CREATE OR REPLACE PROCEDURE consumir(
-    p_id_instancia_item VARCHAR(8),
-    p_id_play_character VARCHAR(7)
+    p_id_instancia_item CHAR(8),
+    p_id_play_character CHAR(7)
 )
 LANGUAGE plpgsql AS $consumir$
 DECLARE
-    v_tipo_consumivel VARCHAR(40);
+    v_tipo_consumivel CHAR(40);
     v_aumento INTEGER;
 BEGIN
     -- Verifica se a instância do item é consumível e obtém o tipo e o aumento
@@ -1508,9 +1508,9 @@ EXECUTE FUNCTION zerar_quantidade_nivel();
 --Atualização da mana com o uso de magia com combate:
 -- Atualização da mana com o uso de magia com combate:
 CREATE OR REPLACE PROCEDURE uso_magia(
-    p_id_play_character VARCHAR(8),
-    p_id_magia VARCHAR(7),
-    p_id_instancia_npc VARCHAR(8))
+    p_id_play_character CHAR(8),
+    p_id_magia CHAR(7),
+    p_id_instancia_npc CHAR(8))
 AS $uso_magia$
 DECLARE
     v_custo_mana INTEGER;
@@ -1628,13 +1628,13 @@ CREATE TRIGGER inserir_missao_obter_item
 
 --- Garantir integridade quando for realizar um encantamento:
 CREATE OR REPLACE PROCEDURE realizar_encantamento(
-    p_id_play_character VARCHAR(8),
-    p_id_encantamento VARCHAR(7)
+    p_id_play_character CHAR(8),
+    p_id_encantamento CHAR(7)
 )
 LANGUAGE plpgsql AS $realizar_encantamento$
 DECLARE
-    v_id_inventario VARCHAR(7);
-	v_id_gema VARCHAR(7);
+    v_id_inventario CHAR(7);
+	v_id_gema CHAR(7);
     v_qtd_gemas INTEGER;
     v_gema_valida BOOLEAN;
 BEGIN
@@ -1772,9 +1772,9 @@ EXECUTE FUNCTION total_exclusivo_encantamento_arma();
 -- Procede para o uso da habilidade
 
 CREATE OR REPLACE PROCEDURE uso_habilidade(
-    p_id_play_character VARCHAR(8),
-    p_id_habilidade VARCHAR(7),
-    p_id_instancia_npc VARCHAR(8))
+    p_id_play_character CHAR(8),
+    p_id_habilidade CHAR(7),
+    p_id_instancia_npc CHAR(8))
 AS $uso_habilidade$
 DECLARE
     v_custo_stamina INTEGER;
@@ -1840,7 +1840,7 @@ $uso_habilidade$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION atualizar_especie_humanoide()
 RETURNS TRIGGER AS $atualizar_especie_humanoide$
 DECLARE
-    v_id_personagem VARCHAR(8);
+    v_id_personagem CHAR(8);
     v_novo_nivel INTEGER;
 BEGIN
     -- Obtém o ID do personagem
@@ -1875,16 +1875,16 @@ EXECUTE FUNCTION atualizar_especie_humanoide();
 ----------------------------------------------------------------------------------------
 
 drop procedure if exists PILHAR_ITEM;
-create procedure PILHAR_ITEM(DESTINO_INV VARCHAR(7), ITEM_PILHADO VARCHAR(8)) AS $$
+create procedure PILHAR_ITEM(DESTINO_INV CHAR(7), ITEM_PILHADO CHAR(8)) AS $$
 DECLARE
-	ITEM VARCHAR(7);
+	ITEM CHAR(7);
     CONTAGEM INTEGER;
-    ID_NOVO VARCHAR(30);
+    ID_NOVO CHAR(30);
 BEGIN
 	ID_NOVO := 'IITEM';
 	SELECT ID_ITEM INTO ITEM FROM INSTANCIA_ITEM WHERE ID_INSTANCIA = ITEM_PILHADO;
     SELECT COUNT(*) INTO CONTAGEM FROM INSTANCIA_ITEM;
-	ID_NOVO := ID_NOVO || CAST(CONTAGEM AS VARCHAR(3));
+	ID_NOVO := ID_NOVO || CAST(CONTAGEM AS CHAR(3));
         insert into INSTANCIA_ITEM (ID_INSTANCIA_ITEM, ID_ITEM, LOCAL_INVENTARIO, EQP_STATUS) 
         	VALUES (ID_NOVO, ITEM, DESTINO_INV, 0);
 END;
@@ -1892,7 +1892,7 @@ $$ lANGUAGE plpgsql;
 
 --- DAR_DANO_ARMA
 drop procedure if exists dar_dano_arma;
-CREATE PROCEDURE DAR_DANO_ARMA(NPC VARCHAR(8), ARMA VARCHAR(7)) AS $$
+CREATE PROCEDURE DAR_DANO_ARMA(NPC CHAR(8), ARMA CHAR(7)) AS $$
 DECLARE 
 	DANO_ARMA INTEGER;
 BEGIN
@@ -1905,7 +1905,7 @@ $$ LANGUAGE PLPGSQL;
 --- DEIXA_MORTO
 
 DROP PROCEDURE IF EXISTS DEIXA_MORTO;
-CREATE PROCEDURE DEIXA_MORTO(NPC VARCHAR(8), PC VARCHAR(8)) AS $$
+CREATE PROCEDURE DEIXA_MORTO(NPC CHAR(8), PC CHAR(8)) AS $$
 BEGIN
 	IF (SELECT VIDA_ATUAL FROM INSTANCIA_NPC WHERE ID_INSTANCIA_NPC = NPC) > 0
 	THEN RAISE EXCEPTION 'AINDA NÃO MORREU';
