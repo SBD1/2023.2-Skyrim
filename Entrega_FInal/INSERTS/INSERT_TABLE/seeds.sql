@@ -42,6 +42,7 @@ INSERT INTO SALA (id_sala, nome_sala, id_local)
 VALUES ('ROOM005', 'Malacar_casa', 'LOC0005');
 INSERT INTO SALA (id_sala, nome_sala, id_local)
 VALUES ('ROOM006', 'Pátio colégio de magia', 'LOC0006');
+INSERT INTO SALA (id_sala, nome_sala, id_local)
 VALUES ('ROOM007', 'loja colégio de magia', 'LOC0006');
 
 INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
@@ -50,3 +51,18 @@ INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
 VALUES ('INV0006', 19.0, 100, FALSE);
 INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
 VALUES ('INV0007', 19.0, 100, TRUE);
+
+INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp, vida_maxima, mana_max, stamina_max) 
+VALUES ('CHAR0005', 'Malachar Darkthor', 1, 0, 100, 65, 65);
+INSERT INTO INSTANCIA_NPC(id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario)
+values ('INPC0001','CHAR0005',1,100,65,65, 'ROOM005','INV0005');
+
+INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp, vida_maxima, mana_max, stamina_max) 
+VALUES ('CHAR0006', 'Seraphina Shadowweaver', 1, 0, 100, 65, 65);
+INSERT INTO INSTANCIA_NPC(id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario)
+values ('INPC0002','CHAR0006',1,100,65,65, 'ROOM006','INV0006');
+
+INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp, vida_maxima, mana_max, stamina_max) 
+VALUES ('CHAR0007', 'Neloth', 1, 0, 100, 65, 65);
+INSERT INTO INSTANCIA_NPC(id_instancia_npc,id_npc,nivel,vida_atual,mana_atual,stamina_atual,id_sala,id_inventario)
+values ('INPC0003','CHAR0007',1,100,65,65, 'ROOM007','INV0007');
