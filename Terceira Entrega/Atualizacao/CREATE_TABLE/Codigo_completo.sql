@@ -443,7 +443,11 @@ CREATE TABLE IF NOT EXISTS  MISSAO_MATAR_NPC (
 
 CREATE TABLE IF NOT EXISTS  TIPO_ITEM (
     id_item CHAR(7) PRIMARY KEY,
+<<<<<<< HEAD
     tipo_item CHAR(40) NOT NULL
+=======
+    tipo_item VARCHAR(20) NOT NULL
+>>>>>>> 78f1098 (pequenas atualizações)
   	CHECK( id_item LIKE 'ITEM%'
        AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_item) = 7)
@@ -487,7 +491,11 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
+<<<<<<< HEAD
     tipo_vestimenta CHAR(40) NOT NULL,
+=======
+    tipo_vestimenta VARCHAR(20) NOT NULL,
+>>>>>>> 78f1098 (pequenas atualizações)
     resistencia INTEGER NOT NULL,
     parte_corpo CHAR(40) NOT NULL,
     PRIMARY KEY (id_vestimenta),

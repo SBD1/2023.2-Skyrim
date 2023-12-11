@@ -34,3 +34,6 @@ VALUES ('CHAR0013', 'Tyranor', 'N01', 1, 00, 100, 60, 70, 100, 100, 'ROOM200', '
 
 INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario) 
 VALUES ('CHAR0014', 'Lyra', 'N01', 1, 00, 100, 65, 65, 100, 100, 'ROOM200', 'INV0002');
+
+
+INSERT INTO VESTIMENTA(id_vestimenta,nome,valor,peso,tipo_vestimenta,resistencia,parte_corpo) VALUES('ITEM001','Vestimento de Aventura',15,10,'Armadura',15,'Peito');

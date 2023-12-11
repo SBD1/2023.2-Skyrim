@@ -53,6 +53,7 @@ def main(con: Conexao):
         database_players = con.select('PLAY_CHARACTER', fields.split(','))
 
         players = []
+        print(database_players)
 
         for player in database_players:
             id_play_character = player[0]
