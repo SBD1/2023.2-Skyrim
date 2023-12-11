@@ -965,14 +965,16 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 
 **Código**
 
-         CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
-             RETURNS TRIGGER AS $inserir_missao_matar_npc$
-             BEGIN
-                 IF TG_OP = 'INSERT' THEN
-                     -- Verifica se a chave já existe em TIPO_MISSAO
-                     IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
-                         RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
-                     END IF;
+
+
+               CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
+                   RETURNS TRIGGER AS $inserir_missao_matar_npc$
+                   BEGIN
+                       IF TG_OP = 'INSERT' THEN
+                           -- Verifica se a chave já existe em TIPO_MISSAO
+                           IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
+                               RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
+                           END IF;
          			
          			
                  END IF;
@@ -996,14 +998,16 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 **Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
 
 **Código** 
-            CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
-                RETURNS TRIGGER AS $inserir_missao_obter_item$
-                BEGIN
-                    IF TG_OP = 'INSERT' THEN
-                        -- Verifica se a chave já existe em TIPO_MISSAO
-                        IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
-                            RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
-                        END IF;
+
+   
+               CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
+                   RETURNS TRIGGER AS $inserir_missao_obter_item$
+                   BEGIN
+                       IF TG_OP = 'INSERT' THEN
+                           -- Verifica se a chave já existe em TIPO_MISSAO
+                           IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
+                               RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
+                           END IF;
             			
             			
                     END IF;
