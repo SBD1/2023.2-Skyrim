@@ -6,7 +6,7 @@ INSERT INTO TIPO_PERSONAGEM_HISTORIA (id_personagem,jogavel) VALUES('CHAR0004','
 
 INSERT INTO REGIAO (id_regiao, nome) VALUES ('REG0001', 'Vale de Whiterun');
 
-INSERT INTO LUGAR (id_local, nome_local, id_regiao) VALUES ('LOC1000', 'Casa 1', 'REG0001');
+]
 INSERT INTO LUGAR (id_local, nome_local, id_regiao) VALUES ('LOC2000', 'Casa 2', 'REG0001');
 INSERT INTO LUGAR (id_local, nome_local, id_regiao) VALUES ('LOC3000', 'Casa 3', 'REG0001');
 INSERT INTO LUGAR (id_local, nome_local, id_regiao) VALUES ('LOC4000', 'Casa 4', 'REG0001');
