@@ -964,6 +964,7 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 **Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
 
 **Código**
+
          CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
              RETURNS TRIGGER AS $inserir_missao_matar_npc$
              BEGIN
