@@ -46,6 +46,7 @@ Aqui são apresentados os códigos ou scripts utilizados para a criação das 46
  * [GEMA](#GEMA)
  * [PROPORCIONA_ENCANTAMENTO](#PROPORCIONA_ENCANTAMENTO)
  * [APRENDER_ENCANTAMENTO](#APRENDER_ENCANTAMENTO)
+ * [ESPECIE_HUMANOIDE](#ESPECIE_HUMANOIDE)
 
 ## Códigos em sql
 
@@ -754,6 +755,8 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
 		        ON DELETE RESTRICT
 		        ON UPDATE CASCADE
 		);
+
+  
   ##  Histórico de Versão
 
 | Versão | Alteração | Responsável | Revisor | Data |
