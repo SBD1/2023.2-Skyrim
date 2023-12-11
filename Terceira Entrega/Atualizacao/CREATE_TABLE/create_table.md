@@ -739,6 +739,21 @@ Para a criação das ids de cada tabela, foram levados em consideração padro�
       
       );
 
+## ESPECIE_HUMANOIDE
+
+		CREATE TABLE IF NOT EXISTS  ESPECIE_HUMANOIDE (
+		    id_humanoide CHAR(8),
+		    id_habilidade CHAR(7),
+			nivel INTEGER CHECK (NIVEL >= 0 AND nivel <= 100),
+			dano INTEGER CHECK (dano >= 0 AND dano <= 100),
+		    PRIMARY KEY (id_humanoide, id_habilidade),
+		    FOREIGN KEY (id_humanoide) REFERENCES HUMANOIDE (id_humanoide)
+		        ON DELETE RESTRICT
+		        ON UPDATE CASCADE,
+		    FOREIGN KEY (id_habilidade) REFERENCES HABILIDADE_ESPECIE (id_habilidade)
+		        ON DELETE RESTRICT
+		        ON UPDATE CASCADE
+		);
   ##  Histórico de Versão
 
 | Versão | Alteração | Responsável | Revisor | Data |
