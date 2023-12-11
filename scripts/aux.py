@@ -102,11 +102,13 @@ def main(con: Conexao):
 
         if resposta < num_players:
             player = players[resposta-1]
+            introducao(player)
         elif resposta <= (num_players + 5):
             player = players[resposta-1-5]
             player.show_player()
-
-        introducao(player)
+            info('info', 'Pressione qualquer tecla para voltar ao menu principal')
+            input()
+            main(con)
 
     elif resposta == 2:
         reset_database()
