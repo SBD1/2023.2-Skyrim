@@ -176,20 +176,22 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 
 **Código:**
 
-        CREATE OR REPLACE FUNCTION check_atributos_personagem()
-        RETURNS TRIGGER AS $check_atributos_personagem$
-        BEGIN
-            IF NEW.xp < 0 OR NEW.vida_atual < 0 OR NEW.mana_atual < 0 OR NEW.stamina_atual < 0
-               OR NEW.vida_maxima < 0 OR NEW.mana_max < 0 OR NEW.stamina_max < 0 THEN
-                RAISE EXCEPTION 'Os atributos de XP, vida, mana e stamina devem ser não negativos.';
-            END IF;
-            RETURN NEW;
-        END;
-        $check_atributos_personagem$ LANGUAGE plpgsql;
-        
-        CREATE TRIGGER check_atributos_personagem_trigger
-        BEFORE INSERT OR UPDATE ON PLAY_CHARACTER
-        FOR EACH ROW EXECUTE FUNCTION check_atributos_personagem();
+
+
+              CREATE OR REPLACE FUNCTION check_atributos_personagem()
+              RETURNS TRIGGER AS $check_atributos_personagem$
+              BEGIN
+                  IF NEW.xp < 0 OR NEW.mana_atual < 0 OR NEW.stamina_atual < 0
+                     OR NEW.vida_maxima < 0 OR NEW.mana_max < 0 OR NEW.stamina_max < 0 THEN
+                      RAISE EXCEPTION 'Os atributos de XP, vida, mana e stamina devem ser não negativos.';
+                  END IF;
+                  RETURN NEW;
+              END;
+              $check_atributos_personagem$ LANGUAGE plpgsql;
+              
+              CREATE TRIGGER check_atributos_personagem_trigger
+              BEFORE INSERT OR UPDATE ON PLAY_CHARACTER
+              FOR EACH ROW EXECUTE FUNCTION check_atributos_personagem();
 
 ## Restrição de valor mínimo para not_play_character
 
