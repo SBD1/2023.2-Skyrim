@@ -86,4 +86,9 @@
 
 [Apresentação](https://github.com/SBD1/2023.2-Skyrim/tree/main/Apresentacoes/Apresentacao3) (fazer o download do vídeo para assistir)
 
+## Entrega Final
+
+[Roteiro: História do jogo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/Roteiro_Jogo.md) (Uma das partes mais divertidas)
+[Vídeo: Apresentação do funcionamento do Banco](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/Nova_Apresentacao_Banco.mp4) (Observação: Necessário baixar o vídeo)
+
 
