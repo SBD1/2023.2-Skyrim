@@ -90,7 +90,10 @@
 
 [Roteiro: História do jogo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/Roteiro_Jogo.md) (Uma das partes mais divertidas)
 
-[Vídeo: Apresentação do funcionamento do Banco](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/Nova_Apresentacao_Banco.mp4) (Observação: Necessário baixar o vídeo na setinha superior a direita)
+[Vídeo: Apresentação do funcionamento do Banco](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/Nova_Apresentacao_Banco.mp4) (Parte mais importante da apresentação, pois mostra o funcionamento direto do Banco.)
+
+**Observação:** Necessário baixar da apresentação na setinha superior a direita -> Download Raw File
+
 
 [Atualização do código em sql completo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/atualiza%C3%A7%C3%A3o_Codigo_completo.sql)
 
