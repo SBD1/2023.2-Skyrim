@@ -1,0 +1,256 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define VOLTAR 2
+
+void investigar_sala() {
+    system("clear");
+    printf("         |              Investigar a sala:             |\n");
+    printf("         |*********************************************|\n");
+    printf("         |                                             |\n");
+    printf("         |1) Verificar estante                         |\n");
+    printf("         |2) Verificar mesa                            |\n");
+    printf("         |3) Verificar a porta destroçada!             |\n");
+    printf("         |_____________________________________________|\n");
+}
+
+void introducao() {
+    // Variáveis
+    int escolha = 0;
+    char tecla[VOLTAR];
+
+    // Execucao:
+
+    printf(" ______________________________________________________________________________\n");
+    printf(" |                                                                             |\n");
+    printf(" |                Era mais um fim de tarde no vale de Whiterun                 |\n");
+    printf(" |    Após passar o dia caçando com seu melhor amigo, Ealdred Swiftblade,      |\n");
+    printf(" | Você retorna à sua casa, mas ela não é mais o refúgio seguro que conheceste |\n");
+    printf(" |   Móveis destroçados e manchas de sangue pintam um quadro aterrorizante.    |\n");
+    printf(" |                                                                             |\n");
+    printf(" |_____________________________________________________________________________|\n");
+    printf("\n");
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+    scanf("%s", tecla);
+
+    system("clear");
+
+    printf(" ______________________________________________________________________________\n");
+    printf(" |                                                                             |\n");
+    printf(" |                - Aldrich! Aldrich! Você está aí?!                           |\n");
+    printf(" |         Você grita enquanto o seu coração acelera cada vez mais!            |\n");  
+    printf(" |                                                                             |\n");
+    printf(" |              Você olha em volta, mas nenhum sinal de Aldrich                |\n");
+    printf(" |_____________________________________________________________________________|\n");
+    printf("\n");
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+    
+    scanf("%s", tecla);
+
+    system("clear");
+
+    printf(" ___________________________________________________________________________________\n");
+    printf(" |                                                                                  |\n");
+    printf(" |                      Aldrich é o seu irmão mais velho!                           |\n");
+    printf(" | Após o misterioso assassinato de seus pais, foi ele quem cuidou e protegeu você! |\n");
+    printf(" |__________________________________________________________________________________|\n");
+    printf("\n");
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+    scanf("%s", tecla);
+
+    system("clear");
+
+    printf(" ___________________________________________________________________________________\n");
+    printf(" |                                                                                  |\n");
+    printf(" |       - Ealdred Swiftblade: Precisamos descobrir o que aconteceu aqui!           |\n");
+    printf(" |__________________________________________________________________________________|\n");
+    printf("\n");
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+    scanf("%s", tecla);
+
+    investigar_sala();
+    scanf("%d", &escolha);
+
+    switch (escolha) {
+        case 1:
+            system("clear");
+            printf(" ______________________________________________________________\n");
+            printf(" |     Você decide verificar a estante de livros quebrada.     |\n");
+            printf(" |  Entre os destroços, encontra uma carta rasgada e algumas   |\n");
+            printf(" |         pistas sobre o desaparecimento de Aldrich.          |\n");
+            printf(" |    Carta de Aldrich: 'Será que isso nos levará até ele?'    |\n");
+            printf(" |_____________________________________________________________|\n");
+
+            investigar_sala();
+            scanf("%d", &escolha);
+
+
+        case 2:
+            system("clear");
+            printf(" ______________________________________________________________\n");
+            printf(" |            Você decide verificar a mesa quebrada.           |\n");
+            printf(" |  Sob os destroços, encontra um livro antigo com o símbolo   |\n");
+            printf(" |           da família de lord Malachar Darkthorn             |\n");
+            printf(" |   Livro adicionado no seu inventário!                       |\n");
+            printf(" |_____________________________________________________________|\n");
+
+            printf("\n \n \nAperte alguma tecla para continuar...\n");
+            scanf("%s", tecla);
+
+            
+             printf(" ___________________________________________________________________________________\n");
+            printf(" |                                                                                  |\n");
+            printf(" |       - Ealdred Swiftblade: Este é o símbolo do inimigo da sua família!          |\n");
+            printf(" |                                                                                  |");
+            printf(" |       - Ealdred Swiftblade: O que ele quer com Aldrich? Devemos tomar cuidado!   |\n");
+            printf(" |__________________________________________________________________________________|\n");
+            printf("\n");
+            printf("\n \n \nAperte alguma tecla para continuar...\n");
+        
+        
+        scanf("%s", tecla);
+
+
+        case 3:
+            system("clear");
+            printf(" ______________________________________________________________\n");
+            printf(" |        Você decide verificar a porta destroçada.            |\n");
+            printf(" |  A porta está completamente destruída, como se algo muito   |\n");
+            printf(" |              poderoso tivesse passado por ali.              |\n");
+            printf(" |_____________________________________________________________|\n");
+
+            printf("\n \n \nAperte alguma tecla para continuar...\n");
+            scanf("%s", tecla);
+
+            // ...
+
+            break;
+    }
+
+    printf(" ______________________________________________________________________________\n");
+    printf(" |                                                                             |\n");
+    printf(" |                - Ahrg! Eu vou encontrar lord Malachar Darkthorn             |\n");
+    printf(" |                     Vou confrontá-lo e fazer picadinhos dele!               |\n");  
+    printf(" |_____________________________________________________________________________|\n");
+    printf("\n");
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+    
+    scanf("%s", tecla);
+
+    system("clear");
+    
+      printf(" ______________________________________________________________________________________\n");
+            printf(" |                                                                               |\n");
+            printf(" |         - Ealdred Swiftblade: Uhm, Lord Malachar Darkthorn é poderoso!        |\n");
+            printf(" |                                                                               |");
+            printf(" | - Ealdred Swiftblade: Você deve obter uma armadura para se proteger antes!!   |\n");
+            printf(" |_______________________________________________________________________________|\n");
+            printf("\n");
+            printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+    printf(" ______________________________________________________________________________\n");
+    printf(" |                                                                             |\n");
+    printf(" |                  Missão 1: Comprar uma rmadura em uma loja!                 |\n");
+    printf(" |                     Vou confrontá-lo e fazer picadinhos dele!               |\n");  
+    printf(" |_____________________________________________________________________________|\n");    
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+    
+}
+
+int main() {
+    //Variáveis
+    int resposta = 0;
+    char tecla[VOLTAR];//Resposta para voltar ao menu.
+
+    // Execução:
+
+    printf(" ________________________________________________________________________\n");
+    printf(" |                                                                       |\n");
+    printf(" |                         Bem-vindo(a) ao jogo:                         |\n");
+    printf(" |      !Herdeiros da Tempestade: Em busca de Aldrich Stormwalker!       |\n");
+    printf(" |                                                                       |\n");
+    printf(" |                                                                       |\n");
+    printf(" |                                                                       |\n");
+    printf(" | Um jogo baseado no universo de Skyrim criado pelos estudantes de SBD  |\n");
+    printf(" |_______________________________________________________________________|\n");
+    printf("\n");
+    
+
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+    scanf("%s", tecla);
+
+    system("clear");
+
+     printf(" ________________________________________________________________________\n");
+    printf(" |                                                                       |\n");
+    printf(" |                    Bem-vindo(a) ao mundo Lumaria!                     |\n");
+    printf(" |      !Um lugar onde lobos tentarão te atacar e dragões te matar!      |\n");
+    printf(" |           mas que a aventura, com certeza, vai te consquistar!        |\n");
+    printf(" |                                                                       |\n");
+    printf(" |_______________________________________________________________________|\n");
+
+    printf("\n \n \nAperte alguma tecla para continuar...\n");
+
+
+    scanf("%s", tecla);
+
+    system("clear");
+    
+    printf("         |        Faça um escolha jovem viajante:      |\n");
+    printf("         |*********************************************|\n");
+    printf("         |                                             |\n");
+    printf("         |1) Iniciar jogo                              |\n");
+    printf("         |2) Resetar jogo                              |\n");
+    printf("         |3) Sair                                      |\n");
+    printf("         |_____________________________________________|\n");
+
+    scanf("%d", &resposta);
+
+     switch(resposta){
+        case 1:
+             system("clear");
+
+            printf("        |       Escolha quem você vai querer ser:     |\n");
+            printf("         |*********************************************|\n");
+            printf("         |                                             |\n");
+            printf("         |1) Thaliana                                  |\n");
+            printf("         |2) Valeriun                                  |\n");
+            printf("         |3) Tyranor                                   |\n");
+            printf("         |4) Lyra                                      |\n");
+            printf("         |5) Voltar                                    |\n");
+            printf("         |_____________________________________________|\n");
+            printf("         |     Caso você deseje ver as informações:    |\n");
+            printf("         |*********************************************|\n");
+            printf("         |6) Dados de Thaliana                         |\n");
+            printf("         |7) Dados de Valeriun                         |\n");
+            printf("         |8) Dados de Tyranor                          |\n");
+            printf("         |9) Dados de Lyra                             |\n");
+            printf("         |_____________________________________________|\n");
+
+            scanf("%d", &resposta);
+            introducao();
+
+        break;
+
+        case 2:
+               printf("Você resetou o jogo\n");
+            break;
+        case 3:
+            system("clear");
+
+            printf("   ____________________________________________________________________________\n");
+            printf("   |                                                                           |\n");
+            printf("   |                        Você saiu de Lumaria!                              |\n");
+            printf("   |            *Esperamos que tenha tido uma ótima aventura*                  |\n");
+            printf("   |___________________________________________________________________________|\n");
+            exit(1);
+            break;
+     }
+
+    return 0;
+}
