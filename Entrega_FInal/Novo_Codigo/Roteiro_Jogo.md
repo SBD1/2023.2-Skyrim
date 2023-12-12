@@ -71,3 +71,8 @@ Com cada passo, desbloqueie habilidades e encantamentos, encarando criaturas len
 
 ## Nível 3: Continua...
 
+| Versão | Alteração | Responsável | Revisor | Data |
+| - | - | - | - | - |
+| 1.0 | Criaçao do Roteiro| Larissa Stéfane | - | 09/12/2023
+
+
