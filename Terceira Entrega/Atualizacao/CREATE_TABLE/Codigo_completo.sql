@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS  REGIAO(
 
 CREATE TABLE IF NOT EXISTS  LUGAR(
   id_local CHAR(7) PRIMARY KEY,
-  nome_local CHAR(30) UNIQUE NOT NULL,
+  nome_local VARCHAR(60) UNIQUE NOT NULL,
   id_regiao CHAR(7),
   CONSTRAINT verificar_id_local
   	CHECK( id_local LIKE 'LOC%'
@@ -65,9 +65,9 @@ CREATE TABLE IF NOT EXISTS  LUGAR(
   
 CREATE TABLE IF NOT EXISTS  SALA(
   id_sala CHAR(7) PRIMARY KEY,
-  nome_sala CHAR(40) NOT NULL,
+  nome_sala VARCHAR(60) NOT NULL,
   id_local CHAR(7),
-  descricao CHAR(40),
+  descricao VARCHAR(60),
   CONSTRAINT verificar_id_sala
   	CHECK( id_sala LIKE 'ROOM%'
           AND CAST(SUBSTRING(id_sala, 5,3) AS INTEGER) BETWEEN 000 AND 999
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS  FORMA (
 
 CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
    id_habilidade CHAR(7) PRIMARY KEY,
-   nome CHAR(20) UNIQUE NOT NULL,
+   nome CHAR(40) UNIQUE NOT NULL,
    mod_vida INTEGER CHECK (mod_vida >= 0 AND mod_vida <= 100),
    mod_stamina INTEGER CHECK (mod_stamina >= 0 AND mod_stamina <= 100),
    mod_mana INTEGER CHECK (mod_mana >= 0 AND mod_mana <= 100),
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS  HABILIDADE_ESPECIE (
 
 CREATE TABLE IF NOT EXISTS  ESPECIE (
    id_especie CHAR(7) PRIMARY KEY,
-   nome CHAR(20) UNIQUE NOT NULL,
+   nome CHAR(40) UNIQUE NOT NULL,
    id_habilidade CHAR(7),
    CONSTRAINT verificar_id_especie
     CHECK ( id_especie LIKE 'ESPEC%'
@@ -194,8 +194,8 @@ CREATE TABLE IF NOT EXISTS  HUMANOIDE (
 
 CREATE TABLE IF NOT EXISTS  MAGIA (
     id_magia CHAR(7) PRIMARY KEY,
-  	nome CHAR(20) UNIQUE NOT NULL,
-    elemento CHAR(20) NOT NULL,
+  	nome CHAR(40) UNIQUE NOT NULL,
+    elemento CHAR(40) NOT NULL,
     dano_inicial INTEGER CHECK (dano_inicial >= 0 AND dano_inicial <= 100),
     custo_mana INTEGER CHECK (custo_mana >= 0 AND custo_mana <= 100),
   	CONSTRAINT verificar_id_habilidade
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS  BESTA (
 
 CREATE TABLE IF NOT EXISTS  GOLPES (
     id_golpe CHAR(7) PRIMARY KEY,
-    nome CHAR(20) NOT NULL,
+    nome CHAR(40) NOT NULL,
     dano INTEGER CHECK (dano BETWEEN 0 AND 100),
     elemento INTEGER CHECK (elemento BETWEEN 0 AND 100),
     CHECK( id_golpe LIKE 'STRO%'
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS  HOSTILIDADE (
 
 CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
     id_play_character CHAR(8) PRIMARY KEY,
-    nome CHAR(20) UNIQUE NOT NULL,
+    nome VARCHAR(40) UNIQUE NOT NULL,
     nivel CHAR(3),
     xp INTEGER CHECK (xp >= 0 AND xp <= 100),
     vida_atual INTEGER CHECK (vida_atual >= 0 AND vida_atual <= 100),
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS  PLAY_CHARACTER (
 
 CREATE TABLE IF NOT EXISTS  NOT_PLAY_CHARACTER (
 	id_npc CHAR(8) PRIMARY KEY,
-	nome CHAR(20) UNIQUE NOT NULL,
+	nome CHAR(40) UNIQUE NOT NULL,
 	nivel FLOAT CHECK (nivel BETWEEN 1 AND 30),
 	xp INTEGER CHECK (xp BETWEEN 0 AND 100),
 	vida_maxima FLOAT CHECK (vida_maxima >= 0 AND vida_maxima <= 100),
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS  MISSAO_MATAR_NPC (
 
 CREATE TABLE IF NOT EXISTS  TIPO_ITEM (
     id_item CHAR(7) PRIMARY KEY,
-    tipo_item CHAR(20) NOT NULL
+    tipo_item VARCHAR(20) NOT NULL
   	CHECK( id_item LIKE 'ITEM%'
        AND CAST(SUBSTRING(id_item, 5,3) AS INTEGER) BETWEEN 000 AND 999
        AND LENGTH(id_item) = 7)
@@ -487,9 +487,9 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_vestimenta CHAR(20) NOT NULL,
+    tipo_vestimenta VARCHAR(20) NOT NULL,
     resistencia INTEGER NOT NULL,
-    parte_corpo CHAR(20) NOT NULL,
+    parte_corpo CHAR(40) NOT NULL,
     PRIMARY KEY (id_vestimenta),
     CONSTRAINT fk_id_vestimenta
         FOREIGN KEY (id_vestimenta) REFERENCES TIPO_ITEM (id_item)
@@ -500,7 +500,7 @@ CREATE TABLE IF NOT EXISTS  VESTIMENTA (
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_VESTIMENTA (
     id_encantamento CHAR(7) PRIMARY KEY,
     id_vestimenta CHAR(7) NOT NULL,
-    elemento CHAR(20) NOT NULL,
+    elemento CHAR(40) NOT NULL,
     resistencia INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -517,7 +517,7 @@ CREATE TABLE IF NOT EXISTS  CONSUMIVEL (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_consumivel CHAR(20),
+    tipo_consumivel CHAR(40),
     aumento INTEGER NOT NULL,
     CONSTRAINT fk_id_item
         FOREIGN KEY (id_consumivel) REFERENCES TIPO_ITEM (id_item)
@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS  ARMA (
     nome CHAR(30) NOT NULL,
     valor INTEGER NOT NULL,
     peso FLOAT CHECK (peso > 0),
-    tipo_arma CHAR(20),
+    tipo_arma CHAR(40),
     num_mãos INTEGER CHECK (num_mãos >= 1 AND num_mãos <= 2),
     custo_stamina INTEGER CHECK (custo_stamina >= 0),
     PRIMARY KEY (id_arma),
@@ -560,7 +560,7 @@ CREATE TABLE IF NOT EXISTS  ARMA (
 CREATE TABLE IF NOT EXISTS  ENCANTAMENTO_ARMA (
     id_encantamento CHAR(7) PRIMARY KEY,
     id_arma CHAR(7),
-    elemento CHAR(20) NOT NULL,
+    elemento CHAR(40) NOT NULL,
     dano INTEGER NOT NULL,
   	CONSTRAINT fk_id_encantamento
         FOREIGN KEY (id_encantamento) REFERENCES TIPO_ENCANTAMENTO(id_encantamento)
@@ -1430,7 +1430,7 @@ CREATE OR REPLACE PROCEDURE consumir(
 )
 LANGUAGE plpgsql AS $consumir$
 DECLARE
-    v_tipo_consumivel CHAR(20);
+    v_tipo_consumivel CHAR(40);
     v_aumento INTEGER;
 BEGIN
     -- Verifica se a instância do item é consumível e obtém o tipo e o aumento
@@ -1914,118 +1914,3 @@ BEGIN
 	END IF;
 END;
 $$ LANGUAGE PLPGSQL;
-
-
-
-
--- Integridade em encantamento vestimenta.
-
--- TESTE:
-
-INSERT INTO REGIAO (id_regiao, nome)
-VALUES ('REG0001', 'Região de Exemplo');
-
--- Inserção de Local
-INSERT INTO LUGAR (id_local, nome_local, id_regiao)
-VALUES ('LOC0001', 'Local de Exemplo', 'REG0001');
-
--- Inserção de Sala
-INSERT INTO SALA (id_sala, nome_sala, id_local)
-VALUES ('ROOM001', 'Sala de Exemplo', 'LOC0001');
-
--- Inserção de Tipo de Personagem História
-
-
-INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
-VALUES ('INV0001', 50.0, 100, FALSE);
-INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
-VALUES ('INV0002', 50.0, 100, FALSE);
-
-
-INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
-VALUES ('ITEM003', 'Vestimento de Aventura', 50, 5.0, 'Robe', 10, 'Torso');
-
-INSERT INTO ENCANTAMENTO_VESTIMENTA (id_encantamento, id_vestimenta, elemento, resistencia)
-VALUES ('ENCV001', 'ITEM003', 'Fogo', 5);
-
-
--- Inserção na tabela nivel
-INSERT INTO NIVEL (id_nivel, xp_minimo, XP_MAXIMO)
-VALUES ('N01', 0, 50);
-
-INSERT INTO NIVEL (id_nivel, xp_minimo, XP_MAXIMO)
-VALUES ('N02', 50, 70);
-
-INSERT INTO PLAY_CHARACTER (id_play_character, nome, nivel, xp, vida_atual, mana_atual, stamina_atual, vida_maxima, mana_max, stamina_max, id_sala, id_inventario)
-VALUES ('CHAR0001', 'Personagem', 'N01', 1, 10, 10, 10, 99, 10, 10, 'ROOM001', 'INV0001');
-
-INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp, vida_maxima, mana_max, stamina_max)
-VALUES ('CHAR0002', 'PersonagemN', 1, 50, 100, 99, 99);
-
-INSERT INTO INSTANCIA_NPC (id_instancia_npc, id_npc, nivel, vida_atual, mana_atual, stamina_atual, id_sala, id_inventario)
-VALUES ('INPC0001', 'CHAR0002', 2, 20, 10, 10, 'ROOM001', 'INV0002');
-
-INSERT INTO TIPO_MISSAO (id_missao, tipo_objetivo, obrigatoria)
-VALUES ('MIS0001', 'Objetivo de Exemplo', TRUE);
-
-INSERT INTO MISSAO_MATAR_NPC (id_missao, xp_missao, nome_missao, id_pre_requisito, id_instancia_npc, tipo_npc)
-VALUES ('MIS0001', 60, 'Missão de Matar NPC', NULL, 'INPC0001', 'CHAR0002');
-
-
-INSERT INTO MAGIA (id_magia, nome, elemento, dano_inicial, custo_mana)
-VALUES ('MAG0001', 'Magia de Fogo', 'Fogo', 60, 8);
-
-
-
--- Inserir na tabela HABILIDADE_ESPECIE
-INSERT INTO HABILIDADE_ESPECIE (id_habilidade, nome, mod_vida, mod_stamina, mod_mana, mod_defesa_frio, mod_defesa_fogo, mod_defesa_eletr)
-VALUES ('HAB0001', 'Habilidade Teste', 10, 20, 30, 40, 50, 60);
-
--- Inserir na tabela ESPECIE
-INSERT INTO ESPECIE (id_especie, nome, id_habilidade)
-VALUES ('ESPEC01', 'Especie Teste', 'HAB0001');
-
--- Inserir na tabela HUMANOIDE
-INSERT INTO HUMANOIDE (id_humanoide, eqp_bota, eqp_luva, eqp_calça, eqp_colar, eqp_peitoral, eqp_anel, eqp_cabeça, mao_esq, mao_dir, id_especie, vida_maxima, mana_max, stamina_max)
-VALUES ('CHAR0001', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 'ESPEC01', 100, 100, 100);
-
-INSERT INTO CONSUMIVEL (id_consumivel, nome, valor, peso, tipo_consumivel, aumento)
-VALUES ( 'ITEM001', 'Bebida de fogo', 12, 22.2, 'Heal', 10);
-
-INSERT INTO GEMA (id_gema, nome, valor, peso, potencia)
-VALUES ('ITEM002', 'Gema de Cristal', 34, 2.5, 8);
-
-INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_local, local_inventario, local_sala, eqp_status)
-VALUES ('IITEM002', 'ITEM002', 'Inventário', 'INV0001', NULL , FALSE);
-
-INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_local, local_inventario, local_sala, eqp_status)
-VALUES ('IITEM001', 'ITEM001', 'Sala', NULL, 'ROOM001', FALSE);
-
-INSERT INTO MAGIA_HUMANOIDE (id_humanoide, id_magia, nivel, dano)
-VALUES ('CHAR0001', 'MAG0001', 1, 60);
-
-
-INSERT INTO MISSAO_NIVEL (ID_MISSAO, ID_NIVEL)
-Values ('MIS0001', 'N01');
-
-INSERT INTO CUMPRE_MISSAO (id_missao, id_play_character, status)
-VALUES ('MIS0001', 'CHAR0001', FALSE);
-
-INSERT INTO PROPORCIONA_ENCANTAMENTO(id_gema, id_encantamento)
-VALUES ('ITEM002','ENCV001');
-
-UPDATE APRENDER_ENCANTAMENTO 
-SET status = TRUE
-WHERE id_encantamento = 'ENCV001' AND id_play_character = 'CHAR0001';
---select * from cumpre_missao;
-
--- Atualização do nível
-
--- Trigger para atualizar o nível quando o XP é alterad
-
-
---CALL concluir_missao('MIS0001', 'CHAR0001');
---CALL consumir('ITEM001', 'CHAR0001');
-CALL realizar_encantamento('CHAR0001', 'ENCV001');
---select * FROM PLAY_CHARACTER;
-SELECT * FROM PLAY_CHARACTER;

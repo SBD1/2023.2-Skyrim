@@ -176,20 +176,22 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 
 **Código:**
 
-        CREATE OR REPLACE FUNCTION check_atributos_personagem()
-        RETURNS TRIGGER AS $check_atributos_personagem$
-        BEGIN
-            IF NEW.xp < 0 OR NEW.vida_atual < 0 OR NEW.mana_atual < 0 OR NEW.stamina_atual < 0
-               OR NEW.vida_maxima < 0 OR NEW.mana_max < 0 OR NEW.stamina_max < 0 THEN
-                RAISE EXCEPTION 'Os atributos de XP, vida, mana e stamina devem ser não negativos.';
-            END IF;
-            RETURN NEW;
-        END;
-        $check_atributos_personagem$ LANGUAGE plpgsql;
-        
-        CREATE TRIGGER check_atributos_personagem_trigger
-        BEFORE INSERT OR UPDATE ON PLAY_CHARACTER
-        FOR EACH ROW EXECUTE FUNCTION check_atributos_personagem();
+
+
+              CREATE OR REPLACE FUNCTION check_atributos_personagem()
+              RETURNS TRIGGER AS $check_atributos_personagem$
+              BEGIN
+                  IF NEW.xp < 0 OR NEW.mana_atual < 0 OR NEW.stamina_atual < 0
+                     OR NEW.vida_maxima < 0 OR NEW.mana_max < 0 OR NEW.stamina_max < 0 THEN
+                      RAISE EXCEPTION 'Os atributos de XP, vida, mana e stamina devem ser não negativos.';
+                  END IF;
+                  RETURN NEW;
+              END;
+              $check_atributos_personagem$ LANGUAGE plpgsql;
+              
+              CREATE TRIGGER check_atributos_personagem_trigger
+              BEFORE INSERT OR UPDATE ON PLAY_CHARACTER
+              FOR EACH ROW EXECUTE FUNCTION check_atributos_personagem();
 
 ## Restrição de valor mínimo para not_play_character
 
@@ -964,14 +966,17 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 **Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
 
 **Código**
-         CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
-             RETURNS TRIGGER AS $inserir_missao_matar_npc$
-             BEGIN
-                 IF TG_OP = 'INSERT' THEN
-                     -- Verifica se a chave já existe em TIPO_MISSAO
-                     IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
-                         RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
-                     END IF;
+
+
+
+               CREATE OR REPLACE FUNCTION inserir_missao_matar_npc()
+                   RETURNS TRIGGER AS $inserir_missao_matar_npc$
+                   BEGIN
+                       IF TG_OP = 'INSERT' THEN
+                           -- Verifica se a chave já existe em TIPO_MISSAO
+                           IF EXISTS (SELECT 1 FROM MISSAO_OBTER_ITEM WHERE id_missao = NEW.id_missao) THEN
+                               RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_OBTER_ITEM';
+                           END IF;
          			
          			
                  END IF;
@@ -995,14 +1000,16 @@ Caso deseje visualizar o código completo dos triggers e Functions clique no lin
 **Objetivo:** Garantir que cada tipo de missão tenha uma chave única.
 
 **Código** 
-            CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
-                RETURNS TRIGGER AS $inserir_missao_obter_item$
-                BEGIN
-                    IF TG_OP = 'INSERT' THEN
-                        -- Verifica se a chave já existe em TIPO_MISSAO
-                        IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
-                            RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
-                        END IF;
+
+   
+               CREATE OR REPLACE FUNCTION inserir_missao_obter_item()
+                   RETURNS TRIGGER AS $inserir_missao_obter_item$
+                   BEGIN
+                       IF TG_OP = 'INSERT' THEN
+                           -- Verifica se a chave já existe em TIPO_MISSAO
+                           IF EXISTS (SELECT 1 FROM MISSAO_MATAR_NPC WHERE id_missao = NEW.id_missao) THEN
+                               RAISE EXCEPTION 'Já foi cadastrada uma chave identica em MISSAO_MATAR_NPC';
+                           END IF;
             			
             			
                     END IF;

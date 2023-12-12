@@ -1,18 +1,11 @@
-from config import config_database 
-import os 
+from os import system
+from config import config_database, reset_database
+from helper import *
+from classes.connection import Conexao
+from aux import main
 
-def menu():
-	print("Seja bem-vindo ao jogo Skyrim")
-	print("Selecione as opções: ")
-	print("1 - Iniciar o jogo\n2 - Sair\n:",end='')
-	opcao = int(input())
-	
-	if opcao == 1:
-		print("Jogando ...")
-	else:
-		print("Até mais ..")
-		exit(0)
-
-config_database()
-os.system('clear')
-menu()
+if __name__ == "__main__":
+    cursor = config_database()
+    conexao = Conexao(cursor)
+    system('clear')
+    main(conexao)
