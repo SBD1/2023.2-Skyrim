@@ -104,7 +104,7 @@ WHERE id_encantamento = 'ENCV001' AND id_play_character = 'CHAR0001';
 -- Trigger para atualizar o nível quando o XP é alterad
 
 
---CALL concluir_missao('MIS0001', 'CHAR0001');
+CALL concluir_missao('MIS0001', 'CHAR0001');
 --CALL consumir('ITEM001', 'CHAR0001');
 CALL realizar_encantamento('CHAR0001', 'ENCV001');
 --select * FROM PLAY_CHARACTER;

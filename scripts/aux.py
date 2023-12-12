@@ -4,6 +4,28 @@ from os import system
 from helper import *
 
 
+def missao(con: Conexao, player: PlayCharacter) -> bool:
+    print(" ______________________________________________________________________________")
+    print(" |                                                                             |")
+    print(" |           Missão 1: Selecione o tipo de armadura que deseja                 |")
+    vestimentas = con.select('VESTIMENTA', ['*'])
+    count = 1
+    l = []
+    for vestimenta in vestimentas:
+        id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo = vestimenta
+        l.append(nome)
+        print(f'\t{count} - {nome}')
+        count += 1
+    print(" |_____________________________________________________________________________|")
+    print("\n \n \n:")
+    resposta = int(input())
+
+    if l[resposta - 1].strip() == 'Armadura Prateada':
+        con.concluir_missao('MIS0001', player.get_id_play_character())
+        return True
+    return False
+
+
 def main(con: Conexao):
     resposta = 0
 
@@ -80,7 +102,7 @@ def main(con: Conexao):
         print("         |                                             |")
         for player in players:
             print(
-                f"         |{count}) {player.get_nome()}                      |")
+                f"         |{count}) {player.get_nome()}                      ")
             count += 1
         print("         |5) Voltar                                    |")
         print("         |_____________________________________________|")
@@ -104,6 +126,31 @@ def main(con: Conexao):
         if resposta < num_players:
             player = players[resposta-1]
             introducao(player)
+
+            con.insert('CUMPRE_MISSAO',
+                       'id_missao,id_play_character'.split(','), ['MIS0001', player.get_id_play_character()])
+            if missao(con, player):
+                print(
+                    " ______________________________________________________________________________")
+                print(
+                    " |                                                                             |")
+                print(
+                    " |                  Missão 1: COMPLETA!                                        |")
+                print(
+                    " |_____________________________________________________________________________|")
+            else:
+                print(
+                    " ______________________________________________________________________________")
+                print(
+                    " |                                                                             |")
+                print(
+                    " |                     FALHOU A MISSÃO!                                        |")
+                print(
+                    " |_____________________________________________________________________________|")
+            print("\n \n \nAperte Enter para voltar ao menu...")
+            input()
+            system('clear')
+            main(con)
         elif resposta <= (num_players + 5):
             player = players[resposta-1-5]
             player.show_player()

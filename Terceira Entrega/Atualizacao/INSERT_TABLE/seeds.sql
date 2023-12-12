@@ -52,8 +52,6 @@ INSERT INTO INVENTARIO (id_inventario, peso_maximo, carteira, eh_loja)
 VALUES ('INV0007', 19.0, 100, TRUE);
 
 
-
-
 INSERT INTO NOT_PLAY_CHARACTER (id_npc, nome, nivel, xp, vida_maxima, mana_max, stamina_max)
 VALUES ('CHAR0007', 'Vendedor loja', 1, 50, 100, 99, 99);
 
@@ -66,6 +64,12 @@ VALUES ('CHAR0001', 'CHAR0007', FALSE);
 
 INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
 VALUES ('ITEM001', 'Armadura Prateada', 30, 8.5, 'Armadura', 5, 'Peitoral');
+
+INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
+VALUES ('ITEM003', 'Luvas', 20, 7.5, 'Luvas', 4, 'Mao');
+
+INSERT INTO VESTIMENTA (id_vestimenta, nome, valor, peso, tipo_vestimenta, resistencia, parte_corpo)
+VALUES ('ITEM002', 'Botas douradas', 20, 7.5, 'Botas', 4, 'Perna');
 
 INSERT INTO INSTANCIA_ITEM (id_instancia_item, id_item, tipo_local, local_inventario, local_sala, eqp_status)
 VALUES ('IITEM001', 'ITEM001', 'Loja', 'INV0003', NULL, FALSE);
