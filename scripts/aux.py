@@ -147,6 +147,7 @@ def main(con: Conexao):
                     " |                     FALHOU A MISSÃO!                                        |")
                 print(
                     " |_____________________________________________________________________________|")
+                con.delete('CUMPRE_MISSAO', {'id_missao': 'MIS0001'})
             print("\n \n \nAperte Enter para voltar ao menu...")
             input()
             system('clear')

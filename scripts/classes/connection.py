@@ -58,7 +58,7 @@ class Conexao:
     def delete(self, table: str, whereCondition: dict):
         key = list(whereCondition.keys())[0]
         value = whereCondition[key]
-        q = 'DELETE FROM {} WHERE {}={};'.format(table, key, value)
+        q = 'DELETE FROM {} WHERE {}=\'{}\';'.format(table, key, value)
         self.cursor.execute(q)
 
     def close_connection(self):
