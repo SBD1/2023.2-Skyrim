@@ -89,6 +89,16 @@
 ## Entrega Final
 
 [Roteiro: História do jogo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/Roteiro_Jogo.md) (Uma das partes mais divertidas)
-[Vídeo: Apresentação do funcionamento do Banco](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/Nova_Apresentacao_Banco.mp4) (Observação: Necessário baixar o vídeo)
+
+[Vídeo: Apresentação do funcionamento do Banco](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/Nova_Apresentacao_Banco.mp4) (Observação: Necessário baixar o vídeo na setinha superior a direita)
+
+[Atualização do código em sql completo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/atualiza%C3%A7%C3%A3o_Codigo_completo.sql)
+
+[Código em C para a parte de introdução do jogo](https://github.com/SBD1/2023.2-Skyrim/blob/main/Entrega_FInal/Novo_Codigo/Codigo_Introducao)
+
+[Video da parte inicial do jogo rodando](https://github.com/SBD1/2023.2-Skyrim/blob/main/Apresentacoes/Entrega_Final/readme.md)
+
+[Para rodar o programa em python](https://github.com/SBD1/2023.2-Skyrim/tree/main/scripts)
+
 
 
